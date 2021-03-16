@@ -27,10 +27,12 @@ export class AuthService {
   login(user: User): Observable<Response> {
     return this.http.post<Response>(
       CONSTANST.routes.authorization.login, {
-      txtUsername: user.user_name,
-      txtEmail: user.email,
-      txtPassword: user.password
-    });
+        data: {
+          email: user.user_name, // en form.io la identificación es con el correo
+          password: user.password
+        }
+      }
+    );
   }
 
   logout(): Observable<Response> {

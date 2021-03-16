@@ -1,11 +1,11 @@
-const HOST = 'http://localhost:3000';
+const HOST = 'http://localhost:3001';
 
 export const CONSTANST = {
     permissions: {},
     routes: {
         authorization: {
-            login: HOST + '/api/auth/login',
-            logout: HOST + '/api/auth/logout'
+            login: HOST + '/user/login',
+            logout: HOST + '/logout'
         },
         client: {
             list: HOST + '/api/client',

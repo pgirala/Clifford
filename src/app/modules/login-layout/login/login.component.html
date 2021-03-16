@@ -4,21 +4,21 @@
       <img src="assets/img/1.png" width="200px" onmousedown="return false;">
       <form [formGroup]="form" (ngSubmit)="login()">
         <mat-form-field class="full-width-input">
-          <input matInput type="text" placeholder="User" formControlName="user_name" required>
+          <input matInput type="text" placeholder="Usuario" formControlName="user_name" required>
           <mat-error *ngIf="isFieldInvalid('user_name')">
-            Please enter a valid username or email
+            Introduzca el correo electrónico del usuario
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width-input separate">
-          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <input matInput type="password" placeholder="Contraseña" formControlName="password" required>
           <mat-error *ngIf="isFieldInvalid('password')">
-            Please enter a valid password
+            Introduzca la contraseña
           </mat-error>
         </mat-form-field>
 
         <button mat-raised-button color="primary" type="submit" style="width: 100%;" [disabled]="form.invalid || isLogin">
-          <div *ngIf="isLogin; else loginText">Loading ...</div>
+          <div *ngIf="isLogin; else loginText">Cargando ...</div>
         </button>
       </form>
 
