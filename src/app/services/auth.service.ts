@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -24,14 +24,15 @@ export class AuthService {
     'x-access-token': localStorage.getItem('token')
   });
 
-  login(user: User): Observable<Response> {
-    return this.http.post<Response>(
+  login(user: User): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(
       CONSTANST.routes.authorization.login, {
         data: {
           email: user.user_name, // en form.io la identificación es con el correo
           password: user.password
         }
-      }
+      },
+      {observe: 'response'}
     );
   }
 

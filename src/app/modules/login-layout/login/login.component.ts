@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '~services/auth.service';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -63,21 +64,20 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this.isLogin = true;
       this.authService.login(this.form.value).subscribe(
-        (data: any) => {
+        (resp: HttpResponse<any>) => {
           this.isLogin = false;
-          if (data.data.email) {
+          if (resp.headers.get('x-jwt-token')) {
             this.authService.loggedIn.next(true);
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('token', resp.headers.get('x-jwt-token'));
             this.router.navigate(['/']);
           } else {
             this.snack.openFromComponent(SnackbarComponent, {
-              data: { data: data },
+              data: { data: resp },
               duration: 3000
             });
           }
         },
         (error) => {
-          console.log(error);
           this.isLogin = false;
         }
       );
