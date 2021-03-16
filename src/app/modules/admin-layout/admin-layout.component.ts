@@ -53,14 +53,14 @@ export class AdminLayoutComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '250px',
       data: {
-        title: 'Logout',
-        message: 'Close session?'
+        title: 'Salir',
+        message: '¿Quiere cerrar la sesión?'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.authService.logout().subscribe((data: any) => {
-          if (data.success) {
+        this.authService.logout().subscribe(response => {
+          if(response == "OK") {
             this.authService.loggedIn.next(false);
             localStorage.removeItem('token');
             this.router.navigate(['/login']);

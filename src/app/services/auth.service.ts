@@ -35,10 +35,10 @@ export class AuthService {
     );
   }
 
-  logout(): Observable<Response> {
-    return this.http.get<Response>(
+  logout(): Observable<String> {
+    return this.http.get(
       CONSTANST.routes.authorization.logout,
-      { headers: this.headers }
+      {responseType: 'text'}
     );
   }
 
