@@ -6,7 +6,6 @@ import { Response } from '~app/models/response';
 
 import { Provider } from '~base/provider';
 import { Observable } from 'rxjs';
-import { UnimplementedException } from '@angular-devkit/core';
 
 @Injectable()
 export class FormularioService implements Provider {
@@ -20,17 +19,17 @@ export class FormularioService implements Provider {
     'x-jwt-token': localStorage.getItem('token')
   });
 
-  getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Response> {
+  getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
     let params = new HttpParams();
-    params = params.append('active', sortActive);
+/*    params = params.append('active', sortActive);
     params = params.append('order', order);
     params = params.append('search', search);
     params = params.append('pageSize', pageSize.toString());
-    params = params.append('page', page.toString());
+    params = params.append('page', page.toString());*/
 
-    return this.http.get<Response>(
+    return this.http.get<Array<Formulario>>(
       CONSTANST.routes.formulario.list,
-      { headers: this.headers, params: params }
+      { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
     );
   }
 

@@ -102,8 +102,8 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
         map(data => {
           this.isLoading = false;
           this.isTotalReached = false;
-          this.totalItems = data.total;
-          return data.data;
+          this.totalItems = data.length;
+          return data;
         }),
         catchError(() => {
           this.isLoading = false;
