@@ -14,6 +14,7 @@ export const CONSTANTS = {
           get: environment.HOST + '/api/client/:id'
         },
         formulario: {
+            scope: 'MRR',
             list: environment.HOST + '/form',
             get: environment.HOST + '/form/:id'
         }
