@@ -7,10 +7,10 @@ export abstract class Provider {
 
   abstract getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Object>;
 
-  abstract getOne(id: number): Observable<Response>;
+  abstract getOne(id: string): Observable<Response>;
 
   abstract save(item: Object): Observable<Response>;
 
-  abstract delete(id: number): Observable<Response>;
+  abstract delete(id: string): Observable<Response>;
 
 }

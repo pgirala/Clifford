@@ -35,11 +35,11 @@ export class FormularioService implements Provider {
     );
   }
 
-  delete(id: number): Observable<Response> {
+  delete(id: string): Observable<Response> {
     return null;
   }
 
-  getOne(id: number): Observable<Response> {
+  getOne(id: string): Observable<Response> {
     return this.http.get<Response>(
       CONSTANTS.routes.formulario.get.replace(':id', String(id)),
       { headers: this.headers }

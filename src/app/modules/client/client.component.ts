@@ -85,7 +85,7 @@ export class ClientComponent implements AfterViewInit, OnInit, Controller {
 
   getData(): void {
     let clientes = new Array<Client>();
-    let cliente:Client = {id: 1, first_name: "Pablo", last_name: "Gálvez", age: 54, gender: "male", created_at:null, updated_at:null, deleted_at:null};
+    let cliente:Client = {_id: '1', first_name: "Pablo", last_name: "Gálvez", age: 54, gender: "male", created_at:null, updated_at:null, deleted_at:null};
     clientes.push(cliente);
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -118,7 +118,7 @@ export class ClientComponent implements AfterViewInit, OnInit, Controller {
   }
 
   edit(client: Client): void {
-    this.clientService.getOne(client.id).subscribe((data: any) => {
+    this.clientService.getOne(client._id).subscribe((data: any) => {
       if (data.success) {
         const dialogRef = this.dialog.open(FormsComponent, {
           width: '400px',
@@ -158,7 +158,7 @@ export class ClientComponent implements AfterViewInit, OnInit, Controller {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.clientService.delete(client.id).subscribe((data: any) => {
+        this.clientService.delete(client._id).subscribe((data: any) => {
           this.openSnack(data);
           if (data.success) {
             this.paginator._changePageSize(this.paginator.pageSize);

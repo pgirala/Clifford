@@ -33,14 +33,14 @@ export class ClientService implements Provider {
     );
   }
 
-  delete(id: number): Observable<Response> {
+  delete(id: string): Observable<Response> {
     return this.http.delete<Response>(
       CONSTANTS.routes.client.delete.replace(':id', String(id)),
       { headers: this.headers }
     );
   }
 
-  getOne(id: number): Observable<Response> {
+  getOne(id: string): Observable<Response> {
     return this.http.get<Response>(
       CONSTANTS.routes.client.get.replace(':id', String(id)),
       { headers: this.headers }
@@ -55,7 +55,7 @@ export class ClientService implements Provider {
         txtLastName: client.last_name,
         txtAge: client.age,
         txtGender: client.gender,
-        id: client.id
+        id: client._id
       },
       { headers: this.headers }
     );

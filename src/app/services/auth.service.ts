@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { User } from '~models/user';
-import { Response } from '~app/models/response';
 import { CONSTANTS } from '~utils/constants';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class AuthService {
     return this.http.post<HttpResponse<any>>(
       CONSTANTS.routes.authorization.login, {
         data: {
-          email: user.user_name, // en form.io la identificación es con el correo
+          email: user.email,
           password: user.password
         }
       },
