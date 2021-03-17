@@ -8,7 +8,7 @@
 
 // Light theme
 $light-primary: mat-palette($mat-indigo);
-$light-accent : mat-palette($mat-pink, A200, A100, A400);
+$light-accent : mat-palette($mat-yellow);
 $light-theme  : mat-light-theme($light-primary, $light-accent);
 
 // Dark theme
