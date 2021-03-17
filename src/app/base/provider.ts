@@ -1,4 +1,3 @@
-import { Client } from '~app/models/client';
 import { Response } from '~app/models/response';
 import { Observable } from 'rxjs';
 
@@ -10,7 +9,7 @@ export abstract class Provider {
 
   abstract getOne(id: number): Observable<Response>;
 
-  abstract save(client: Client): Observable<Response>;
+  abstract save(item: Object): Observable<Response>;
 
   abstract delete(id: number): Observable<Response>;
 

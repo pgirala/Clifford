@@ -4,6 +4,7 @@ import { SharedModule } from '~utils/shared.module';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { DashboardModule } from '~modules/dashboard/dashboard.module';
 import { ClientModule } from '~modules/client/client.module';
+import { FormularioModule } from '~modules/formulario/formulario.module';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { ClientModule } from '~modules/client/client.module';
     SharedModule,
     DashboardModule,
     ClientModule,
+    FormularioModule,
   ],
   declarations: [
     AdminLayoutComponent

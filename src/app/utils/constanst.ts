@@ -8,12 +8,15 @@ export const CONSTANST = {
             logout: environment.HOST + '/logout'
         },
         client: {
-            list: environment.HOST + '/api/client',
-            delete: environment.HOST + '/api/client/delete/:id',
-            save: environment.HOST + '/api/client/save',
-            get: environment.HOST + '/api/client/:id'
+          list: environment.HOST + '/api/client',
+          delete: environment.HOST + '/api/client/delete/:id',
+          save: environment.HOST + '/api/client/save',
+          get: environment.HOST + '/api/client/:id'
         },
-        user: {}
+        formulario: {
+            list: environment.HOST + '/form',
+            get: environment.HOST + '/form/:id'
+        }
     },
     lang: {},
     session: {},

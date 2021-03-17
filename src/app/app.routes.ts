@@ -30,6 +30,10 @@ const routes: Routes = [
         loadChildren: '~modules/client/client.module#ClientModule',
       },
       {
+        path: 'formularios',
+        loadChildren: '~modules/formulario/formulario.module#FormularioModule',
+      },
+      {
         path: 'users',
         loadChildren: '~modules/user/user.module#UserModule',
       },

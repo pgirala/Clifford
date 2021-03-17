@@ -1,0 +1,44 @@
+<div class="animated fadeIn table-container mat-elevation-z20">
+  <mat-card>
+    <mat-card-header>
+      <i class="material-icons">web</i>
+      <mat-card-title>Formularios</mat-card-title>
+      <mat-card-subtitle>Relación de formularios disponibles</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Table loading spinner -->
+      <div class="table-loading-shade" *ngIf="isLoading">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+      </div>
+
+      <div class="table-header">
+        <!-- Table search input -->
+        <mat-form-field class="filter-field">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar por nombre"
+            [(ngModel)]="search">
+          <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear"
+            (click)="search=''; applyFilter('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="id" matSortDisableClear
+        matSortDirection="desc">
+        <!-- Table content -->
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.title}}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <!-- Table pagination -->
+      <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="totalItems" [pageSize]="pageSize"
+        (page)="onPaginateChange($event)">
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>
