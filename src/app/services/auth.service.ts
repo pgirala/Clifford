@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { User } from '~models/user';
 import { Response } from '~app/models/response';
-import { CONSTANST } from '~utils/constanst';
+import { CONSTANTS } from '~utils/constants';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +26,7 @@ export class AuthService {
 
   login(user: User): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(
-      CONSTANST.routes.authorization.login, {
+      CONSTANTS.routes.authorization.login, {
         data: {
           email: user.user_name, // en form.io la identificación es con el correo
           password: user.password
@@ -38,7 +38,7 @@ export class AuthService {
 
   logout(): Observable<String> {
     return this.http.get(
-      CONSTANST.routes.authorization.logout,
+      CONSTANTS.routes.authorization.logout,
       {responseType: 'text'}
     );
   }

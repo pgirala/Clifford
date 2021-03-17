@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environment';
 
-export const CONSTANST = {
+export const CONSTANTS = {
     permissions: {},
     routes: {
         authorization: {

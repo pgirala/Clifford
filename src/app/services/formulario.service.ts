@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { CONSTANST } from '~utils/constanst';
+import { CONSTANTS } from '~utils/constants';
 import { Formulario } from '~app/models/formulario';
 import { Response } from '~app/models/response';
 
@@ -29,7 +29,7 @@ export class FormularioService implements Provider {
     params = params.append('skip', numeroItemsYaMostrados.toString());
 
     return this.http.get<Array<Formulario>>(
-      CONSTANST.routes.formulario.list,
+      CONSTANTS.routes.formulario.list,
       { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
     );
   }
@@ -40,7 +40,7 @@ export class FormularioService implements Provider {
 
   getOne(id: number): Observable<Response> {
     return this.http.get<Response>(
-      CONSTANST.routes.formulario.get.replace(':id', String(id)),
+      CONSTANTS.routes.formulario.get.replace(':id', String(id)),
       { headers: this.headers }
     );
   }

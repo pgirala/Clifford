@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { CONSTANST } from '~utils/constanst';
+import { CONSTANTS } from '~utils/constants';
 import { Client } from '~app/models/client';
 import { Response } from '~app/models/response';
 
@@ -28,28 +28,28 @@ export class ClientService implements Provider {
     params = params.append('page', page.toString());
 
     return this.http.get<Response>(
-      CONSTANST.routes.client.list,
+      CONSTANTS.routes.client.list,
       { headers: this.headers, params: params }
     );
   }
 
   delete(id: number): Observable<Response> {
     return this.http.delete<Response>(
-      CONSTANST.routes.client.delete.replace(':id', String(id)),
+      CONSTANTS.routes.client.delete.replace(':id', String(id)),
       { headers: this.headers }
     );
   }
 
   getOne(id: number): Observable<Response> {
     return this.http.get<Response>(
-      CONSTANST.routes.client.get.replace(':id', String(id)),
+      CONSTANTS.routes.client.get.replace(':id', String(id)),
       { headers: this.headers }
     );
   }
 
   save(client: Client): Observable<Response> {
     return this.http.post<Response>(
-      CONSTANST.routes.client.save,
+      CONSTANTS.routes.client.save,
       {
         txtFirstName: client.first_name,
         txtLastName: client.last_name,
