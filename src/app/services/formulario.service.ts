@@ -21,11 +21,12 @@ export class FormularioService implements Provider {
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
     let params = new HttpParams();
-/*    params = params.append('active', sortActive);
-    params = params.append('order', order);
-    params = params.append('search', search);
-    params = params.append('pageSize', pageSize.toString());
-    params = params.append('page', page.toString());*/
+    params = params.append('select', 'title');
+    params = params.append('title__regex', search);
+    params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
+    params = params.append('limit', pageSize.toString());
+    let numeroItemsYaMostrados = pageSize * (page - 1);
+    params = params.append('skip', numeroItemsYaMostrados.toString());
 
     return this.http.get<Array<Formulario>>(
       CONSTANST.routes.formulario.list,

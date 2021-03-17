@@ -27,8 +27,8 @@ import { UnimplementedException } from '@angular-devkit/core';
 })
 export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['title'];
-  public pageSizeOptions = [100];
-  public pageSize = 20;
+  public pageSizeOptions = [20];
+  public pageSize = 5;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
   public resultsLength = 0;
@@ -58,6 +58,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
 
   ngAfterViewInit() {
     // ANTES QUE LA VISTA CARGUE INICIA LA CARGA DE DATOS EN EL GRID
+    this.setDataLength();
     this.getData();
   }
 
@@ -80,7 +81,36 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
 
   public applyFilter(filterValue: string): void {
     filterValue = filterValue.trim().toLowerCase();
+    this.setDataLength();
     this.getData();
+  }
+
+  setDataLength(): void {
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoading = true;
+          return this.formularioService.getList(
+            this.sort.active,
+            this.sort.direction,
+            Number.MAX_SAFE_INTEGER,
+            1,
+            this.search
+          );
+        }),
+        map(data => {
+          this.isLoading = false;
+          this.isTotalReached = false;
+          this.totalItems = data.length
+          return;
+        }),
+        catchError(() => {
+          this.isLoading = false;
+          this.isTotalReached = true;
+          return observableOf([]);
+        })
+      ).subscribe();
   }
 
   getData(): void {
@@ -102,7 +132,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
         map(data => {
           this.isLoading = false;
           this.isTotalReached = false;
-          this.totalItems = data.length;
+          // la consulta no devuelve el total general de elementos
           return data;
         }),
         catchError(() => {

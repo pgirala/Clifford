@@ -15,7 +15,7 @@
       <div class="table-header">
         <!-- Table search input -->
         <mat-form-field class="filter-field">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar por nombre"
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Fitrar por nombre del formulario"
             [(ngModel)]="search">
           <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear"
             (click)="search=''; applyFilter('')">
@@ -24,8 +24,8 @@
         </mat-form-field>
       </div>
 
-      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="id" matSortDisableClear
-        matSortDirection="desc">
+      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="title" matSortDisableClear
+        matSortDirection="asc">
         <!-- Table content -->
         <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
