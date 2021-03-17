@@ -58,7 +58,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
 
   ngAfterViewInit() {
     // ANTES QUE LA VISTA CARGUE INICIA LA CARGA DE DATOS EN EL GRID
-    this.setDataLength();
+    this.getDataLength();
     this.getData();
   }
 
@@ -81,11 +81,12 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
 
   public applyFilter(filterValue: string): void {
     filterValue = filterValue.trim().toLowerCase();
-    this.setDataLength();
+    this.getDataLength();
     this.getData();
+    this.paginator.firstPage();
   }
 
-  setDataLength(): void {
+  getDataLength(): void {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
