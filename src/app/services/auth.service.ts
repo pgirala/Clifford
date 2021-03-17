@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { User } from '~models/user';
+import { DialogUser } from '~models/dialog-user';
 import { CONSTANTS } from '~utils/constants';
 
 @Injectable()
@@ -23,12 +23,12 @@ export class AuthService {
     'x-access-token': localStorage.getItem('token')
   });
 
-  login(user: User): Observable<HttpResponse<any>> {
+  login(dialogUser: DialogUser): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(
       CONSTANTS.routes.authorization.login, {
         data: {
-          email: user.email,
-          password: user.password
+          email: dialogUser.email,
+          password: dialogUser.password
         }
       },
       {observe: 'response'}

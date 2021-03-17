@@ -6,14 +6,14 @@
         <mat-form-field class="full-width-input">
           <input matInput type="text" placeholder="Usuario" formControlName="email" required>
           <mat-error *ngIf="isFieldInvalid('email')">
-            Introduzca el correo electrónico del usuario
+            Introduzca el correo electrónico del usuario.
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width-input separate">
           <input matInput type="password" placeholder="Contraseña" formControlName="password" required>
           <mat-error *ngIf="isFieldInvalid('password')">
-            Introduzca la contraseña
+            Introduzca la contraseña.
           </mat-error>
         </mat-form-field>
 
@@ -23,7 +23,7 @@
       </form>
 
       <ng-template #loginText>
-        Login
+        Acreditarse
       </ng-template>
     </mat-card-content>
   </mat-card>
