@@ -17,6 +17,7 @@ import { FormsComponent } from '~modules/client/forms/forms.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
+import { NodeWithI18n } from '@angular/compiler';
 
 @Component({
   selector: 'app-client',
@@ -83,6 +84,10 @@ export class ClientComponent implements AfterViewInit, OnInit, Controller {
   }
 
   getData(): void {
+    let clientes = new Array<Client>();
+    let cliente:Client = {id: 1, first_name: "Pablo", last_name: "Gálvez", age: 54, gender: "male", created_at:null, updated_at:null, deleted_at:null};
+    clientes.push(cliente);
+
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
     merge(this.sort.sortChange, this.paginator.page)
@@ -109,7 +114,7 @@ export class ClientComponent implements AfterViewInit, OnInit, Controller {
           this.isTotalReached = true;
           return observableOf([]);
         })
-      ).subscribe(data => this.dataSource.data = data);
+      ).subscribe(data => this.dataSource.data = clientes);
   }
 
   edit(client: Client): void {

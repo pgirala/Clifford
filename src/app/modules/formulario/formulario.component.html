@@ -31,6 +31,21 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.title}}</mat-cell>
         </ng-container>
+        <!-- Table actions -->
+        <ng-container matColumnDef="formularioid">
+          <mat-header-cell *matHeaderCellDef>
+            Acceso
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let row">
+
+            <button mat-icon-button (click)="view(row)" aria-label="Ver el formulario">
+              <i class="material-icons">more_horizon</i>
+            </button>
+
+          </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>

@@ -26,8 +26,8 @@ import { UnimplementedException } from '@angular-devkit/core';
   providers: [FormularioService]
 })
 export class FormularioComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['title'];
-  public pageSizeOptions = [20];
+  public displayedColumns = ['title', 'formularioid'];
+  public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 5;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
@@ -142,6 +142,11 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
           return observableOf([]);
         })
       ).subscribe(data => this.dataSource.data = data);
+  }
+
+  view(item: Formulario): void {
+  //  this.router.navigate(['/clients', item._id]);
+    this.router.navigate(['/clients']);
   }
 
   edit(item: Object): void {
