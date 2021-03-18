@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '~utils/constants';
 import { Submission } from '~app/models/submission';
-import { Response } from '~app/models/response';
 
 import { FormioProvider } from '~base/formio-provider';
 import { Observable } from 'rxjs';

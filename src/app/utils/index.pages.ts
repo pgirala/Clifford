@@ -10,4 +10,5 @@ export { DashboardComponent } from '~modules/dashboard/dashboard.component';
 // CRUD
 export { ClientComponent } from '~modules/client/client.component';
 export { FormularioComponent } from '~modules/formulario/formulario.component';
+export { SubmissionComponent } from '~modules/submission/submission.component';
 export { UserComponent } from '~modules/user/user.component';
