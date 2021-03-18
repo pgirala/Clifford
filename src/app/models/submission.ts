@@ -1,9 +1,6 @@
-import { Permission } from "./permission";
-import { Role } from "./Role";
+import { FormioModel } from "./formio-model";
 
-export interface Submission {
-  _id: string;
-  owner: string;
+export interface Submission extends FormioModel {
   previousowner: string;
 }
 

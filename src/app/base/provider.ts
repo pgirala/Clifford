@@ -5,7 +5,7 @@ export abstract class Provider {
 
   constructor() { }
 
-  abstract getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Object>;
+  abstract getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Response>;
 
   abstract getOne(id: string): Observable<Response>;
 

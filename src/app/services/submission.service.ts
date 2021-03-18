@@ -4,11 +4,11 @@ import { CONSTANTS } from '~utils/constants';
 import { Submission } from '~app/models/submission';
 import { Response } from '~app/models/response';
 
-import { Provider } from '~base/provider';
+import { FormioProvider } from '~base/formio-provider';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class SubmissionService implements Provider {
+export class SubmissionService implements FormioProvider {
   loading = true;
 
   constructor(
@@ -35,23 +35,23 @@ export class SubmissionService implements Provider {
     );
   }
 
-  delete(id: string): Observable<Response> {
-    return this.http.delete<Response>(
+  delete(id: string): Observable<Submission> {
+    return this.http.delete<Submission>(
       CONSTANTS.routes.submission.delete.replace(':id', String(id)),
       { headers: this.headers }
     );
   }
 
-  getOne(id: string): Observable<Response> {
-    return this.http.get<Response>(
+  getOne(id: string): Observable<Submission> {
+    return this.http.get<Submission>(
       CONSTANTS.routes.submission.get.replace(':id', String(id)),
       { headers: this.headers }
     );
   }
 
-  save(submission: Submission): Observable<Response> {
+  save(submission: Submission): Observable<Submission> {
     // TODO: distinguir si es creación o actualización, basándose en la existencia del ID.
-    return this.http.post<Response>(
+    return this.http.post<Submission>(
       CONSTANTS.routes.submission.create,
       {
 /*        txtFirstName: client.first_name,

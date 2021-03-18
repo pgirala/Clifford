@@ -1,5 +1,6 @@
-export interface Formulario {
-  _id: string;
+import { FormioModel } from "./formio-model";
+
+export interface Formulario extends FormioModel{
   title: string;
 }
 

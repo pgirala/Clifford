@@ -4,11 +4,11 @@ import { CONSTANTS } from '~utils/constants';
 import { Formulario } from '~app/models/formulario';
 import { Response } from '~app/models/response';
 
-import { Provider } from '~base/provider';
+import { FormioProvider } from '~base/formio-provider';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class FormularioService implements Provider {
+export class FormularioService implements FormioProvider {
   loading = true;
 
   constructor(
@@ -35,18 +35,18 @@ export class FormularioService implements Provider {
     );
   }
 
-  delete(id: string): Observable<Response> {
+  delete(id: string): Observable<Formulario> {
     return null;
   }
 
-  getOne(id: string): Observable<Response> {
-    return this.http.get<Response>(
+  getOne(id: string): Observable<Formulario> {
+    return this.http.get<Formulario>(
       CONSTANTS.routes.formulario.get.replace(':id', String(id)),
       { headers: this.headers }
     );
   }
 
-  save(formulario: Formulario): Observable<Response> {
+  save(formulario: Formulario): Observable<Formulario> {
     return null;
   }
 }
