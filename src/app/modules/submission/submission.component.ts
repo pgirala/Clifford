@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -18,12 +18,14 @@ import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
+import { Formulario } from '~app/models/formulario';
+import { FormularioService } from '~app/services/formulario.service';
 
 @Component({
   selector: 'app-client',
   templateUrl: './submission.component.html',
   styleUrls: ['./submission.component.scss'],
-  providers: [SubmissionService]
+  providers: [SubmissionService, FormularioService]
 })
 export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['created', 'modified'];
@@ -37,6 +39,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
+  public formulario: Formulario;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -44,8 +47,10 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private submissionService: SubmissionService,
+    private formularioService: FormularioService,
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog,
     public snack: MatSnackBar
   ) { }
@@ -54,6 +59,14 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
     if (!this.authService.loggedIn.getValue()) {
       this.router.navigate(['/login']);
     }
+
+    let formId: string;
+    this.route.queryParams.subscribe(params => {
+      formId = params['formId'];
+      this.formularioService.getOne(formId).subscribe((form:Formulario) => {
+        this.formulario = form;
+      })
+    });
   }
 
   ngAfterViewInit() {
