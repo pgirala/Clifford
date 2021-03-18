@@ -30,7 +30,7 @@ import { FormularioService } from '~app/services/formulario.service';
 export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['created', 'modified'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
-  public pageSize = 10;
+  public pageSize = 5;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
   public resultsLength = 0;

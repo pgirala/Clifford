@@ -34,12 +34,12 @@
         <!-- Table content -->
         <ng-container matColumnDef="created">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Creación</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.created }}</mat-cell>
+          <mat-cell *matCellDef="let row">{{ row.created | date: 'dd/MM/yyyy hh:MM:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="modified">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Modificada</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.modified }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Modificación</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.modified  | date: 'dd/MM/yyyy hh:MM:ss'}}</mat-cell>
         </ng-container>
 
         <!-- Table actions -->

@@ -20,9 +20,9 @@ export class SubmissionService implements FormioProvider {
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Submission>> {
     let params = new HttpParams();
-    params = params.append('select', 'title');
+    params = params.append('select', 'created');
+    params = params.append('select', 'modified');
     params = params.append('title__regex', search);
-    params = params.append('path__regex', '/^' + CONSTANTS.routes.formulario.scope + '/i');
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
     let numeroItemsYaMostrados = pageSize * (page - 1);
