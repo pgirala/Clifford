@@ -145,8 +145,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   view(item: Formulario): void {
-  //  this.router.navigate(['/clients', item._id]);
-    this.router.navigate(['/clients']);
+    this.router.navigate(['/submissions'], { queryParams: {formId: item._id}});
   }
 
   edit(item: Object): void {
