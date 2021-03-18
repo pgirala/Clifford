@@ -17,6 +17,13 @@ export const CONSTANTS = {
             scope: 'MRR',
             list: environment.HOST + '/form',
             get: environment.HOST + '/form/:id'
+        },
+        submission: {
+          list: environment.HOST + '/submission',
+          delete: environment.HOST + '/submission/:id',
+          create: environment.HOST + '/submission',
+          update: environment.HOST + '/submission/:id',
+          get: environment.HOST + '/submission/:id'
         }
     },
     lang: {},

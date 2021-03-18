@@ -34,6 +34,10 @@ const routes: Routes = [
         loadChildren: '~modules/formulario/formulario.module#FormularioModule',
       },
       {
+        path: 'submissions',
+        loadChildren: '~modules/formulario/formulario.module#SubmissionModule',
+      },
+      {
         path: 'users',
         loadChildren: '~modules/user/user.module#UserModule',
       },

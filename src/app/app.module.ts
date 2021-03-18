@@ -27,6 +27,7 @@ import { AuthService } from '~services/auth.service';
 import { UserService } from '~services/user.service';
 import { ClientService } from '~app/services/client.service';
 import { FormularioService } from '~app/services/formulario.service';
+import { SubmissionService } from '~app/services/submission.service';
 
 /*IMPORTACION DE LOS MODULES QUE A SU VEZ ELLOS IMPORTAN SUS PROPIOS COMPONENTES
 ASI SE EVITA SATURAR ESTE ARCHIVO DE IMPORTACIONES Y SE MODULARIZA EL PROYECTO.*/
@@ -59,6 +60,7 @@ import { LoginLayoutModule } from '~modules/login-layout/login-layout.module';
     UserService,
     ClientService,
     FormularioService,
+    SubmissionService
   ],
   entryComponents: [ /*AQUI SE AGREGAN LOS MAT-CONFIRM Y LOS MAT-SNACKBAR DE ANGULAR MATERIAL*/
     ConfirmComponent,
