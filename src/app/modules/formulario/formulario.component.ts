@@ -25,7 +25,7 @@ import { Controller } from '~base/controller';
   providers: [FormularioService]
 })
 export class FormularioComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['title', 'path', 'personid'];
+  public displayedColumns = ['title', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 5;
   public dataSource = new MatTableDataSource();

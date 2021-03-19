@@ -31,10 +31,6 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.title}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="path">
-          <mat-header-cell [style.display]="'none'" *matHeaderCellDef mat-sort-header>Ruta</mat-header-cell>
-          <mat-cell [style.display]="'none'" *matCellDef="let row">{{ row.path}}</mat-cell>
-        </ng-container>
         <!-- Table actions -->
         <ng-container matColumnDef="personid">
           <mat-header-cell *matHeaderCellDef>
