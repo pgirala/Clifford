@@ -13,7 +13,7 @@ import { Submission } from '~models/submission';
 import { SubmissionService } from '~services/submission.service';
 import { AuthService } from '~services/auth.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
-import { FormsComponent } from '~modules/submission/forms/forms.component';
+import { DetailComponent } from '~modules/submission/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
@@ -169,7 +169,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   edit(submission: Submission): void {
     this.submissionService.getOne(submission._id).subscribe((data: any) => {
       if (data.success) {
-        const dialogRef = this.dialog.open(FormsComponent, {
+        const dialogRef = this.dialog.open(DetailComponent, {
           width: '400px',
           data: { title: 'Update person', action: 'edit', data: data.data }
         });
@@ -184,7 +184,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   }
 
   save(): void {
-    const dialogRef = this.dialog.open(FormsComponent, {
+    const dialogRef = this.dialog.open(DetailComponent, {
       width: '400px',
       data: { title: 'Añadir una instancia', action: 'save' }
     });

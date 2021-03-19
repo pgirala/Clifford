@@ -6,6 +6,7 @@ import { DashboardModule } from '~modules/dashboard/dashboard.module';
 import { ClientModule } from '~modules/client/client.module';
 import { FormularioModule } from '~modules/formulario/formulario.module';
 import { SubmissionModule } from '~modules/submission/submission.module';
+import { FormioModule } from 'angular-formio';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { SubmissionModule } from '~modules/submission/submission.module';
     DashboardModule,
     ClientModule,
     FormularioModule,
-    SubmissionModule
+    SubmissionModule,
+    FormioModule,
   ],
   declarations: [
     AdminLayoutComponent
