@@ -24,7 +24,7 @@ export class SubmissionService implements FormioProvider {
     params = params.append('select', 'modified');
     params = params.append('select', 'data.resumen');
     params = params.append('data.resumen__regex', search);
-    params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
+    params = params.append('sort', (order == 'desc' ? '-' : '') + (sortActive == 'resumen' ? 'data.' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
     let numeroItemsYaMostrados = pageSize * (page - 1);
     params = params.append('skip', numeroItemsYaMostrados.toString());
