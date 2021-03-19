@@ -29,9 +29,14 @@
         </button>
       </div>
 
-      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="created" matSortDisableClear
-        matSortDirection="desc">
+      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="resumen" matSortDisableClear
+        matSortDirection="asc">
         <!-- Table content -->
+        <ng-container matColumnDef="resumen">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Instancia</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.data.resumen }}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="created">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Creación</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.created | date: 'dd/MM/yyyy hh:MM:ss'}}</mat-cell>

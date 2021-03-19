@@ -28,7 +28,7 @@ import { FormularioService } from '~app/services/formulario.service';
   providers: [SubmissionService, FormularioService]
 })
 export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['created', 'modified'];
+  public displayedColumns = ['resumen', 'created', 'modified'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 5;
   public dataSource = new MatTableDataSource();
