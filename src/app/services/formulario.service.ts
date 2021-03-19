@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '~utils/constants';
 import { Formulario } from '~app/models/formulario';
-import { Response } from '~app/models/response';
 
 import { FormioProvider } from '~base/formio-provider';
 import { Observable } from 'rxjs';
@@ -22,6 +21,7 @@ export class FormularioService implements FormioProvider {
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
     let params = new HttpParams();
     params = params.append('select', 'title');
+    params = params.append('select', 'path');
     params = params.append('title__regex', search);
     params = params.append('path__regex', '/^' + CONSTANTS.routes.formulario.scope + '/i');
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
@@ -44,6 +44,13 @@ export class FormularioService implements FormioProvider {
       CONSTANTS.routes.formulario.get.replace(':id', String(id)),
       { headers: this.headers }
     );
+  }
+
+  getOnePromise(id: string): Promise<Formulario> {
+    return this.http.get<Formulario>(
+      CONSTANTS.routes.formulario.get.replace(':id', String(id)),
+      { headers: this.headers }
+    ).toPromise();
   }
 
   save(formulario: Formulario): Observable<Formulario> {

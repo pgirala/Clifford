@@ -19,7 +19,7 @@ export const CONSTANTS = {
             get: environment.HOST + '/form/:id'
         },
         submission: {
-          list: environment.HOST + '/submission',
+          list: environment.HOST + '/:formPath/submission',
           delete: environment.HOST + '/submission/:id',
           create: environment.HOST + '/submission',
           update: environment.HOST + '/submission/:id',

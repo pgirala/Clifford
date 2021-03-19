@@ -18,18 +18,20 @@ export class SubmissionService implements FormioProvider {
     'x-jwt-token': localStorage.getItem('token')
   });
 
-  getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Submission>> {
+  getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string): Observable<Array<Submission>> {
     let params = new HttpParams();
     params = params.append('select', 'created');
     params = params.append('select', 'modified');
-    params = params.append('title__regex', search);
+    //params = params.append('title__regex', search);
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
     let numeroItemsYaMostrados = pageSize * (page - 1);
     params = params.append('skip', numeroItemsYaMostrados.toString());
 
+    let path = CONSTANTS.routes.submission.list.replace(':formPath', formPath);
+
     return this.http.get<Array<Submission>>(
-      CONSTANTS.routes.formulario.list,
+      path,
       { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
     );
   }

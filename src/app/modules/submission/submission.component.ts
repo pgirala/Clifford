@@ -39,7 +39,9 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
-  public formulario: Formulario;
+  public formId = '';
+  public formPath = '';
+  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -60,10 +62,11 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    let formId: string;
     this.route.queryParams.subscribe(params => {
-      formId = params['formId'];
-      this.formularioService.getOne(formId).subscribe((form:Formulario) => {
+      this.formId = params['formId'];
+      this.formPath = params['formPath'];
+
+      this.formularioService.getOne(this.formId).subscribe((form:Formulario) => {
         this.formulario = form;
       })
     });
@@ -110,7 +113,8 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
             this.sort.direction,
             Number.MAX_SAFE_INTEGER,
             1,
-            this.search
+            this.search,
+            this.formPath
           );
         }),
         map(data => {
@@ -140,7 +144,8 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
             this.sort.direction,
             this.pageSize,
             this.page,
-            this.search
+            this.search,
+            this.formPath
           );
         }),
         map(data => {

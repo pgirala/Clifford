@@ -25,7 +25,7 @@ import { Controller } from '~base/controller';
   providers: [FormularioService]
 })
 export class FormularioComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['title', 'personid'];
+  public displayedColumns = ['title', 'path', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 5;
   public dataSource = new MatTableDataSource();
@@ -144,7 +144,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   view(item: Formulario): void {
-    this.router.navigate(['/submissions'], { queryParams: {formId: item._id}});
+    this.router.navigate(['/submissions'], { queryParams: {formId: item._id, formPath: item.path}});
   }
 
   edit(item: Object): void {
