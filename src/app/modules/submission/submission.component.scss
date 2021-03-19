@@ -37,12 +37,18 @@
   max-width: 64px;
 }
 
+.mat-column-resumen {
+  min-width: 50%;
+}
+
 .mat-column-created {
-  max-width: 250px;
+  display: flex;
+  justify-content: center;
 }
 
 .mat-column-modified {
-  max-width: 250px;
+  display: flex;
+  justify-content: center;
 }
 
 /* applyFilter */
