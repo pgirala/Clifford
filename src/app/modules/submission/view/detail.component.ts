@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject, EventEmitter} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-detail',
@@ -8,7 +8,9 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class DetailComponent {
   public renderOptions: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {title: string,
+  public readOnly: boolean = false;
+  constructor(public dialogRef: MatDialogRef<DetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {title: string,
     action: string, formulario: any}) {
       this.renderOptions = {
         language: 'sp',
@@ -32,5 +34,11 @@ export class DetailComponent {
           }
         }
       };
+  }
+
+  onSubmit(event) {
+    console.log("================================");
+    console.log(JSON.stringify(event.data));
+    this.dialogRef.close(true);
   }
 }
