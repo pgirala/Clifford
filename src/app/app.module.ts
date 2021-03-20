@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormioModule } from '@formio/angular-material';
-import { FormioModule } from 'angular-formio';
 
 /*ESTE ARCHIVO CONTIENE IMPORTACIONES QUE ESTAN EN TODOS LOS MODULOS
 PARA AHORRARSE LINEAS SE IMPORTAN EN EL Y LUEGO EL ARCHIVO SE IMPORTA
@@ -55,7 +54,6 @@ import { LoginLayoutModule } from '~modules/login-layout/login-layout.module';
     AdminLayoutModule,
     LoginLayoutModule,
     UserModule,
-    FormioModule,
     MatFormioModule
   ],
   providers: [ /*DECLARACIÓN DE SERVICIOS*/
