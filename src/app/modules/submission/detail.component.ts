@@ -3,9 +3,11 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-detail',
-  template: '<formio [form]=\'{ "display": "form",  "components": [    {      "type": "button",      "label": "Submit",      "key": "submit",      "disableOnInvalid": true,      "input": true,      "tableView": false}]}\'></formio>'
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: {title: string,
-    action: string, formulario: string}) { }
+    action: string, formulario: any}) {
+  }
 }
