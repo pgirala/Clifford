@@ -13,7 +13,7 @@ import { Submission } from '~models/submission';
 import { SubmissionService } from '~services/submission.service';
 import { AuthService } from '~services/auth.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
-import { DetailComponent } from '~modules/submission/detail.component';
+import { DetailComponent } from '~modules/submission/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';

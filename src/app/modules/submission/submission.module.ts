@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~utils/shared.module';
 import { SubmissionComponent } from './submission.component';
-import { DetailComponent } from './detail.component';
+import { DetailComponent } from './view/detail.component';
 import { FormioModule } from 'angular-formio';
 
 @NgModule({
