@@ -29,7 +29,6 @@
     "@formio/angular": "^5.0.0",
     "@formio/angular-material": "^2.0.0",
     "angular-formio": "^4.11.4",
-    "bootstrap": "^4.6.0",
     "core-js": "^2.6.11",
     "formiojs": "^4.12.7",
     "jquery": "^3.6.0",

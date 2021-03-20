@@ -186,8 +186,8 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   save(): void {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '500px',
-      width: '900px',
-      data: { title: 'Añadir una instancia', action: 'save',
+      width: '1000px',
+      data: { title: this.formulario.title, action: 'save',
             formulario: this.formulario }
     });
 
