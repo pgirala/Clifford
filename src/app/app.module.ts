@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { MatFormioModule } from '@formio/angular-material';
 import { FormioModule } from 'angular-formio';
 
 /*ESTE ARCHIVO CONTIENE IMPORTACIONES QUE ESTAN EN TODOS LOS MODULOS
@@ -54,7 +55,8 @@ import { LoginLayoutModule } from '~modules/login-layout/login-layout.module';
     AdminLayoutModule,
     LoginLayoutModule,
     UserModule,
-    FormioModule
+    FormioModule,
+    MatFormioModule
   ],
   providers: [ /*DECLARACIÓN DE SERVICIOS*/
     AuthGuard,
