@@ -3,12 +3,12 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '~utils/shared.module';
 import { SubmissionComponent } from './submission.component';
 import { DetailComponent } from './view/detail.component';
-import { MatFormioModule } from '@formio/angular-material';
+import { FormioModule } from '@formio/angular';
 
 @NgModule({
   imports: [
     RouterModule.forChild([{path: '', component: SubmissionComponent}]),
-    MatFormioModule,
+    FormioModule,
     SharedModule
   ],
   declarations: [

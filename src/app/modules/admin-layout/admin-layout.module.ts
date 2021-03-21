@@ -6,7 +6,7 @@ import { DashboardModule } from '~modules/dashboard/dashboard.module';
 import { ClientModule } from '~modules/client/client.module';
 import { FormularioModule } from '~modules/formulario/formulario.module';
 import { SubmissionModule } from '~modules/submission/submission.module';
-import { MatFormioModule } from '@formio/angular-material';
+import { FormioModule } from '@formio/angular';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { MatFormioModule } from '@formio/angular-material';
     ClientModule,
     FormularioModule,
     SubmissionModule,
-    MatFormioModule
+    FormioModule
   ],
   declarations: [
     AdminLayoutComponent

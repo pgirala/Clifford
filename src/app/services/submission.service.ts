@@ -20,9 +20,6 @@ export class SubmissionService implements FormioProvider {
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string): Observable<Array<Submission>> {
     let params = new HttpParams();
-    params = params.append('select', 'created');
-    params = params.append('select', 'modified');
-    params = params.append('select', 'data.resumen');
     params = params.append('data.resumen__regex', search);
     params = params.append('sort', (order == 'desc' ? '-' : '') + (sortActive == 'resumen' ? 'data.' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
@@ -44,10 +41,11 @@ export class SubmissionService implements FormioProvider {
     );
   }
 
-  getOne(id: string): Observable<Submission> {
+  getOne(id: string, formPath?: string): Observable<Submission> {
+    let path = CONSTANTS.routes.submission.create.replace(':formPath', formPath).replace(':id', String(id));
     return this.http.get<Submission>(
-      CONSTANTS.routes.submission.get.replace(':id', String(id)),
-      { headers: this.headers }
+      path,
+      { headers: this.headers, responseType: 'json', observe: 'body' }
     );
   }
 

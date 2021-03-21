@@ -127,7 +127,7 @@
   dependencies:
     "tslib" "^2.0.0"
 
-"@angular/cdk@^10.0.0 | ^11.0.0", "@angular/cdk@^10.0.1":
+"@angular/cdk@^10.0.1":
   "integrity" "sha512-tEgaTDQplptbOf4cHHdVScH0h5QNvkWDhabAWpWaT4/dVXEsp+p2E9Pzkemesi/gNmUIetVjGaicX5VqsijZSQ=="
   "resolved" "https://registry.npmjs.org/@angular/cdk/-/cdk-10.0.1.tgz"
   "version" "10.0.1"
@@ -162,7 +162,7 @@
     "universal-analytics" "0.4.20"
     "uuid" "8.1.0"
 
-"@angular/common@^10.0.0 | ^11.0.0", "@angular/common@^10.0.3", "@angular/common@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0", "@angular/common@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/common@>=7.0.0":
+"@angular/common@^10.0.3", "@angular/common@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0", "@angular/common@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/common@>=7.0.0":
   "integrity" "sha512-R2q/Vt07PHgcmvZBVGcYjf6K2xERCHWUYQYN1HsgjVQUu5ypvE7Kqs+6s0BfIoBKc+ejKmjMHHumnm+89O+gXg=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-10.0.3.tgz"
   "version" "10.0.3"
@@ -195,7 +195,7 @@
   dependencies:
     "tslib" "^2.0.0"
 
-"@angular/core@^10.0.0 | ^11.0.0", "@angular/core@^10.0.3", "@angular/core@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0", "@angular/core@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/core@>=7.0.0", "@angular/core@9.1.13":
+"@angular/core@^10.0.3", "@angular/core@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0", "@angular/core@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/core@>=7.0.0", "@angular/core@9.1.13":
   "integrity" "sha512-EfWAz5StlPYo2ZtvVzeoNlGrFAXRncwGd/CExbLFOZx4HcDXVkATw5d4vnKHmmKacDqnbuvMD2M0Tl0EJi5q4g=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-10.0.3.tgz"
   "version" "10.0.3"
@@ -207,14 +207,14 @@
   "resolved" "https://registry.npmjs.org/@angular/elements/-/elements-9.1.13.tgz"
   "version" "9.1.13"
 
-"@angular/flex-layout@^10.0.0 | ^11.0.0", "@angular/flex-layout@^10.0.0-beta.32":
+"@angular/flex-layout@^10.0.0-beta.32":
   "integrity" "sha512-JvuY4dUoy5jyCTIrFiq7n30Znakh1pD3nbg0h0hs2r3t1OiDQb0ZSI1wcumosG/vYHsuJQTuNhbfaIZzA1x8nA=="
   "resolved" "https://registry.npmjs.org/@angular/flex-layout/-/flex-layout-10.0.0-beta.32.tgz"
   "version" "10.0.0-beta.32"
   dependencies:
     "tslib" "^2.0.0"
 
-"@angular/forms@^10.0.0 | ^11.0.0", "@angular/forms@^10.0.3", "@angular/forms@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0":
+"@angular/forms@^10.0.3", "@angular/forms@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0":
   "integrity" "sha512-08XlERBGVnzea4sVY7J1JsU6zX/ENGZGB9V4K1jpX6gNjlAk2AbskC76+ngdsgdzv0neNEqPoLdMAZerNECnUg=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-10.0.3.tgz"
   "version" "10.0.3"
@@ -226,7 +226,7 @@
   "resolved" "https://registry.npmjs.org/@angular/language-service/-/language-service-10.0.3.tgz"
   "version" "10.0.3"
 
-"@angular/material@^10.0.0 | ^11.0.0", "@angular/material@^10.0.1":
+"@angular/material@^10.0.1":
   "integrity" "sha512-4xGIupOiPbyYG/tTbVhgjATRZSRf+Xj2FGkX3csSlIOvhrFtN1B9gTlcbOjzWHPpWTFChZALzMXA/841KA9QqA=="
   "resolved" "https://registry.npmjs.org/@angular/material/-/material-10.0.1.tgz"
   "version" "10.0.1"
@@ -1059,17 +1059,10 @@
     "lodash" "^4.17.13"
     "to-fast-properties" "^2.0.0"
 
-"@formio/angular-material@^2.0.0":
-  "integrity" "sha512-qgFZTuHPkSoeU0yREUZv5Yd2CJUCUIv/tVrjbTCxqkMekL4zWm5mWZ78dlXv7RtKnXrOFUqW3EF/Rgm8jPO8jQ=="
-  "resolved" "https://registry.npmjs.org/@formio/angular-material/-/angular-material-2.0.0.tgz"
-  "version" "2.0.0"
-  dependencies:
-    "tslib" "^2.0.0"
-
-"@formio/angular@^5.0.0", "@formio/angular@^5.0.0-rc.4":
-  "integrity" "sha512-YSLHBAUjZmCFPNsjnOcEv9QQI+/5U+ZLZYCV7fnnMIlEedSzMy8keoKhXUN1weXIR5Ep645btD0QJW09knlMOg=="
-  "resolved" "https://registry.npmjs.org/@formio/angular/-/angular-5.0.2.tgz"
-  "version" "5.0.2"
+"@formio/angular@^5.0.3-rc.1":
+  "integrity" "sha512-BDz4xVBhkCqTJYMrBlgpf9foH2xpMbUOwtPP+VTD4trs7Wo7JNQ0uGjk6ScJe3SVXAcAGBj3Uvy/quLjoZNliA=="
+  "resolved" "https://registry.npmjs.org/@formio/angular/-/angular-5.0.3-rc.2.tgz"
+  "version" "5.0.3-rc.2"
   dependencies:
     "tslib" "^2.0.0"
 
@@ -4133,7 +4126,7 @@
     "combined-stream" "^1.0.6"
     "mime-types" "^2.1.12"
 
-"formiojs@^4.12.4-rc.3", "formiojs@^4.12.6", "formiojs@^4.12.7":
+"formiojs@^4.12.6", "formiojs@^4.12.7", "formiojs@^4.13.0-rc.20":
   "integrity" "sha512-Li8BdvT9yETfPsuBOQK/8kqLStN0EyJF11oNAHZK2qFxqWRqHcFGusJfhSBNDnFO9TnoRjIE3mUXonOuh1mumw=="
   "resolved" "https://registry.npmjs.org/formiojs/-/formiojs-4.12.7.tgz"
   "version" "4.12.7"
