@@ -50,15 +50,25 @@
         <!-- Table actions -->
         <ng-container matColumnDef="personid">
           <mat-header-cell *matHeaderCellDef>
-            Detalle
+            Acciones
           </mat-header-cell>
 
           <mat-cell *matCellDef="let row">
 
-            <button mat-icon-button (click)="view(row)" aria-label="Ver la instancia">
-              <i class="material-icons">more_horizon</i>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Ver acciones">
+              <i class="material-icons">more_vert</i>
             </button>
-
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="view(row)">
+                <mat-icon aria-label="Ver">more_horizon</mat-icon> Ver
+              </button>
+              <button mat-menu-item (click)="edit(row)">
+                <mat-icon aria-label="Editar">create</mat-icon> Actualizar
+              </button>
+              <button mat-menu-item (click)="delete(row)">
+                <mat-icon aria-label="Borrar">clear</mat-icon> Eliminar
+              </button>
+            </mat-menu>
           </mat-cell>
         </ng-container>
 
