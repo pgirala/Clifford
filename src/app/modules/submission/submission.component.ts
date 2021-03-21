@@ -193,7 +193,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnack({message: "Instancia creada."});
+        this.openSnack({message: "Instancia creada: " + result});
         this.paginator._changePageSize(this.paginator.pageSize);
       }
     });

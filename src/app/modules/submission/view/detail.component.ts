@@ -41,7 +41,7 @@ export class DetailComponent {
   onSubmit(event) {
     let submission = {data: event.data};
     this.submissionService.save(submission, this.data.formulario.path).subscribe((res: any) => {
-      this.dialogRef.close(true);
+      this.dialogRef.close(res.data.resumen);
     });
   }
 }
