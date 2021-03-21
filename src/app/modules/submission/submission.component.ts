@@ -216,11 +216,9 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.submissionService.delete(submission._id).subscribe((data: any) => {
-          this.openSnack(data);
-          if (data.success) {
-            this.paginator._changePageSize(this.paginator.pageSize);
-          }
+        this.submissionService.delete(submission._id, this.formulario.path).subscribe((data: any) => {
+          this.openSnack({message: "Instancia eliminada: " + submission.data.resumen});
+          this.paginator._changePageSize(this.paginator.pageSize);
         });
       }
     });

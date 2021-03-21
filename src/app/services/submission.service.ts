@@ -37,10 +37,11 @@ export class SubmissionService implements FormioProvider {
     );
   }
 
-  delete(id: string): Observable<Submission> {
+  delete(id: string, formPath?:string): Observable<Submission> {
+    let path = CONSTANTS.routes.submission.delete.replace(':formPath', formPath).replace(':id', String(id));
     return this.http.delete<Submission>(
-      CONSTANTS.routes.submission.delete.replace(':id', String(id)),
-      { headers: this.headers }
+      path,
+      { headers: this.headers, responseType: 'json', observe: 'body' }
     );
   }
 
