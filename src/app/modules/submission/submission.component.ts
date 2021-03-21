@@ -187,13 +187,13 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '500px',
       width: '1000px',
-      data: { title: this.formulario.title, action: 'save',
+      data: { action: 'save',
             formulario: this.formulario }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnack({message: "Instancia creada correctamente."});
+        this.openSnack({message: "Instancia creada."});
         this.paginator._changePageSize(this.paginator.pageSize);
       }
     });

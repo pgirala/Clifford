@@ -1,5 +1,6 @@
 import { Component, Inject, EventEmitter} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SubmissionService } from '~services/submission.service';
 
 @Component({
   selector: 'app-detail',
@@ -10,8 +11,9 @@ export class DetailComponent {
   public renderOptions: any;
   public readOnly: boolean = false;
   constructor(public dialogRef: MatDialogRef<DetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {title: string,
-    action: string, formulario: any}) {
+    @Inject(MAT_DIALOG_DATA) public data: {
+    action: string, formulario: any},
+    private submissionService: SubmissionService) {
       this.renderOptions = {
         language: 'sp',
         i18n: {
@@ -37,8 +39,9 @@ export class DetailComponent {
   }
 
   onSubmit(event) {
-    console.log("================================");
-    console.log(JSON.stringify(event.data));
-    this.dialogRef.close(true);
+    let submission = {data: event.data};
+    this.submissionService.save(submission, this.data.formulario.path).subscribe((res: any) => {
+      this.dialogRef.close(true);
+    });
   }
 }

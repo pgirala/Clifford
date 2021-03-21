@@ -51,19 +51,21 @@ export class SubmissionService implements FormioProvider {
     );
   }
 
-  save(submission: Submission): Observable<Submission> {
-    // TODO: distinguir si es creación o actualización, basándose en la existencia del ID.
-    return this.http.post<Submission>(
-      CONSTANTS.routes.submission.create,
-      {
-/*        txtFirstName: client.first_name,
-        txtLastName: client.last_name,
-        txtAge: client.age,
-        txtGender: client.gender,
-        id: client._id */
-      },
-      { headers: this.headers }
-    );
+  save(submission: Submission, formPath?: string): Observable<Submission> {
+    if (submission._id) // actualización
+      return this.http.put<Submission>(
+        CONSTANTS.routes.submission.create,
+        submission.data,
+        { headers: this.headers }
+      );
+    else { // creación
+      let path = CONSTANTS.routes.submission.create.replace(':formPath', formPath);
+      return this.http.post<Submission>(
+        path,
+        submission,
+        { headers: this.headers, responseType: 'json', observe: 'body' }
+      );
+    }
   }
 
 }

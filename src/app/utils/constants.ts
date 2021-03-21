@@ -20,10 +20,10 @@ export const CONSTANTS = {
         },
         submission: {
           list: environment.HOST + '/:formPath/submission',
-          delete: environment.HOST + '/submission/:id',
-          create: environment.HOST + '/submission',
-          update: environment.HOST + '/submission/:id',
-          get: environment.HOST + '/submission/:id'
+          delete: environment.HOST + '/:formPath/submission/:id',
+          create: environment.HOST + '/:formPath/submission',
+          update: environment.HOST + '/:formPath/submission/:id',
+          get: environment.HOST + '/:formPath/submission/:id'
         }
     },
     lang: {},
