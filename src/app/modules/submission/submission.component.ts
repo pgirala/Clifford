@@ -164,7 +164,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
   view(item: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '500px',
+      height: '700px',
       width: '1000px',
       data: { action: 'view',
             formulario: this.formulario,
@@ -174,7 +174,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
   edit(submission: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '500px',
+      height: '700px',
       width: '1000px',
       data: { action: 'update',
             formulario: this.formulario,
@@ -191,7 +191,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
   save(): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '500px',
+      height: '700px',
       width: '1000px',
       data: { action: 'save',
             formulario: this.formulario }
