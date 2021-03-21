@@ -163,7 +163,13 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   }
 
   view(item: Submission): void {
-    //this.router.navigate(['/submissions'], { queryParams: {formId: item._id}});
+    const dialogRef = this.dialog.open(DetailComponent, {
+      height: '500px',
+      width: '1000px',
+      data: { action: 'view',
+            formulario: this.formulario,
+            submission: item }
+    });
   }
 
   edit(submission: Submission): void {

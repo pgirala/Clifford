@@ -2,6 +2,8 @@
 <div class="container container-fluid">
   <mat-formio [form]="data.formulario"
               [readOnly]="readOnly"
+              [submission]='firstSubmission'>
               [renderOptions]="renderOptions"
+              [refresh]="triggerRefresh"
               (submit)="onSubmit($event)"></mat-formio>
 </div>

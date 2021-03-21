@@ -1,4 +1,4 @@
-import { Component, Inject, EventEmitter} from '@angular/core';
+import { Component, Inject, OnInit, EventEmitter} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubmissionService } from '~services/submission.service';
 
@@ -7,13 +7,21 @@ import { SubmissionService } from '~services/submission.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit{
+  public firstSubmission: any;
   public renderOptions: any;
   public readOnly: boolean = false;
+  triggerRefresh: any=new EventEmitter();
   constructor(public dialogRef: MatDialogRef<DetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
-    action: string, formulario: any},
+    action: string, formulario: any, submission: any},
     private submissionService: SubmissionService) {
+      this.readOnly = (data.action == 'view');
+      this.firstSubmission = {'data':{'codigo':'99','denominacion': 'HOLa'}};
+      if (data.action == 'view') {
+        this.firstSubmission = data.submission;
+      }
+
       this.renderOptions = {
         language: 'sp',
         i18n: {
@@ -38,10 +46,23 @@ export class DetailComponent {
       };
   }
 
+  ngOnInit()
+  {
+    this.refreshForm(this.firstSubmission);
+  }
+
   onSubmit(event) {
     let submission = {data: event.data};
     this.submissionService.save(submission, this.data.formulario.path).subscribe((res: any) => {
       this.dialogRef.close(res.data.resumen);
     });
+  }
+
+  private refreshForm(submission:any)
+  {
+    this.triggerRefresh.emit({
+      property: 'firstSubmission',
+      value: this.firstSubmission}
+    );
   }
 }
