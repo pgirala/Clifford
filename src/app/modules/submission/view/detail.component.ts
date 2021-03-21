@@ -8,7 +8,6 @@ import { SubmissionService } from '~services/submission.service';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit{
-  public firstSubmission: any;
   public renderOptions: any;
   public readOnly: boolean = false;
   triggerRefresh: any=new EventEmitter();
@@ -17,10 +16,6 @@ export class DetailComponent implements OnInit{
     action: string, formulario: any, submission: any},
     private submissionService: SubmissionService) {
       this.readOnly = (data.action == 'view');
-      this.firstSubmission = {'data':{'codigo':'99','denominacion': 'HOLa'}};
-      if (data.action == 'view') {
-        this.firstSubmission = data.submission;
-      }
 
       this.renderOptions = {
         language: 'sp',
@@ -48,7 +43,6 @@ export class DetailComponent implements OnInit{
 
   ngOnInit()
   {
-    this.refreshForm(this.firstSubmission);
   }
 
   onSubmit(event) {
@@ -56,13 +50,5 @@ export class DetailComponent implements OnInit{
     this.submissionService.save(submission, this.data.formulario.path).subscribe((res: any) => {
       this.dialogRef.close(res.data.resumen);
     });
-  }
-
-  private refreshForm(submission:any)
-  {
-    this.triggerRefresh.emit({
-      property: 'firstSubmission',
-      value: this.firstSubmission}
-    );
   }
 }
