@@ -16,7 +16,6 @@ export class DetailComponent implements OnInit{
     action: string, formulario: any, submission: any},
     private submissionService: SubmissionService) {
       this.readOnly = (data.action == 'view');
-
       this.renderOptions = {
         language: 'sp',
         i18n: {
@@ -46,8 +45,14 @@ export class DetailComponent implements OnInit{
   }
 
   onSubmit(event) {
-    let submission = {data: event.data};
-    this.submissionService.save(submission, this.data.formulario.path).subscribe((res: any) => {
+    let subm: any;
+
+    if (this.data.action == 'save')
+      subm = {data: event.data};
+    else if (this.data.action == 'update')
+      subm = {_id:this.data.submission._id, data: event.data};
+
+    this.submissionService.save(subm, this.data.formulario.path).subscribe((res: any) => {
       this.dialogRef.close(res.data.resumen);
     });
   }

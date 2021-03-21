@@ -173,20 +173,20 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   }
 
   edit(submission: Submission): void {
-    this.submissionService.getOne(submission._id).subscribe((data: any) => {
-      if (data.success) {
-        const dialogRef = this.dialog.open(DetailComponent, {
-          width: '400px',
-          data: { title: 'Update person', action: 'edit', data: data.data }
-        });
+    const dialogRef = this.dialog.open(DetailComponent, {
+      height: '500px',
+      width: '1000px',
+      data: { action: 'update',
+            formulario: this.formulario,
+            submission: submission }
+      });
 
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            this.paginator._changePageSize(this.paginator.pageSize);
-          }
-        });
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.openSnack({message: "Instancia actualizada: " + result});
+          this.paginator._changePageSize(this.paginator.pageSize);
+        }
+      });
   }
 
   save(): void {

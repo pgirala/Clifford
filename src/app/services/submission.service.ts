@@ -53,13 +53,14 @@ export class SubmissionService implements FormioProvider {
   }
 
   save(submission: Submission, formPath?: string): Observable<Submission> {
-    if (submission._id) // actualización
+    if (submission._id) { // actualización
+      let path = CONSTANTS.routes.submission.update.replace(':formPath', formPath).replace(':id', String(submission._id));
       return this.http.put<Submission>(
-        CONSTANTS.routes.submission.create,
-        submission.data,
-        { headers: this.headers }
+        path,
+        submission,
+        { headers: this.headers, responseType: 'json', observe: 'body'}
       );
-    else { // creación
+    } else { // creación
       let path = CONSTANTS.routes.submission.create.replace(':formPath', formPath);
       return this.http.post<Submission>(
         path,
