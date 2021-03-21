@@ -20,6 +20,9 @@ export class SubmissionService implements FormioProvider {
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string): Observable<Array<Submission>> {
     let params = new HttpParams();
+    /*params = params.append('select', 'created');
+    params = params.append('select', 'modified');
+    params = params.append('select', 'data.resumen');*/
     params = params.append('data.resumen__regex', search);
     params = params.append('sort', (order == 'desc' ? '-' : '') + (sortActive == 'resumen' ? 'data.' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
