@@ -28,6 +28,7 @@
     "@auth0/angular-jwt": "^1.2.0",
     "@formio/angular": "^5.0.3-rc.1",
     "angular-formio": "^4.11.4",
+    "bootstrap": "^4.6.0",
     "core-js": "^2.6.11",
     "formiojs": "^4.12.7",
     "jquery": "^3.6.0",

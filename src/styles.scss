@@ -3,19 +3,22 @@
 
 // Imports for Angular Material Theming
 // More colors: https://medium.com/@treviergits/angular-material-theme-color-options-7d5968cb7460
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 @include mat-core();
+
+// Imports functions, variables, and mixins that are needed by other Bootstrap files
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 // Light theme
 $light-primary: mat-palette($mat-indigo);
-$light-accent : mat-palette($mat-yellow);
-$light-theme  : mat-light-theme($light-primary, $light-accent);
+$light-accent: mat-palette($mat-yellow);
+$light-theme: mat-light-theme($light-primary, $light-accent);
 
 // Dark theme
 $dark-primary: mat-palette($mat-pink);
-$dark-accent : mat-palette($mat-indigo, A200, A100, A400);
-$dark-warn   : mat-palette($mat-deep-orange);
-$dark-theme  : mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$dark-accent: mat-palette($mat-indigo, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 @media (prefers-color-scheme: light) {
   @include angular-material-theme($light-theme);
@@ -64,10 +67,10 @@ body {
 
 /* ANIMACIÓN AL CARGAR UNA PÁGINA */
 .animated {
-  -webkit-animation-duration : 1s;
-  animation-duration         : 1s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
   -webkit-animation-fill-mode: both;
-  animation-fill-mode        : both;
+  animation-fill-mode: both;
 }
 
 @-webkit-keyframes fadeIn {
@@ -92,7 +95,7 @@ body {
 
 .fadeIn {
   -webkit-animation-name: fadeIn;
-  animation-name        : fadeIn;
+  animation-name: fadeIn;
 }
 
 /* FUENTE GLOBAL DEL SISTEMA */
