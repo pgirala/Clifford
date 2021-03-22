@@ -1,43 +1,22 @@
-# Angular-CRUD
+# Clifford
 
-Complete CRUD with Angular, Angular Material, sessions, JSON Web Token (JWT), routes & pagination.
+Cliente fácil de formularios dinámicos
+Incorpora un CRUD con Angular, Angular Material, sesiones, JSON Web Token (JWT), rutas y paginación.
 
-## Backend
-You can use this repo with these backends examples:
-
-| Framework | DataBase | Repo |
-| --- | --- | --- |
-| NodeJS with ExpressJS 📦 | PosgreSQL with MassiveJS | [node-js-api-massive-js](https://github.com/edgarMejia/node-js-api-massive-js). |
-| NodeJS with ExpressJS 📦 | MongoDB with Mongoose | WIP |
-| Python 🐍 with Flask 🌶 | PostgreSQL | WIP |
-
-## Screenshots
-
-<p>
-    <img src="/capturas/login.png" alt="screenshot" align="center">
-</p>
-<p align="center">
-    <img src="/capturas/grid-v3.png" alt="screenshot" align="center">
-</p>
-
-## Get the code
+## Obtener el código
 
 ```
-$ git clone https://github.com/edgarMejia/angular-crud.git
-$ cd angular5-crud
-$ npm install
+$ git clone https://github.com/pgirala/Clifford.git
+$ cd Clifford
+$ npm install --force
 ```
 
-## Run the app
+## Ejecutar la aplicación (desarrollo)
 
 ```
-$ ng serve
+$ npm start
 ```
 
-## Development
+`http://localhost:4200/`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+La aplicación se recarga cada vez que se cambia un fichero.
