@@ -1,0 +1,90 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLGeneric</id><coordinates><x>717</x><y>654</y><w>130</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;BDD no SQL&gt;&gt;
+MongoDB
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLDeployment</id><coordinates><x>657</x><y>324</y><w>240</w><h>260</h></coordinates><panel_attributes>&lt;&lt;contenedor Docker&gt;&gt;
+Formularios</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>717</x><y>484</y><w>140</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;servidor apps&gt;&gt;
+Node.js
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>717</x><y>394</y><w>140</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;servidor&gt;&gt;
+form.io
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>257</x><y>324</y><w>140</w><h>40</h></coordinates><panel_attributes>symbol=component
+Navegador
+group=2
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLDeployment</id><coordinates><x>237</x><y>624</y><w>220</w><h>160</h></coordinates><panel_attributes>&lt;&lt;cliente web&gt;&gt;
+Cliente Angular
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>257</x><y>734</y><w>160</w><h>40</h></coordinates><panel_attributes>symbol=component
+Navegador
+bg=orange
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>257</x><y>684</y><w>160</w><h>40</h></coordinates><panel_attributes>symbol=component
+Aplicación Angular
+bg=yellow
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>567</x><y>404</y><w>170</w><h>50</h></coordinates><panel_attributes>lt=-()
+m2=API REST
+</panel_attributes><additional_attributes>150;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>407</x><y>424</y><w>200</w><h>300</h></coordinates><panel_attributes>lt=)-
+m1=
+</panel_attributes><additional_attributes>170;20;10;280</additional_attributes></element><element><id>Relation</id><coordinates><x>387</x><y>284</y><w>200</w><h>170</h></coordinates><panel_attributes>lt=)-
+m1=
+</panel_attributes><additional_attributes>170;140;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>667</x><y>444</y><w>130</w><h>250</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>50;230;10;230;10;20;110;20;110;10</additional_attributes></element><element><id>UMLDeployment</id><coordinates><x>1067</x><y>244</y><w>400</w><h>520</h></coordinates><panel_attributes>&lt;&lt;contenedor Docker&gt;&gt;
+BPM</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1187</x><y>674</y><w>160</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;servidor apps&gt;&gt;
+Wildfly
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1127</x><y>484</y><w>130</w><h>70</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;servidor&gt;&gt;
+jBpm
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1267</x><y>324</y><w>160</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;aplicación web&gt;&gt;
+Business Central
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLDeployment</id><coordinates><x>217</x><y>224</y><w>220</w><h>160</h></coordinates><panel_attributes>&lt;&lt;cliente web&gt;&gt;
+Cliente de adminsitración
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>257</x><y>274</y><w>140</w><h>40</h></coordinates><panel_attributes>symbol=component
+Aplicación admón.
+group=2
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLActor</id><coordinates><x>77</x><y>220</y><w>100</w><h>120</h></coordinates><panel_attributes>Administrador
+form.io</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>137</x><y>274</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>120;10;10;10</additional_attributes></element><element><id>UMLActor</id><coordinates><x>97</x><y>660</y><w>60</w><h>110</h></coordinates><panel_attributes>Usuario</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>147</x><y>694</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>110;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>847</x><y>404</y><w>110</w><h>50</h></coordinates><panel_attributes>lt=-()
+m2=API REST
+</panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>Relation</id><coordinates><x>837</x><y>374</y><w>300</w><h>330</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;310;280;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1087</x><y>324</y><w>160</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;Java&gt;&gt;
+Componente "ad-hoc"
+
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLDeployment</id><coordinates><x>1567</x><y>254</y><w>220</w><h>160</h></coordinates><panel_attributes>&lt;&lt;cliente web&gt;&gt;
+Cliente Business Central
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1607</x><y>304</y><w>140</w><h>40</h></coordinates><panel_attributes>&lt;&lt;aplicación web&gt;&gt;
+Business Central
+group=3
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1607</x><y>364</y><w>140</w><h>40</h></coordinates><panel_attributes>symbol=component
+Navegador
+bg=orange
+group=3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLActor</id><coordinates><x>1877</x><y>260</y><w>100</w><h>120</h></coordinates><panel_attributes>Administrador
+jBpm</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1737</x><y>314</y><w>180</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;160;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1217</x><y>374</y><w>150</w><h>130</h></coordinates><panel_attributes>lt=.&gt;</panel_attributes><additional_attributes>130;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>1157</x><y>374</y><w>40</w><h>130</h></coordinates><panel_attributes>lt=.&gt;</panel_attributes><additional_attributes>20;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>937</x><y>344</y><w>170</w><h>110</h></coordinates><panel_attributes>lt=)-
+m1=
+</panel_attributes><additional_attributes>20;80;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1417</x><y>324</y><w>210</w><h>40</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;20;190;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>637</x><y>150</y><w>890</w><h>920</h></coordinates><panel_attributes>Grupo de contenedores Docker</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1297</x><y>444</y><w>120</w><h>60</h></coordinates><panel_attributes>symbol=component
+jBpm forms
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1347</x><y>374</y><w>60</w><h>90</h></coordinates><panel_attributes>lt=.&gt;</panel_attributes><additional_attributes>40;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>947</x><y>514</y><w>200</w><h>250</h></coordinates><panel_attributes>lt=-()
+m2=API REST
+</panel_attributes><additional_attributes>180;10;10;230</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1187</x><y>584</y><w>160</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;servidor apps&gt;&gt;
+KIE
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>407</x><y>694</y><w>560</w><h>80</h></coordinates><panel_attributes>lt=)-
+m1=
+</panel_attributes><additional_attributes>530;50;10;10</additional_attributes></element><element><id>UMLDeployment</id><coordinates><x>657</x><y>604</y><w>230</w><h>170</h></coordinates><panel_attributes>&lt;&lt;contenedor Docker&gt;&gt;
+Base de datos documental</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>967</x><y>874</y><w>140</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;servidor&gt;&gt;
+Keycloak
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLDeployment</id><coordinates><x>877</x><y>814</y><w>340</w><h>220</h></coordinates><panel_attributes>&lt;&lt;contenedor Docker&gt;&gt;
+Autenticación y autorización</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>967</x><y>954</y><w>140</w><h>60</h></coordinates><panel_attributes>symbol=component
+&lt;&lt;BDD SQL&gt;&gt;
+MySQL
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1027</x><y>924</y><w>30</w><h>50</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;30;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1017</x><y>784</y><w>80</w><h>110</h></coordinates><panel_attributes>lt=-()
+m2=API REST
+</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1007</x><y>524</y><w>140</w><h>280</h></coordinates><panel_attributes>lt=)-
+m1=
+</panel_attributes><additional_attributes>20;250;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>847</x><y>424</y><w>210</w><h>380</h></coordinates><panel_attributes>lt=)-
+m1=
+</panel_attributes><additional_attributes>180;350;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>277</x><y>900</y><w>140</w><h>70</h></coordinates><panel_attributes>&lt;&lt;servidor&gt;&gt;
+Servicio de token
+IGAE</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>537</x><y>894</y><w>450</w><h>70</h></coordinates><panel_attributes>lt=)-
+m1=
+</panel_attributes><additional_attributes>20;40;430;10</additional_attributes></element><element><id>Relation</id><coordinates><x>407</x><y>914</y><w>150</w><h>50</h></coordinates><panel_attributes>lt=-()
+m2=WS SOAP
+</panel_attributes><additional_attributes>10;20;130;20</additional_attributes></element></diagram>
