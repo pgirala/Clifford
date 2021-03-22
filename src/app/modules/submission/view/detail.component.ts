@@ -35,7 +35,8 @@ export class DetailComponent implements OnInit{
             required : "{{field}} obligatorio",
             'Type to search': 'Filtro',
             'Add Another': 'Añadir',
-            'Submission Complete.': 'Acción completada.'
+            'Submission Complete.': 'Acción completada.',
+            'submitError': ''
           }
         }
       };
