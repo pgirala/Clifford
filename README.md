@@ -1,7 +1,8 @@
 # Clifford
 
-Cliente fácil de formularios dinámicos
-Incorpora un CRUD con Angular, Angular Material, sesiones, JSON Web Token (JWT), rutas y paginación.
+Cliente fácil de formularios dinámicos.
+
+Incorpora un CRUD con Angular, Angular Material, sesiones, JSON Web Token (JWT), rutas y paginación teniendo como "back end" el servidor de form.io
 
 ## Obtener el código
 
