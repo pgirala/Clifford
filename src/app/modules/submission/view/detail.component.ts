@@ -33,10 +33,12 @@ export class DetailComponent implements OnInit{
             pattern : "{{field}} no cumple el patrón {{pattern}}",
             previous : "Anterior",
             required : "{{field}} obligatorio",
+            complete: "Acción completada",
+            submitError: "Corrija los errores existentes",
+            submitMessage: "Acción completada",
+            unique: "{{field}} debe ser único",
             'Type to search': 'Filtro',
-            'Add Another': 'Añadir',
-            'Submission Complete.': 'Acción completada.',
-            'submitError': ''
+            'Add Another': 'Añadir'
           }
         }
       };
