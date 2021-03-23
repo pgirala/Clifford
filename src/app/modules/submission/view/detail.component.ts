@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, EventEmitter} from '@angular/core';
+import { Component, Inject, OnInit, EventEmitter, HostListener} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubmissionService } from '~services/submission.service';
 
@@ -46,6 +46,15 @@ export class DetailComponent implements OnInit{
 
   ngOnInit()
   {
+    if (this.data.action == 'save' || this.data.action == 'update') {
+      this.dialogRef.disableClose = true;
+      this.dialogRef.backdropClick().subscribe(_ => {
+        let cn = confirm('¿Está seguro de abandonar la edición?')
+        if (cn) {
+          this.dialogRef.close();
+        }
+      });
+    }
   }
 
   onSubmit(event) {
@@ -59,5 +68,12 @@ export class DetailComponent implements OnInit{
     this.submissionService.save(subm, this.data.formulario.path).subscribe((res: any) => {
       this.dialogRef.close(res.data.resumen);
     });
+  }
+
+  @HostListener('window:keyup.esc') onKeyUp() {
+    let cn = confirm('¿Está seguro de abandonar la edición?')
+    if (cn) {
+      this.dialogRef.close();
+    }
   }
 }
