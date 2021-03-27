@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormioModule } from '@formio/angular';
 
 /*ESTE ARCHIVO CONTIENE IMPORTACIONES QUE ESTAN EN TODOS LOS MODULOS
@@ -14,6 +14,11 @@ import { AppRoutingModule } from '~app/app.routes';
 
 // IMPORTACION DE LOS GUARDS
 import { AuthGuard } from '~guards/auth.guard';
+
+// KEYCLOAK
+import {TokenInterceptor} from "./interceptors/token-interceptor";
+import {KeycloakService} from "./keycloak/keycloak.service";
+import { OAuthModule, OAuthStorage  } from 'angular-oauth2-oidc';
 
 // COMPONENTS
 import { AppComponent } from '~components/app/app.component';
@@ -36,6 +41,9 @@ import { UserModule } from '~modules/user/user.module';
 import { AdminLayoutModule } from '~modules/admin-layout/admin-layout.module';
 import { LoginLayoutModule } from '~modules/login-layout/login-layout.module';
 
+export function kcFactory(keycloakService: KeycloakService) {
+  return () => keycloakService.init();
+}
 @NgModule({
   declarations: [ /*DECLARACIÓN DE COMPONENTES*/
     AppComponent,
@@ -51,12 +59,31 @@ import { LoginLayoutModule } from '~modules/login-layout/login-layout.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: [],
+          sendAccessToken: true
+      }
+    }),
     AdminLayoutModule,
     LoginLayoutModule,
     UserModule,
     FormioModule
   ],
   providers: [ /*DECLARACIÓN DE SERVICIOS*/
+    KeycloakService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: kcFactory,
+      deps: [KeycloakService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    { provide: OAuthStorage, useValue: localStorage },
     AuthGuard,
     AuthService,
     UserService,
