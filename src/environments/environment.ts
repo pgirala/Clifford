@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  HOST: 'http://localhost:3001'
+  LOCAL_HOST: 'http://localhost:4200',
+  HOST: 'http://localhost:3001',
+  KC_HOST: 'http://localhost:8080'
 };

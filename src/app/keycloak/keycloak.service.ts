@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import * as Keycloak from "keycloak-js";
 import {KeycloakInstance} from "keycloak-js";
+import { CONSTANTS } from '~utils/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,9 @@ export class KeycloakService
     return new Promise((resolve, reject) =>
     {
       const config = {
-        'url': 'http://localhost:8080/auth',
-        'realm': 'Clifford',
-        'clientId': 'clifford-front-end'
+        'url': CONSTANTS.keycloak.url,
+        'realm': CONSTANTS.keycloak.realm,
+        'clientId': CONSTANTS.keycloak.clientId
       };
       // @ts-ignore
       this.keycloakAuth = new Keycloak(config);
@@ -51,9 +52,9 @@ export class KeycloakService
   logout()
   {
     const options = {
-      'redirectUri': 'http://localhost:4200',
-      'realm': 'spring-boot-quickstart',
-      'clientId': 'angular-app'
+      'redirectUri': CONSTANTS.routes.local.root,
+      'realm': CONSTANTS.keycloak.realm,
+      'clientId': CONSTANTS.keycloak.clientId
     };
     this.keycloakAuth.logout(options);
   }
