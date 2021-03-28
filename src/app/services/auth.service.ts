@@ -52,15 +52,29 @@ export class AuthService {
     );
   }
 
-  tokenTransformado(token: string): string {
+  acreditacionFormio(token: any): DialogUser {
     // obtener el payload del tokenn original y firmarlo con
     let tokenDecodificado = jwt_decode(token);
-    return token; // TODO: falta firmarlo
+    let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
+    let dialogUser: DialogUser = {email: tokenJSON.user.id,
+                                  password: tokenJSON.user.pwd};
+    return dialogUser;
+  }
+
+  obtenerTokenFormio(token: string): void {
+    let acreditacion:DialogUser = this.acreditacionFormio(token);
+    this.login(acreditacion).subscribe(
+      (resp: HttpResponse<any>) => {
+        if (resp.headers.get('x-jwt-token')) {
+          localStorage.setItem('token', resp.headers.get('x-jwt-token'))
+        }
+      }
+    );
   }
 
   hasToken(): boolean {
     if (this.keycloakService != null && this.keycloakService.getToken() != null)
-      localStorage.setItem('token', this.tokenTransformado(this.keycloakService.getToken()))
+      this.obtenerTokenFormio(this.keycloakService.getToken());
 
     return !!localStorage.getItem('token');
   }
