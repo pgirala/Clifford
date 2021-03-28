@@ -2,7 +2,15 @@ import { environment } from '../../environments/environment';
 
 export const CONSTANTS = {
     permissions: {},
+    keycloak: {
+      url: environment.KC_HOST + '/auth',
+      realm: 'Clifford',
+      clientId: 'clifford-front-end'
+    },
     routes: {
+        local:{
+          root: environment.LOCAL_HOST + '/'
+        },
         authorization: {
             login: environment.HOST + '/user/login',
             logout: environment.HOST + '/logout'
