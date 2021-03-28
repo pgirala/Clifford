@@ -61,20 +61,21 @@ export class AuthService {
     return dialogUser;
   }
 
-  obtenerTokenFormio(token: string): void {
+  async obtenerTokenSincrono(acreditacion:DialogUser) {
+    let result = await this.login(acreditacion).toPromise();
+    if (result.headers.get('x-jwt-token'))
+      localStorage.setItem('token', result.headers.get('x-jwt-token'));
+  }
+
+  async obtenerTokenFormio(token: string) {
     let acreditacion:DialogUser = this.acreditacionFormio(token);
-    this.login(acreditacion).subscribe(
-      (resp: HttpResponse<any>) => {
-        if (resp.headers.get('x-jwt-token')) {
-          localStorage.setItem('token', resp.headers.get('x-jwt-token'))
-        }
-      }
-    );
+    this.obtenerTokenSincrono(acreditacion);
   }
 
   hasToken(): boolean {
-    if (this.keycloakService != null && this.keycloakService.getToken() != null)
+    if (this.keycloakService != null && this.keycloakService.getToken() != null) {
       this.obtenerTokenFormio(this.keycloakService.getToken());
+    }
 
     return !!localStorage.getItem('token');
   }
