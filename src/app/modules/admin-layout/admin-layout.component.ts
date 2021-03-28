@@ -63,7 +63,7 @@ export class AdminLayoutComponent implements OnInit {
           if(response == "OK") {
             this.authService.loggedIn.next(false);
             localStorage.removeItem('token');
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
           }
         });
       }

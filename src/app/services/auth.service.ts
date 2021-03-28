@@ -10,7 +10,6 @@ import { CONSTANTS } from '~utils/constants';
 
 import {KeycloakService} from "../keycloak/keycloak.service";
 
-import jwt_decode from "jwt-decode";
 
 @Injectable()
 export class AuthService {
@@ -52,32 +51,16 @@ export class AuthService {
     );
   }
 
-  acreditacionFormio(token: any): DialogUser {
-    // obtener el payload del tokenn original y firmarlo con
-    let tokenDecodificado = jwt_decode(token);
-    let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
-    let dialogUser: DialogUser = {email: tokenJSON.user.id,
-                                  password: tokenJSON.user.pwd};
-    return dialogUser;
+  hasTokenKC(): boolean {
+    return (this.keycloakService != null && this.keycloakService.getToken() != null);
   }
 
-  async obtenerTokenSincrono(acreditacion:DialogUser) {
-    let result = await this.login(acreditacion).toPromise();
-    if (result.headers.get('x-jwt-token'))
-      localStorage.setItem('token', result.headers.get('x-jwt-token'));
-  }
-
-  async obtenerTokenFormio(token: string) {
-    let acreditacion:DialogUser = this.acreditacionFormio(token);
-    this.obtenerTokenSincrono(acreditacion);
+  hasTokenFormio(): boolean {
+    return !!localStorage.getItem('token');
   }
 
   hasToken(): boolean {
-    if (this.keycloakService != null && this.keycloakService.getToken() != null) {
-      this.obtenerTokenFormio(this.keycloakService.getToken());
-    }
-
-    return !!localStorage.getItem('token');
+    return this.hasTokenKC() || this.hasTokenFormio();
   }
 
 }

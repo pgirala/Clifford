@@ -2,6 +2,10 @@ import {Injectable} from "@angular/core";
 import * as Keycloak from "keycloak-js";
 import {KeycloakInstance} from "keycloak-js";
 import { CONSTANTS } from '~utils/constants';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import jwt_decode from "jwt-decode";
+import { DialogUser } from '~models/dialog-user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +14,7 @@ export class KeycloakService
 {
   private keycloakAuth: KeycloakInstance;
 
-  constructor()
+  constructor(public http: HttpClient)
   {
 
   }
@@ -29,6 +33,7 @@ export class KeycloakService
       this.keycloakAuth.init({onLoad: 'login-required'})
           .then(() =>
           {
+            this.obtenerTokenFormio(); // va pidiendo el token con form.io
             resolve();
           })
           .catch(() =>
@@ -36,6 +41,38 @@ export class KeycloakService
             reject();
           });
     });
+  }
+
+  formioLogin(dialogUser: DialogUser): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(
+      CONSTANTS.routes.authorization.login, {
+        data: {
+          email: dialogUser.email,
+          password: dialogUser.password
+        }
+      },
+      {observe: 'response'}
+    );
+  }
+
+  obtenerTokenFormio() {
+    let acreditacion:DialogUser = this.acreditacionFormio(this.getToken());
+    this.formioLogin(acreditacion).subscribe(
+      (resp: HttpResponse<any>) => {
+        if (resp.headers.get('x-jwt-token')) {
+          localStorage.setItem('token', resp.headers.get('x-jwt-token'));
+        }
+      }
+    );
+  }
+
+  acreditacionFormio(token: any): DialogUser {
+    // obtener el payload del tokenn original y firmarlo con
+    let tokenDecodificado = jwt_decode(token);
+    let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
+    let dialogUser: DialogUser = {email: tokenJSON.user.id,
+                                  password: tokenJSON.user.pwd};
+    return dialogUser;
   }
 
   getToken(): string
@@ -58,4 +95,5 @@ export class KeycloakService
     };
     this.keycloakAuth.logout(options);
   }
+
 }
