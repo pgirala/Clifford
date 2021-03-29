@@ -124,6 +124,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
           return;
         }),
         catchError(() => {
+          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
@@ -155,6 +156,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
           return data;
         }),
         catchError(() => {
+          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
