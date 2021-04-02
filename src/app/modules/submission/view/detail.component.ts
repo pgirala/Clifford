@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit, EventEmitter, HostListener} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubmissionService } from '~services/submission.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-detail',
@@ -14,7 +16,8 @@ export class DetailComponent implements OnInit{
   constructor(public dialogRef: MatDialogRef<DetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
     action: string, formulario: any, submission: any},
-    private submissionService: SubmissionService) {
+    private submissionService: SubmissionService,
+    public snack: MatSnackBar) {
       this.readOnly = (data.action == 'view');
       this.renderOptions = {
         language: 'sp',
@@ -33,10 +36,30 @@ export class DetailComponent implements OnInit{
             pattern : "{{field}} no cumple el patrón {{pattern}}",
             previous : "Anterior",
             required : "{{field}} obligatorio",
-            complete: "Acción completada",
+            complete: "Operación completada",
             submitError: "Corrija los errores existentes",
-            submitMessage: "Acción completada",
+            submitMessage: "Operación solicitada",
+            submitDone: "Operación solicitada",
             unique: "{{field}} debe ser único",
+            valueIsNotAvailable: '{{ field }} es un valor no válido.',
+            month: 'Mes',
+            day: 'Día',
+            year: 'Año',
+            january: 'Enero',
+            february: 'Febrero',
+            march: 'Marzo',
+            april: 'Abril',
+            may: 'Mayo',
+            june: 'Junio',
+            july: 'Julio',
+            august: 'Agosto',
+            september: 'Septiembre',
+            october: 'Octubre',
+            november: 'Noviembre',
+            december: 'Diciembre',
+            cancel: 'Cancelar',
+            submit: 'Aceptar',
+            confirmCancel: '¿Está seguro de que quiere cancelar?',
             'Type to search': 'Filtro',
             'Add Another': 'Añadir'
           }
@@ -57,6 +80,13 @@ export class DetailComponent implements OnInit{
     }
   }
 
+  private openSnack(data: any): void {
+    this.snack.openFromComponent(SnackbarComponent, {
+      data: { data: data },
+      duration: 3000
+    });
+  }
+
   onSubmit(event) {
     let subm: any;
 
@@ -67,7 +97,8 @@ export class DetailComponent implements OnInit{
 
     this.submissionService.save(subm, this.data.formulario.path).subscribe((res: any) => {
       this.dialogRef.close(res.data.resumen);
-    });
+    }, (error:any) => {
+      this.openSnack(error);});
   }
 
   @HostListener('window:keyup.esc') onKeyUp() {
