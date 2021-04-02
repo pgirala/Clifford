@@ -22,7 +22,10 @@ export class DetailComponent implements OnInit{
       this.readOnly = (data.action == 'view');
       this.renderOptions = {
         language: 'sp',
-        i18n: CONSTANTS.i18n
+        i18n: CONSTANTS.i18n,
+        submitMessage: "Acción realizada",
+        disableAlerts: true,
+        noAlerts: true
       };
   }
 
