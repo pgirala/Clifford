@@ -24,7 +24,8 @@ export const CONSTANTS = {
         formulario: {
             scope: 'forms',
             list: environment.HOST + '/form',
-            get: environment.HOST + '/form/:id'
+            get: environment.HOST + '/form/:id',
+            find: environment.HOST + '/form'
         },
         submission: {
           list: environment.HOST + '/:formPath/submission',
@@ -34,6 +35,7 @@ export const CONSTANTS = {
           get: environment.HOST + '/:formPath/submission/:id'
         }
     },
+    formEnvio: 'envio',
     lang: {},
     session: {},
     parameters: {},
