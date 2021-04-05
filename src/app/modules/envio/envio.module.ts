@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~utils/shared.module';
 import { EnvioComponent } from './envio.component';
+import { DetailComponent } from './view/detail.component';
 import { FormioModule } from '@formio/angular';
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FormioModule } from '@formio/angular';
     SharedModule
   ],
   declarations: [
-    EnvioComponent
+    EnvioComponent,
+    DetailComponent
   ],
   providers: [],
   entryComponents: [

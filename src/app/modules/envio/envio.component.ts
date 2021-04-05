@@ -15,7 +15,7 @@ import { Submission } from '~models/submission';
 import { SubmissionService } from '~services/submission.service';
 import { AuthService } from '~services/auth.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
-import { DetailComponent } from '~modules/submission/view/detail.component';
+import { DetailComponent } from '~modules/envio/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
@@ -63,8 +63,8 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findOne(CONSTANTS.formEnvio).subscribe((form:Formulario) => {
-      this.formulario = form;
+    this.formularioService.findOne(CONSTANTS.formEnvio).subscribe((formularios:any) => {
+      this.formulario = formularios[0];
     })
   }
 
@@ -180,6 +180,14 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
 
   delete(submission: Submission): void {}
 
-  view(item: Submission): void {}
+  view(item: Submission): void {
+    const dialogRef = this.dialog.open(DetailComponent, {
+      height: '700px',
+      width: '1000px',
+      data: { action: 'view',
+            formulario: this.formulario,
+            submission: item }
+    });
+  }
 
 }
