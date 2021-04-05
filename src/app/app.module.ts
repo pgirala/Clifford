@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormioModule } from '@formio/angular';
+import { AppConfig } from './config';
+import { FormioAppConfig } from 'angular-formio';
 
 /*ESTE ARCHIVO CONTIENE IMPORTACIONES QUE ESTAN EN TODOS LOS MODULOS
 PARA AHORRARSE LINEAS SE IMPORTAN EN EL Y LUEGO EL ARCHIVO SE IMPORTA
@@ -89,7 +91,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     UserService,
     ClientService,
     FormularioService,
-    SubmissionService
+    SubmissionService,
+    {provide: FormioAppConfig, useValue: AppConfig}
   ],
   entryComponents: [ /*AQUI SE AGREGAN LOS MAT-CONFIRM Y LOS MAT-SNACKBAR DE ANGULAR MATERIAL*/
     ConfirmComponent,
