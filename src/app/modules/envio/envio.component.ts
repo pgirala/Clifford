@@ -30,7 +30,7 @@ import { FormularioService } from '~app/services/formulario.service';
   providers: [SubmissionService, FormularioService]
 })
 export class EnvioComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['resumen', 'created', 'modified'];
+  public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 5;
   public dataSource = new MatTableDataSource();
