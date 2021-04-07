@@ -46,15 +46,11 @@ export class FormularioService implements FormioProvider {
     );
   }
 
-  findOne(name: string): Observable<Formulario> {
-    let nameFilter = new HttpParams();
-    nameFilter = nameFilter.append('name__regex', '/^' + name + '/i')
-
+  getOnePromise(id: string): Promise<Formulario> {
     return this.http.get<Formulario>(
-      CONSTANTS.routes.formulario.find,
-      { headers: this.headers,
-      params: nameFilter }
-    );
+      CONSTANTS.routes.formulario.get.replace(':id', String(id)),
+      { headers: this.headers }
+    ).toPromise();
   }
 
   save(formulario: Formulario): Observable<Formulario> {

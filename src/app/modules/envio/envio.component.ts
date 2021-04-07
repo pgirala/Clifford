@@ -9,8 +9,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CONSTANTS } from '~utils/constants';
-
 import { Submission } from '~models/submission';
 import { SubmissionService } from '~services/submission.service';
 import { AuthService } from '~services/auth.service';
@@ -30,7 +28,7 @@ import { FormularioService } from '~app/services/formulario.service';
   providers: [SubmissionService, FormularioService]
 })
 export class EnvioComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['resumen', 'created', 'modified'];
+  public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 5;
   public dataSource = new MatTableDataSource();
@@ -41,7 +39,8 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
-  public formPath = CONSTANTS.formEnvio;
+  public formId = '';
+  public formPath = '';
   public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -63,9 +62,14 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findOne(CONSTANTS.formEnvio).subscribe((form:Formulario) => {
-      this.formulario = form;
-    })
+    this.route.queryParams.subscribe(params => {
+      this.formId = params['formId'];
+      this.formPath = params['formPath'];
+
+      this.formularioService.getOne(this.formId).subscribe((form:Formulario) => {
+        this.formulario = form;
+      })
+    });
   }
 
   ngAfterViewInit() {
@@ -110,7 +114,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             Number.MAX_SAFE_INTEGER,
             1,
             this.search,
-            CONSTANTS.formEnvio
+            this.formPath
           );
         }),
         map(data => {
@@ -142,7 +146,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             this.pageSize,
             this.page,
             this.search,
-            CONSTANTS.formEnvio
+            this.formPath
           );
         }),
         map(data => {
