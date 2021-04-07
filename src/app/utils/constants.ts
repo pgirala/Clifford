@@ -9,30 +9,30 @@ export const CONSTANTS = {
     },
     routes: {
         local:{
-          root: environment.CL_HOST + '/'
+          root: environment.LOCAL_HOST + '/'
         },
         authorization: {
-            login: environment.FI_HOST + '/user/login',
-            logout: environment.FI_HOST + '/logout'
+            login: environment.HOST + '/user/login',
+            logout: environment.HOST + '/logout'
         },
         client: {
-          list: environment.FI_HOST + '/api/client',
-          delete: environment.FI_HOST + '/api/client/delete/:id',
-          save: environment.FI_HOST + '/api/client/save',
-          get: environment.FI_HOST + '/api/client/:id'
+          list: environment.HOST + '/api/client',
+          delete: environment.HOST + '/api/client/delete/:id',
+          save: environment.HOST + '/api/client/save',
+          get: environment.HOST + '/api/client/:id'
         },
         formulario: {
             scope: 'forms',
-            list: environment.FI_HOST + '/form',
-            get: environment.FI_HOST + '/form/:id',
-            find: environment.FI_HOST + '/form'
+            list: environment.HOST + '/form',
+            get: environment.HOST + '/form/:id',
+            find: environment.HOST + '/form'
         },
         submission: {
-          list: environment.FI_HOST + '/:formPath/submission',
-          delete: environment.FI_HOST + '/:formPath/submission/:id',
-          create: environment.FI_HOST + '/:formPath/submission',
-          update: environment.FI_HOST + '/:formPath/submission/:id',
-          get: environment.FI_HOST + '/:formPath/submission/:id'
+          list: environment.HOST + '/:formPath/submission',
+          delete: environment.HOST + '/:formPath/submission/:id',
+          create: environment.HOST + '/:formPath/submission',
+          update: environment.HOST + '/:formPath/submission/:id',
+          get: environment.HOST + '/:formPath/submission/:id'
         }
     },
     formEnvio: 'envio',
