@@ -170,7 +170,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnack({message: "Envío realizado: " + result});
+        this.openSnack({message: "Instancia creada: " + result});
         this.paginator._changePageSize(this.paginator.pageSize);
       }
     });
