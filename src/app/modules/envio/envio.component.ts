@@ -161,11 +161,13 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   save(): void {
+    const submissionVacia: Submission = {data:{}};
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
       width: '1000px',
       data: { action: 'save',
-            formulario: this.formulario }
+            formulario: this.formulario,
+            submission: this.submissionService.addToken(submissionVacia) }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -186,7 +188,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
       width: '1000px',
       data: { action: 'view',
             formulario: this.formulario,
-            submission: item }
+            submission: this.submissionService.addToken(item) }
     });
   }
 

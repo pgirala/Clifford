@@ -10,7 +10,6 @@ import { CONSTANTS } from '~utils/constants';
 
 import {KeycloakService} from "../keycloak/keycloak.service";
 
-
 @Injectable()
 export class AuthService {
   public loggedIn = new BehaviorSubject<boolean>(this.hasToken());
@@ -25,7 +24,7 @@ export class AuthService {
   ) { }
 
   headers = new HttpHeaders({
-    'x-access-token': localStorage.getItem('token')
+    'x-access-token': this.getTokenFormio()
   });
 
   login(dialogUser: DialogUser): Observable<HttpResponse<any>> {
@@ -55,8 +54,12 @@ export class AuthService {
     return (this.keycloakService != null && this.keycloakService.getToken() != null);
   }
 
+  public getTokenFormio():string {
+    return localStorage.getItem('token');
+  }
+
   hasTokenFormio(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getTokenFormio();
   }
 
   hasToken(): boolean {
