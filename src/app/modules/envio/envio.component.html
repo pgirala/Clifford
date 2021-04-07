@@ -47,20 +47,6 @@
           <mat-cell *matCellDef="let row">{{ row.modified  | date: 'dd/MM/yyyy hh:MM:ss'}}</mat-cell>
         </ng-container>
 
-        <!-- Table actions -->
-        <ng-container matColumnDef="personid">
-          <mat-header-cell *matHeaderCellDef>
-            Detalle
-          </mat-header-cell>
-
-          <mat-cell *matCellDef="let row">
-
-            <button mat-icon-button (click)="view(row)" aria-label="Ver el envío">
-              <i class="material-icons">more_horizon</i>
-            </button>
-
-          </mat-cell>
-        </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
