@@ -19,6 +19,9 @@ export class DetailComponent implements OnInit{
     action: string, formulario: any, submission: any},
     private submissionService: SubmissionService,
     public snack: MatSnackBar) {
+      console.log('+++++++');
+      console.log(JSON.stringify(data));
+      console.log('----');
       this.readOnly = (data.action == 'view');
       this.renderOptions = {
         language: 'sp',

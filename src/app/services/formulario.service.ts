@@ -46,11 +46,11 @@ export class FormularioService implements FormioProvider {
     );
   }
 
-  findByName(name: string): Observable<any> {
+  findOne(name: string): Observable<Formulario> {
     let nameFilter = new HttpParams();
     nameFilter = nameFilter.append('name__regex', '/^' + name + '/i')
 
-    return this.http.get<any>(
+    return this.http.get<Formulario>(
       CONSTANTS.routes.formulario.find,
       { headers: this.headers,
       params: nameFilter }

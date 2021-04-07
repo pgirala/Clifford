@@ -63,7 +63,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findByName(CONSTANTS.formEnvio).subscribe((formularios:any) => {
+    this.formularioService.findOne(CONSTANTS.formEnvio).subscribe((formularios:any) => {
       this.formulario = formularios[0];
     })
   }
