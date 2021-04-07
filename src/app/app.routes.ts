@@ -38,10 +38,6 @@ const routes: Routes = [
         loadChildren: '~modules/submission/submission.module#SubmissionModule',
       },
       {
-        path: 'envios',
-        loadChildren: '~modules/envio/envio.module#EnvioModule',
-      },
-      {
         path: 'users',
         loadChildren: '~modules/user/user.module#UserModule',
       },

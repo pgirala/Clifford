@@ -6,7 +6,6 @@ import { DashboardModule } from '~modules/dashboard/dashboard.module';
 import { ClientModule } from '~modules/client/client.module';
 import { FormularioModule } from '~modules/formulario/formulario.module';
 import { SubmissionModule } from '~modules/submission/submission.module';
-import { EnvioModule } from '~modules/envio/envio.module';
 import { FormioModule } from '@formio/angular';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { FormioModule } from '@formio/angular';
     ClientModule,
     FormularioModule,
     SubmissionModule,
-    EnvioModule,
     FormioModule
   ],
   declarations: [
