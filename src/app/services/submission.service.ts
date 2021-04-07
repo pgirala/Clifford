@@ -5,7 +5,6 @@ import { Submission } from '~app/models/submission';
 
 import { FormioProvider } from '~base/formio-provider';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class SubmissionService implements FormioProvider {
@@ -13,7 +12,6 @@ export class SubmissionService implements FormioProvider {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
   ) { }
 
   headers = new HttpHeaders({
@@ -72,16 +70,5 @@ export class SubmissionService implements FormioProvider {
       );
     }
   }
-
-
-  public addToken(submission:Submission) {
-    let resultado = JSON.parse(JSON.stringify(submission)); // obtiene un clon
-    let serializedData = JSON.stringify(submission.data);
-    let tokenData = '{"token":"' + this.authService.getTokenFormio() + '"' + (serializedData.length > 2 ? ',' : '') +
-                  serializedData.substring(1, serializedData.length);
-    resultado.data = JSON.parse(tokenData);
-    return resultado;
-  }
-
 
 }
