@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, EventEmitter, HostListener} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubmissionService } from '~services/submission.service';
+import { JbpmService } from '~services/jbpm.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 import { CONSTANTS } from '~app/utils/constants';
@@ -18,6 +19,7 @@ export class DetailComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: {
     action: string, formulario: any, submission: any},
     private submissionService: SubmissionService,
+    private jbpmService: JbpmService,
     public snack: MatSnackBar) {
       this.readOnly = (data.action == 'view');
       this.renderOptions = {
@@ -58,7 +60,11 @@ export class DetailComponent implements OnInit{
       subm = {_id:this.data.submission._id, data: event.data};
 
     this.submissionService.save(subm, this.data.formulario.path).subscribe((res: any) => {
-      this.dialogRef.close(res.data.resumen);
+      this.jbpmService.createInstance(CONSTANTS.formEnvio, subm).subscribe((res: any) => {
+        this.dialogRef.close(res.data.resumen);
+      }, (error:any) => {
+        this.openSnack(error); // TODO: borrar la submission con el envío ya que este no se ha perfeccionado
+      });
     }, (error:any) => {
       this.openSnack(error);});
   }
