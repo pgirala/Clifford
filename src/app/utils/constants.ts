@@ -33,6 +33,9 @@ export const CONSTANTS = {
           create: environment.FI_HOST + '/:formPath/submission',
           update: environment.FI_HOST + '/:formPath/submission/:id',
           get: environment.FI_HOST + '/:formPath/submission/:id'
+        },
+        jbpm: {
+          createInstance: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/clifford.envio/instances'
         }
     },
     formEnvio: 'envio',
