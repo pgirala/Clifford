@@ -56,7 +56,7 @@ export class KeycloakService
   }
 
   obtenerTokenFormio() {
-    let acreditacion:DialogUser = this.acreditacionFormio(this.getToken());
+    let acreditacion:DialogUser = this.acreditacionFormio();
     this.formioLogin(acreditacion).subscribe(
       (resp: HttpResponse<any>) => {
         if (resp.headers.get('x-jwt-token')) {
@@ -66,9 +66,9 @@ export class KeycloakService
     );
   }
 
-  acreditacionFormio(token: any): DialogUser {
+  public acreditacionFormio(): DialogUser {
     // obtener el payload del tokenn original y firmarlo con
-    let tokenDecodificado = jwt_decode(token);
+    let tokenDecodificado = jwt_decode(this.getToken());
     let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
     let dialogUser: DialogUser = {email: tokenJSON.user.id,
                                   password: tokenJSON.user.pwd};

@@ -3,27 +3,27 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '~utils/constants';
 
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { KeycloakService } from '../keycloak/keycloak.service';
 
 import { Submission } from '~app/models/submission';
+
+import { DialogUser } from '~models/dialog-user';
 
 @Injectable()
 export class JbpmService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private keycloakService: KeycloakService
   ) { }
 
   headers = new HttpHeaders({
-    'x-jwt-token': localStorage.getItem('token')
+    'Authorization': 'Basic ' + btoa(this.keycloakService.acreditacionFormio().email + ':' + this.keycloakService.acreditacionFormio().password),
+    'Access-Control-Allow-Origin': '*'
   });
 
   createInstance(flujo: string, submission: Submission): Observable<any> {
-    console.log('====>', flujo);
-    console.log('====>', JSON.stringify(submission));
     let path = CONSTANTS.routes.jbpm.createInstance.replace(':flujo', flujo);
-    console.log('====>', path);
     return this.http.put<any>(
       path,
       {submission: submission._id},
