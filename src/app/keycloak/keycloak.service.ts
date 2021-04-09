@@ -13,6 +13,7 @@ import { DialogUser } from '~models/dialog-user';
 export class KeycloakService
 {
   private keycloakAuth: KeycloakInstance;
+  private acreditacionFio: DialogUser;
 
   constructor(public http: HttpClient)
   {
@@ -55,9 +56,14 @@ export class KeycloakService
     );
   }
 
-  obtenerTokenFormio() {
-    let acreditacion:DialogUser = this.acreditacionFormio();
-    this.formioLogin(acreditacion).subscribe(
+  public getAcreditacionFio() {
+    if (this.acreditacionFio == null)
+      this.acreditacionFio = this.acreditacionFormio();
+    return this.acreditacionFio;
+  }
+
+  private obtenerTokenFormio() {
+    this.formioLogin(this.getAcreditacionFio()).subscribe(
       (resp: HttpResponse<any>) => {
         if (resp.headers.get('x-jwt-token')) {
           localStorage.setItem('token', resp.headers.get('x-jwt-token'));
@@ -66,8 +72,8 @@ export class KeycloakService
     );
   }
 
-  public acreditacionFormio(): DialogUser {
-    // obtener el payload del tokenn original y firmarlo con
+  private acreditacionFormio(): DialogUser {
+    // obtener el payload del token original y firmarlo con
     let tokenDecodificado = jwt_decode(this.getToken());
     let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
     let dialogUser: DialogUser = {email: tokenJSON.user.id,
@@ -80,8 +86,12 @@ export class KeycloakService
     return this.keycloakAuth.token;
   }
 
-  getAuthHeader(): string
+  getAuthHeader(url:string): string
   {
+    if (url.match(CONSTANTS.routes.jbpm.patronURL)) {
+      return "Basic " + btoa(this.getAcreditacionFio().email + ':' + this.getAcreditacionFio().password);
+    }
+
     const authToken = this.getToken() || "";
     return "Bearer " + authToken;
   }

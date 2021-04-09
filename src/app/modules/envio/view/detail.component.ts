@@ -60,8 +60,10 @@ export class DetailComponent implements OnInit{
       subm = {_id:this.data.submission._id, data: event.data};
 
     this.submissionService.save(subm, this.data.formulario.path).subscribe((res: any) => {
-      this.jbpmService.createInstance(CONSTANTS.formEnvio, subm).subscribe((res: any) => {
-        this.dialogRef.close(res.data.resumen);
+      let submissionId = res._id;
+      let resumen = res.data.resumen;
+      this.jbpmService.createInstance(CONSTANTS.formEnvio, submissionId).subscribe((res: any) => {
+        this.dialogRef.close(resumen);
       }, (error:any) => {
         this.openSnack(error); // TODO: borrar la submission con el envío ya que este no se ha perfeccionado
       });

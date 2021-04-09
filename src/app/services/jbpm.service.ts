@@ -7,7 +7,7 @@ import { KeycloakService } from '../keycloak/keycloak.service';
 
 import { Submission } from '~app/models/submission';
 
-import { DialogUser } from '~models/dialog-user';
+import { Response } from '~app/models/response';
 
 @Injectable()
 export class JbpmService {
@@ -17,18 +17,17 @@ export class JbpmService {
     private keycloakService: KeycloakService
   ) { }
 
-  headers = new HttpHeaders({
-    'Authorization': 'Basic ' + btoa(this.keycloakService.acreditacionFormio().email + ':' + this.keycloakService.acreditacionFormio().password),
-    'Access-Control-Allow-Origin': '*'
-  });
-
-  createInstance(flujo: string, submission: Submission): Observable<any> {
+  createInstance(flujo: string, submissionId: string): Observable<any> {
+    let cabeceras = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(this.keycloakService.getAcreditacionFio().email + ':' + this.keycloakService.getAcreditacionFio().password),
+      'Access-Control-Allow-Origin': '*'
+    });
     let path = CONSTANTS.routes.jbpm.createInstance.replace(':flujo', flujo);
-    return this.http.put<any>(
+    return this.http.post<any>(
       path,
-      {submission: submission._id},
-      { headers: this.headers, responseType: 'json', observe: 'body'}
-    )
+      {submissionId: submissionId},
+      { headers: cabeceras, responseType: 'json', observe: 'body'}
+    );
   }
 
 }
