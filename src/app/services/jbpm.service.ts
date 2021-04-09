@@ -18,15 +18,11 @@ export class JbpmService {
   ) { }
 
   createInstance(flujo: string, submissionId: string): Observable<any> {
-    let cabeceras = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa(this.keycloakService.getAcreditacionFio().email + ':' + this.keycloakService.getAcreditacionFio().password),
-      'Access-Control-Allow-Origin': '*'
-    });
     let path = CONSTANTS.routes.jbpm.createInstance.replace(':flujo', flujo);
     return this.http.post<any>(
       path,
       {submissionId: submissionId},
-      { headers: cabeceras, responseType: 'json', observe: 'body'}
+      {responseType: 'json', observe: 'body'}
     );
   }
 
