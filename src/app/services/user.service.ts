@@ -11,19 +11,20 @@ import { Observable } from 'rxjs';
 export class UserService implements FormioProvider  {
   constructor(private http: HttpClient) { }
 
-  headers = new HttpHeaders({
-    'x-jwt-token': localStorage.getItem('token')
-  });
-
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<User>> {
     return null;
   }
 
   getOne(email: string): Observable<User> {
     let path = CONSTANTS.routes.user.find.replace(':email', email);
+
+    let headers = new HttpHeaders({
+      'x-jwt-token': localStorage.getItem('token')
+    });
+
     return this.http.get<User>(
       path,
-      { headers: this.headers, responseType: 'json', observe: 'body' }
+      { headers: headers, responseType: 'json', observe: 'body' }
     );
   }
 

@@ -63,14 +63,14 @@ export class KeycloakService
       (resp: HttpResponse<any>) => {
         if (resp.headers.get('x-jwt-token')) {
           localStorage.setItem('token', resp.headers.get('x-jwt-token'));
-        }
-      }
-    );
 
-    this.userService.getOne(this.acreditacionFormio(this.getToken()).email).subscribe(
-      (users: User) => {
-        if (users[0])
-          localStorage.setItem('userFormio', JSON.stringify(users[0]));
+          this.userService.getOne(this.acreditacionFormio(this.getToken()).email).subscribe(
+            (users: User) => {
+              if (users[0])
+                localStorage.setItem('userFormio', JSON.stringify(users[0]));
+            }
+          );
+        }
       }
     );
   }
