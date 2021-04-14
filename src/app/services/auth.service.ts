@@ -9,6 +9,8 @@ import { DialogUser } from '~models/dialog-user';
 import { CONSTANTS } from '~utils/constants';
 
 import {KeycloakService} from "../keycloak/keycloak.service";
+import { User } from '~app/models/user';
+import { errorObject } from 'rxjs/internal-compatibility';
 
 @Injectable()
 export class AuthService {
@@ -66,4 +68,11 @@ export class AuthService {
     return this.hasTokenKC() || this.hasTokenFormio();
   }
 
+  getSuperior(): User {
+    try {
+      return JSON.parse(localStorage.getItem('userFormio')).data.superior;
+    } catch {
+      return null;
+    }
+  }
 }

@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import jwt_decode from "jwt-decode";
 import { DialogUser } from '~models/dialog-user';
+import { UserService } from '~services/user.service';
+import { User } from "~app/models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class KeycloakService
 {
   private keycloakAuth: KeycloakInstance;
 
-  constructor(public http: HttpClient)
+  constructor(public http: HttpClient, public userService: UserService)
   {
 
   }
@@ -62,6 +64,13 @@ export class KeycloakService
         if (resp.headers.get('x-jwt-token')) {
           localStorage.setItem('token', resp.headers.get('x-jwt-token'));
         }
+      }
+    );
+
+    this.userService.getOne(this.acreditacionFormio(this.getToken()).email).subscribe(
+      (users: User) => {
+        if (users[0])
+          localStorage.setItem('userFormio', JSON.stringify(users[0]));
       }
     );
   }

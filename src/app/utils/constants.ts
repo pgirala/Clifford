@@ -34,6 +34,9 @@ export const CONSTANTS = {
           update: environment.FI_HOST + '/:formPath/submission/:id',
           get: environment.FI_HOST + '/:formPath/submission/:id'
         },
+        user: {
+          find: environment.FI_HOST + '/user/submission?data.email=:email'
+        },
         envio: {
           create: environment.BK_HOST + '/clifford-back/rest/envios'
         }

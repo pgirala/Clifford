@@ -22,6 +22,7 @@ import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { FormularioService } from '~app/services/formulario.service';
+import { User } from '~app/models/user';
 
 @Component({
   selector: 'app-client',
@@ -161,7 +162,9 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   save(): void {
-    const submissionVacia: Submission = {data:{}};
+    const jefe = this.authService.getSuperior();
+    const submissionVacia: Submission= {data:(jefe == null ? {} :{destinatario:  jefe})};
+
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
       width: '1000px',
