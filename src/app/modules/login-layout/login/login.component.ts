@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('tokenFormio')) {
       this.router.navigate(['/']);
     }
 
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
           this.isLogin = false;
           if (resp.headers.get('x-jwt-token')) {
             this.authService.loggedIn.next(true);
-            localStorage.setItem('token', resp.headers.get('x-jwt-token'));
+            localStorage.setItem('tokenFormio', resp.headers.get('x-jwt-token'));
             this.router.navigate(['/']);
           } else {
             this.snack.openFromComponent(SnackbarComponent, {

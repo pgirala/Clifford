@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   public getTokenFormio():string {
-    return localStorage.getItem('token');
+    return localStorage.getItem('tokenFormio');
   }
 
   hasTokenFormio(): boolean {

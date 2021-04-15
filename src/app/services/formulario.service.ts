@@ -15,7 +15,7 @@ export class FormularioService implements FormioProvider {
   ) { }
 
   headers = new HttpHeaders({
-    'x-jwt-token': localStorage.getItem('token')
+    'x-jwt-token': localStorage.getItem('tokenFormio')
   });
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {

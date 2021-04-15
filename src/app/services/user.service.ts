@@ -19,7 +19,7 @@ export class UserService implements FormioProvider  {
     let path = CONSTANTS.routes.user.find.replace(':email', email);
 
     let headers = new HttpHeaders({
-      'x-jwt-token': localStorage.getItem('token')
+      'x-jwt-token': localStorage.getItem('tokenFormio')
     });
 
     return this.http.get<User>(

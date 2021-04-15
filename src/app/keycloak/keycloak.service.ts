@@ -62,7 +62,7 @@ export class KeycloakService
     this.formioLogin(acreditacion).subscribe(
       (resp: HttpResponse<any>) => {
         if (resp.headers.get('x-jwt-token')) {
-          localStorage.setItem('token', resp.headers.get('x-jwt-token'));
+          localStorage.setItem('tokenFormio', resp.headers.get('x-jwt-token'));
 
           this.userService.getOne(this.acreditacionFormio(this.getToken()).email).subscribe(
             (users: User) => {
