@@ -15,7 +15,7 @@ export class FormularioService implements FormioProvider {
   ) { }
 
   headers = new HttpHeaders({
-    'x-jwt-token': localStorage.getItem('token')
+    'x-jwt-token': localStorage.getItem('tokenFormio')
   });
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
@@ -46,11 +46,15 @@ export class FormularioService implements FormioProvider {
     );
   }
 
-  getOnePromise(id: string): Promise<Formulario> {
-    return this.http.get<Formulario>(
-      CONSTANTS.routes.formulario.get.replace(':id', String(id)),
-      { headers: this.headers }
-    ).toPromise();
+  findByName(name: string): Observable<any> {
+    let nameFilter = new HttpParams();
+    nameFilter = nameFilter.append('name__regex', '/^' + name + '/i')
+
+    return this.http.get<any>(
+      CONSTANTS.routes.formulario.find,
+      { headers: this.headers,
+      params: nameFilter }
+    );
   }
 
   save(formulario: Formulario): Observable<Formulario> {

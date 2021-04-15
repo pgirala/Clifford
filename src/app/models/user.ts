@@ -1,5 +1,5 @@
-export interface User {
-  _id: string;
-  created: Date;
-  modified: Date;
+import { Submission } from "./submission";
+
+export interface User extends Submission {
+  data: {superior: User};
 }

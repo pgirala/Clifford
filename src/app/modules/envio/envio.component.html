@@ -1,9 +1,9 @@
 <div class="animated fadeIn table-container mat-elevation-z20">
   <mat-card>
     <mat-card-header>
-      <i class="material-icons">wysiwyg</i>
+      <i class="material-icons">share</i>
       <mat-card-title>{{formulario.title}}</mat-card-title>
-      <mat-card-subtitle>Instancias del formulario</mat-card-subtitle>
+      <mat-card-subtitle>Envíos producidos</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -25,53 +25,42 @@
 
         <!-- Add button -->
         <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
-          <mat-icon>add</mat-icon> Nueva instancia
+          <mat-icon>add</mat-icon> Nuevo envío
         </button>
       </div>
 
-      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="resumen" matSortDisableClear
-        matSortDirection="asc">
+      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="created" matSortDisableClear
+        matSortDirection="desc">
         <!-- Table content -->
         <ng-container matColumnDef="resumen">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Instancia</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Envío</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.data.resumen }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="created">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Creación</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de envío</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.created | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="modified">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Modificación</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de recepción</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.modified  | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <!-- Table actions -->
         <ng-container matColumnDef="personid">
           <mat-header-cell *matHeaderCellDef>
-            Acciones
+            Detalle
           </mat-header-cell>
 
           <mat-cell *matCellDef="let row">
 
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Ver acciones">
-              <i class="material-icons">more_vert</i>
+            <button mat-icon-button (click)="view(row)" aria-label="Ver el envío">
+              <i class="material-icons">more_horizon</i>
             </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="view(row)">
-                <mat-icon aria-label="Ver">more_horizon</mat-icon> Ver
-              </button>
-              <button mat-menu-item (click)="edit(row)">
-                <mat-icon aria-label="Editar">create</mat-icon> Actualizar
-              </button>
-              <button mat-menu-item (click)="delete(row)">
-                <mat-icon aria-label="Borrar">clear</mat-icon> Eliminar
-              </button>
-            </mat-menu>
+
           </mat-cell>
         </ng-container>
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>

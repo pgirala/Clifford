@@ -9,25 +9,28 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { CONSTANTS } from '~utils/constants';
+
 import { Submission } from '~models/submission';
 import { SubmissionService } from '~services/submission.service';
 import { AuthService } from '~services/auth.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
-import { DetailComponent } from '~modules/submission/view/detail.component';
+import { DetailComponent } from '~modules/envio/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { FormularioService } from '~app/services/formulario.service';
+import { User } from '~app/models/user';
 
 @Component({
   selector: 'app-client',
-  templateUrl: './submission.component.html',
-  styleUrls: ['./submission.component.scss'],
+  templateUrl: './envio.component.html',
+  styleUrls: ['./envio.component.scss'],
   providers: [SubmissionService, FormularioService]
 })
-export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
+export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 5;
@@ -39,8 +42,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
-  public formId = '';
-  public formPath = '';
+  public formPath = CONSTANTS.formEnvio;
   public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -62,14 +64,9 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.route.queryParams.subscribe(params => {
-      this.formId = params['formId'];
-      this.formPath = params['formPath'];
-
-      this.formularioService.getOne(this.formId).subscribe((form:Formulario) => {
-        this.formulario = form;
-      })
-    });
+    this.formularioService.findByName(CONSTANTS.formEnvio).subscribe((formularios:any) => {
+      this.formulario = formularios[0];
+    })
   }
 
   ngAfterViewInit() {
@@ -114,7 +111,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
             Number.MAX_SAFE_INTEGER,
             1,
             this.search,
-            this.formPath
+            CONSTANTS.formEnvio
           );
         }),
         map(data => {
@@ -146,7 +143,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
             this.pageSize,
             this.page,
             this.search,
-            this.formPath
+            CONSTANTS.formEnvio
           );
         }),
         map(data => {
@@ -164,6 +161,30 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       ).subscribe(data => this.dataSource.data = data);
   }
 
+  save(): void {
+    const jefe = this.authService.getSuperior();
+    const submissionVacia: Submission= {data:(jefe == null ? {} :{destinatario:  jefe})};
+
+    const dialogRef = this.dialog.open(DetailComponent, {
+      height: '700px',
+      width: '1000px',
+      data: { action: 'save',
+            formulario: this.formulario,
+            submission: this.submissionService.addToken(submissionVacia) }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.openSnack({message: "Envío realizado: " + result});
+        this.paginator._changePageSize(this.paginator.pageSize);
+      }
+    });
+  }
+
+  edit(submission: Submission): void {}
+
+  delete(submission: Submission): void {}
+
   view(item: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
@@ -171,60 +192,6 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       data: { action: 'view',
             formulario: this.formulario,
             submission: this.submissionService.addToken(item) }
-    });
-  }
-
-  edit(submission: Submission): void {
-    const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
-      width: '1000px',
-      data: { action: 'update',
-            formulario: this.formulario,
-            submission: submission }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.openSnack({message: "Instancia actualizada: " + result});
-          this.paginator._changePageSize(this.paginator.pageSize);
-        }
-      });
-  }
-
-  save(): void {
-    const submissionVacia: Submission = {data:{}};
-    const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
-      width: '1000px',
-      data: { action: 'save',
-            formulario: this.formulario,
-            submission: this.submissionService.addToken(submissionVacia)  }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.openSnack({message: "Instancia creada: " + result});
-        this.paginator._changePageSize(this.paginator.pageSize);
-      }
-    });
-  }
-
-  delete(submission: Submission): void {
-    const dialogRef = this.dialog.open(ConfirmComponent, {
-      width: '250px',
-      data: {
-        title: 'Eliminar instancia',
-        message: '¿Quiere eliminar la instancia?'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.submissionService.delete(submission._id, this.formulario.path).subscribe((data: any) => {
-          this.openSnack({message: "Instancia eliminada: " + submission.data.resumen});
-          this.paginator._changePageSize(this.paginator.pageSize);
-        });
-      }
     });
   }
 

@@ -16,7 +16,7 @@ export class ClientService implements Provider {
   ) { }
 
   headers = new HttpHeaders({
-    'Authorization': 'JWT ' + localStorage.getItem('token')
+    'Authorization': 'JWT ' + localStorage.getItem('tokenFormio')
   });
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Response> {

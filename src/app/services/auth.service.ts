@@ -9,7 +9,8 @@ import { DialogUser } from '~models/dialog-user';
 import { CONSTANTS } from '~utils/constants';
 
 import {KeycloakService} from "../keycloak/keycloak.service";
-
+import { User } from '~app/models/user';
+import { errorObject } from 'rxjs/internal-compatibility';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
   ) { }
 
   headers = new HttpHeaders({
-    'x-access-token': localStorage.getItem('token')
+    'x-access-token': this.getTokenFormio()
   });
 
   login(dialogUser: DialogUser): Observable<HttpResponse<any>> {
@@ -55,12 +56,23 @@ export class AuthService {
     return (this.keycloakService != null && this.keycloakService.getToken() != null);
   }
 
+  public getTokenFormio():string {
+    return localStorage.getItem('tokenFormio');
+  }
+
   hasTokenFormio(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getTokenFormio();
   }
 
   hasToken(): boolean {
     return this.hasTokenKC() || this.hasTokenFormio();
   }
 
+  getSuperior(): User {
+    try {
+      return JSON.parse(localStorage.getItem('userFormio')).data.superior;
+    } catch {
+      return null;
+    }
+  }
 }

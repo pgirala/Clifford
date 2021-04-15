@@ -24,7 +24,8 @@ export const CONSTANTS = {
         formulario: {
             scope: 'forms',
             list: environment.FI_HOST + '/form',
-            get: environment.FI_HOST + '/form/:id'
+            get: environment.FI_HOST + '/form/:id',
+            find: environment.FI_HOST + '/form'
         },
         submission: {
           list: environment.FI_HOST + '/:formPath/submission',
@@ -32,8 +33,15 @@ export const CONSTANTS = {
           create: environment.FI_HOST + '/:formPath/submission',
           update: environment.FI_HOST + '/:formPath/submission/:id',
           get: environment.FI_HOST + '/:formPath/submission/:id'
+        },
+        user: {
+          find: environment.FI_HOST + '/user/submission?data.email=:email'
+        },
+        envio: {
+          create: environment.BK_HOST + '/clifford-back/rest/envios'
         }
     },
+    formEnvio: 'envio',
     lang: {},
     session: {},
     parameters: {},

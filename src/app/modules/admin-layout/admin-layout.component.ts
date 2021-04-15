@@ -62,7 +62,7 @@ export class AdminLayoutComponent implements OnInit {
         this.authService.logout().subscribe(response => {
           if(response == "OK") {
             this.authService.loggedIn.next(false);
-            localStorage.removeItem('token');
+            localStorage.removeItem('tokenFormio');
           }
         });
       }
