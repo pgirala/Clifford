@@ -81,9 +81,9 @@ export const CONSTANTS = {
         october: 'Octubre',
         november: 'Noviembre',
         december: 'Diciembre',
-        cancel: 'Cancelar',
+        cancel: 'Limpiar',
         submit: 'Aceptar',
-        confirmCancel: '¿Está seguro de que quiere cancelar?',
+        confirmCancel: '¿Está seguro de que quiere limpiar el formulario?',
         'Type to search': 'Filtro',
         'Add Another': 'Añadir'
       }
