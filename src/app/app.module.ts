@@ -44,6 +44,8 @@ import { UserModule } from '~modules/user/user.module';
 import { AdminLayoutModule } from '~modules/admin-layout/admin-layout.module';
 import { LoginLayoutModule } from '~modules/login-layout/login-layout.module';
 
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+
 export function kcFactory(keycloakService: KeycloakService) {
   return () => keycloakService.init();
 }
@@ -71,7 +73,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     AdminLayoutModule,
     LoginLayoutModule,
     UserModule,
-    FormioModule
+    FormioModule,
+    BackButtonDisableModule.forRoot()
   ],
   providers: [ /*DECLARACIÓN DE SERVICIOS*/
     KeycloakService,

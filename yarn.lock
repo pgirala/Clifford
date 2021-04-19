@@ -1500,6 +1500,13 @@
   "resolved" "https://registry.npmjs.org/alphanum-sort/-/alphanum-sort-1.0.2.tgz"
   "version" "1.0.2"
 
+"angular-disable-browser-back-button@^1.0.2":
+  "integrity" "sha512-TV+Y1/vW5ZN2CTHuas/ziYNF0tKtApPmtroK6ABCr57WAO+N6LVyH/4rWqeJ0lHNbpT+8AAgJeIY0olYHJpGJQ=="
+  "resolved" "https://registry.npmjs.org/angular-disable-browser-back-button/-/angular-disable-browser-back-button-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "tslib" "^1.9.0"
+
 "angular-formio@^4.11.4":
   "integrity" "sha512-etBKoBLCGkfygEIS1FSPAv+P1mXKb26/vnwveQZI60/sPbZaEW98kCuC+2LZeiVSULWKBSh7+Ntkfgd8EEcQeA=="
   "resolved" "https://registry.npmjs.org/angular-formio/-/angular-formio-4.11.4.tgz"
