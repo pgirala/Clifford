@@ -65,8 +65,17 @@ export class DetailComponent implements OnInit{
       this.envioService.create(submissionId).subscribe((res: any) => {
         this.dialogRef.close(resumen);
       }, (error:any) => {
-        this.openSnack(error); // TODO: borrar la submission con el envío ya que este no se ha perfeccionado
+        this.openSnack(error);
+        this.eliminarEnvioFallido(submissionId);
       });
+    }, (error:any) => {
+      this.openSnack(error);});
+  }
+
+  eliminarEnvioFallido(submissionId: string){
+    // se borra el envío ya que no se ha perfeccionado
+    this.submissionService.delete(submissionId, this.data.formulario.path).subscribe((res: any) => {
+      this.dialogRef.close('No se ha logrado realizar el envío');
     }, (error:any) => {
       this.openSnack(error);});
   }
