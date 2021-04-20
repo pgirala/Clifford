@@ -76,7 +76,7 @@ export class KeycloakService
   }
 
   acreditacionFormio(token: any): DialogUser {
-    // obtener el payload del tokenn original y firmarlo con
+    // obtener el payload del token original y firmarlo con
     let tokenDecodificado = jwt_decode(token);
     let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
     let dialogUser: DialogUser = {email: tokenJSON.user.id,
