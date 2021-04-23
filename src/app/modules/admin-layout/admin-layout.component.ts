@@ -52,6 +52,11 @@ export class AdminLayoutComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    if (localStorage.getItem('dominio'))
+      this.dominioActual = JSON.parse(localStorage.getItem('dominio'))
+    else
+      this.dominioActual = this.dominioVacio;
+    this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
   }
 
   ngOnDestroy(): void {
@@ -123,7 +128,7 @@ export class AdminLayoutComponent implements OnInit {
         this.dominioActual = dominio;
         break;
       }
-      localStorage.setItem('pathDominio', this.dominioActual.data.path);
+      localStorage.setItem('dominio', JSON.stringify(this.dominioActual));
       this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
       this.router.navigate(['']); // vuelve a la página inicial
   }
