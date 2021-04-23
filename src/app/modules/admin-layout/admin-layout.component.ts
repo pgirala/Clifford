@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '~services/auth.service';
+import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
 import { Dominio } from '~app/models/dominio';
@@ -31,6 +32,7 @@ export class AdminLayoutComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private envioService: EnvioService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public dialog: MatDialog,
@@ -122,6 +124,7 @@ export class AdminLayoutComponent implements OnInit {
         break;
       }
       localStorage.setItem('pathDominio', this.dominioActual.data.path);
+      this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
       this.router.navigate(['']); // vuelve a la página inicial
   }
 }
