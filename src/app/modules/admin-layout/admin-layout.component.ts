@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef, NgZone, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +17,7 @@ import { Dominio } from '~app/models/dominio';
   providers: [AuthService]
 })
 
-export class AdminLayoutComponent implements OnInit {
+export class AdminLayoutComponent implements OnInit, AfterViewChecked {
   isLoggedIn$: Observable<boolean>;
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
@@ -56,6 +56,10 @@ export class AdminLayoutComponent implements OnInit {
       this.dominioActual = JSON.parse(localStorage.getItem('dominio'))
     else
       this.dominioActual = this.dominioVacio;
+    this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+  }
+
+  ngAfterViewChecked() {
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
   }
 
