@@ -48,10 +48,12 @@
         &nbsp;Formularios
       </a>
 
-      <a mat-list-item routerLink="/envios">
-        <i class="material-icons">share</i>
-        &nbsp;Envíos
-      </a>
+      <div *ngIf="dominioActual.data.envios">
+        <a mat-list-item routerLink="/envios">
+          <i class="material-icons">share</i>
+          &nbsp;Envíos
+        </a>
+      </div>
 
       <!-- <a mat-list-item routerLink="/clients">
         <i class="material-icons">person</i>
