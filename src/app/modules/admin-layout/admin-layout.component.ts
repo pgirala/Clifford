@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { AuthService } from '~services/auth.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
+import { Dominio } from '~app/models/dominio';
+
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
@@ -19,8 +21,13 @@ export class AdminLayoutComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
 
+  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false}};
+  dominioActual:Dominio = this.dominioVacio;
+  dominios:Array<Dominio>;
+
   @ViewChild('progressBar', { static: false })
   progressBar: ElementRef;
+
 
   constructor(
     private authService: AuthService,
@@ -99,4 +106,20 @@ export class AdminLayoutComponent implements OnInit {
     });
   }
 
+  determinarContextos():void {
+    try {
+      this.dominios = JSON.parse(localStorage.getItem('userFormio')).data.dominios;
+    } catch {
+      this.dominios = new Array<Dominio>();
+    }
+  }
+
+  cambiarContexto(pathDominio:string): void {
+    for (let dominio of this.dominios)
+      if (dominio.data.path == pathDominio) {
+        this.dominioActual = dominio;
+        return;
+      }
+    this.dominioActual = this.dominioVacio;
+  }
 }

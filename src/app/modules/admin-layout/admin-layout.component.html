@@ -1,18 +1,21 @@
 <mat-toolbar class="toolbar" color="accent">
 
   <img src="assets/img/logo.png" class="menu" routerLink="/" style="cursor: pointer;">
+
   <span class="spacer"></span>
 
-  <!-- <button mat-icon-button [matMenuTriggerFor]="menu" mdTooltip="Change theme">
-    <mat-icon>format_color_fill</mat-icon>
-  </button> -->
+  <h3>{{dominioActual.data.nombre}}</h3>
+  <button mat-icon-button [matMenuTriggerFor]="domainMenu" mdTooltip="Cambiar contexto" (click)="determinarContextos()">
+    <mat-icon>find_replace</mat-icon>
+  </button>
 
-  <!-- <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="null">Light</button> -->
-    <!-- <button mat-menu-item (click)="changeTheme('light-theme')">Light</button> -->
-    <!-- <button mat-menu-item (click)="null">Dark</button> -->
-    <!-- <button mat-menu-item (click)="changeTheme('dark-theme')">Dark</button> -->
-  <!-- </mat-menu> -->
+  <mat-menu #domainMenu="matMenu">
+    <div *ngFor="let dominio of dominios">
+      <button mat-menu-item (click)="cambiarContexto(dominio.data.path)">{{dominio.data.nombre}}</button>
+    </div>
+  </mat-menu>
+
+  <span class="spacer"></span>
 
   <button mat-icon-button [matMenuTriggerFor]="profileMenu">
     <mat-icon>person_pin</mat-icon>
