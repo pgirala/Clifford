@@ -23,7 +23,7 @@ export class FormularioService implements FormioProvider {
     params = params.append('select', 'title');
     params = params.append('select', 'path');
     params = params.append('title__regex', search);
-    params = params.append('path__regex', '/^' + CONSTANTS.routes.formulario.scope + '/i');
+    params = params.append('path__regex', '/^' + localStorage.getItem('pathDominio') + '/i');
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
     let numeroItemsYaMostrados = pageSize * (page - 1);

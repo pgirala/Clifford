@@ -115,11 +115,13 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   cambiarContexto(pathDominio:string): void {
+    let resultado = this.dominioVacio;
     for (let dominio of this.dominios)
       if (dominio.data.path == pathDominio) {
         this.dominioActual = dominio;
-        return;
+        break;
       }
-    this.dominioActual = this.dominioVacio;
+      localStorage.setItem('pathDominio', this.dominioActual.data.path);
+      this.router.navigate(['']); // vuelve a la página inicial
   }
 }
