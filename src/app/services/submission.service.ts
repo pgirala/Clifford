@@ -20,12 +20,14 @@ export class SubmissionService implements FormioProvider {
     'x-jwt-token': localStorage.getItem('tokenFormio')
   });
 
-  getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string): Observable<Array<Submission>> {
+  getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string, dominioPath?: string): Observable<Array<Submission>> {
     let params = new HttpParams();
     /*params = params.append('select', 'created');
     params = params.append('select', 'modified');
     params = params.append('select', 'data.resumen');*/
     params = params.append('data.resumen__regex', search);
+    if (dominioPath)
+      params = params.append('data.dominio__regex', dominioPath);
     params = params.append('sort', (order == 'desc' ? '-' : '') + (sortActive == 'resumen' ? 'data.' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
     let numeroItemsYaMostrados = pageSize * (page - 1);

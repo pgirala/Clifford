@@ -111,7 +111,8 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             Number.MAX_SAFE_INTEGER,
             1,
             this.search,
-            CONSTANTS.formEnvio
+            CONSTANTS.formEnvio,
+            JSON.parse(localStorage.getItem('dominio')).data.path
           );
         }),
         map(data => {
@@ -143,7 +144,8 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             this.pageSize,
             this.page,
             this.search,
-            CONSTANTS.formEnvio
+            CONSTANTS.formEnvio,
+            JSON.parse(localStorage.getItem('dominio')).data.path
           );
         }),
         map(data => {
