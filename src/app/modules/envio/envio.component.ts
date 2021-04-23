@@ -163,7 +163,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
 
   save(): void {
     const jefe = this.authService.getSuperior();
-    const submissionVacia: Submission= {data:(jefe == null ? {} :{destinatario:  jefe})};
+    const submissionVacia: Submission= {data:{dominio:localStorage.getItem('pathDominio'), destinatario: (jefe == null ? null : jefe)}};
 
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
