@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '~utils/constants';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { KeycloakService } from '../keycloak/keycloak.service';
 
 import { Submission } from '~app/models/submission';
@@ -11,6 +11,7 @@ import { Response } from '~app/models/response';
 
 @Injectable()
 export class EnvioService {
+  enviosVisibilityChange: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private http: HttpClient,
@@ -26,4 +27,7 @@ export class EnvioService {
     );
   }
 
+  setEnviosVisibility(visibilidad:boolean) {
+    this.enviosVisibilityChange.next(visibilidad);
+  }
 }

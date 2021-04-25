@@ -22,7 +22,6 @@ export const CONSTANTS = {
           get: environment.FI_HOST + '/api/client/:id'
         },
         formulario: {
-            scope: 'forms',
             list: environment.FI_HOST + '/form',
             get: environment.FI_HOST + '/form/:id',
             find: environment.FI_HOST + '/form'

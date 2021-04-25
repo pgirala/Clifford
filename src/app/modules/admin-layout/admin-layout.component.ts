@@ -1,11 +1,14 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, ChangeDetectorRef, NgZone, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '~services/auth.service';
+import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
+
+import { Dominio } from '~app/models/dominio';
 
 @Component({
   selector: 'app-admin-layout',
@@ -14,16 +17,22 @@ import { ConfirmComponent } from '~components/confirm/confirm.component';
   providers: [AuthService]
 })
 
-export class AdminLayoutComponent implements OnInit {
+export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   isLoggedIn$: Observable<boolean>;
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
 
+  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false}};
+  dominioActual:Dominio = this.dominioVacio;
+  dominios:Array<Dominio>;
+
   @ViewChild('progressBar', { static: false })
   progressBar: ElementRef;
 
+
   constructor(
     private authService: AuthService,
+    private envioService: EnvioService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public dialog: MatDialog,
@@ -43,6 +52,15 @@ export class AdminLayoutComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    if (localStorage.getItem('dominio'))
+      this.dominioActual = JSON.parse(localStorage.getItem('dominio'))
+    else
+      this.dominioActual = this.dominioVacio;
+    this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+  }
+
+  ngAfterContentChecked() {
+    this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
   }
 
   ngOnDestroy(): void {
@@ -99,4 +117,23 @@ export class AdminLayoutComponent implements OnInit {
     });
   }
 
+  determinarContextos():void {
+    try {
+      this.dominios = JSON.parse(localStorage.getItem('userFormio')).data.dominios;
+    } catch {
+      this.dominios = new Array<Dominio>();
+    }
+  }
+
+  cambiarContexto(pathDominio:string): void {
+    let resultado = this.dominioVacio;
+    for (let dominio of this.dominios)
+      if (dominio.data.path == pathDominio) {
+        this.dominioActual = dominio;
+        break;
+      }
+      localStorage.setItem('dominio', JSON.stringify(this.dominioActual));
+      this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+      this.router.navigate(['']); // vuelve a la página inicial
+  }
 }

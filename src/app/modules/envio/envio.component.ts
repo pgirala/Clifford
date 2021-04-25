@@ -111,7 +111,8 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             Number.MAX_SAFE_INTEGER,
             1,
             this.search,
-            CONSTANTS.formEnvio
+            CONSTANTS.formEnvio,
+            JSON.parse(localStorage.getItem('dominio')).data.path
           );
         }),
         map(data => {
@@ -143,7 +144,8 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             this.pageSize,
             this.page,
             this.search,
-            CONSTANTS.formEnvio
+            CONSTANTS.formEnvio,
+            JSON.parse(localStorage.getItem('dominio')).data.path
           );
         }),
         map(data => {
@@ -163,7 +165,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
 
   save(): void {
     const jefe = this.authService.getSuperior();
-    const submissionVacia: Submission= {data:(jefe == null ? {} :{destinatario:  jefe})};
+    const submissionVacia: Submission= {data:{dominio:JSON.parse(localStorage.getItem('dominio')).data.path, destinatario: (jefe == null ? null : jefe)}};
 
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
