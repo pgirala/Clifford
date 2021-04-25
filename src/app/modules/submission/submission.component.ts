@@ -41,7 +41,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public search = '';
   public formId = '';
   public formPath = '';
-  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null};
+  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags: ['common']};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
