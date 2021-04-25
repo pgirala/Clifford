@@ -68,6 +68,7 @@ export class KeycloakService
             (users: User) => {
               if (users[0])
                 localStorage.setItem('userFormio', JSON.stringify(users[0]));
+                localStorage.setItem('userName', acreditacion.name)
             }
           );
         }
@@ -79,7 +80,8 @@ export class KeycloakService
     // obtener el payload del token original y firmarlo con
     let tokenDecodificado = jwt_decode(token);
     let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
-    let dialogUser: DialogUser = {email: tokenJSON.user.id,
+    let dialogUser: DialogUser = {name: tokenJSON.preferred_username,
+                                  email: tokenJSON.user.id,
                                   password: tokenJSON.user.pwd};
     return dialogUser;
   }

@@ -24,6 +24,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false}};
   dominioActual:Dominio = this.dominioVacio;
+  userName:string;
   dominios:Array<Dominio>;
 
   @ViewChild('progressBar', { static: false })
@@ -61,6 +62,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    this.userName = localStorage.getItem('userName');
   }
 
   ngOnDestroy(): void {
