@@ -34,9 +34,14 @@ html {
 
 body {
   font-family: Roboto, Arial, sans-serif;
+  font-size: 0.8rem;
   margin: 0;
   height: 100%;
   background-color: rgb(235, 235, 235);
+}
+
+.form-control {
+  font-size: 0.8rem;
 }
 
 /* @media (prefers-color-scheme: dark) {
