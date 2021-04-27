@@ -44,12 +44,21 @@ body {
   font-size: 0.8rem;
 }
 
+.formio-button-add-row {
+  font-size: 0.8rem;
+  background-color: green;
+}
+
 .formio-button-remove-row {
   background-color: red;
 }
 
 .btn {
   padding: 0.275rem 0.75rem;
+}
+
+.btn-md {
+  font-size: 0.8rem;
 }
 
 /* @media (prefers-color-scheme: dark) {
