@@ -5,11 +5,12 @@ import { Formulario } from '~app/models/formulario';
 
 import { FormioProvider } from '~base/formio-provider';
 import { FormioContextService } from '~app/services/formio-context.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ContextService } from '~app/services/context.service';
 
 @Injectable()
 export class FormularioService implements FormioProvider {
+  formulariosVisibilityChange: Subject<boolean> = new Subject<boolean>();
   loading = true;
 
   constructor(
@@ -64,5 +65,9 @@ export class FormularioService implements FormioProvider {
 
   save(formulario: Formulario): Observable<Formulario> {
     return null;
+  }
+
+  setFormulariosVisibility(visibilidad:boolean) {
+    this.formulariosVisibilityChange.next(visibilidad);
   }
 }

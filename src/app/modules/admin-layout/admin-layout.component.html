@@ -44,10 +44,12 @@
         &nbsp;Escritorio
       </a>
 
-      <a mat-list-item routerLink="/formularios">
-        <i class="material-icons">web</i>
-        &nbsp;Formularios
-      </a>
+      <div *ngIf="dominioActual.data.path">
+        <a mat-list-item routerLink="/formularios">
+          <i class="material-icons">web</i>
+          &nbsp;Formularios
+        </a>
+      </div>
 
       <div *ngIf="dominioActual.data.envios">
         <a mat-list-item routerLink="/envios">

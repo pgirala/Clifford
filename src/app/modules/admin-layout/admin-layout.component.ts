@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '~services/auth.service';
 import { ContextService } from '~services/context.service';
 import { FormioContextService } from '~services/formio-context.service';
+import { FormularioService } from '~services/formulario.service';
 import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
@@ -35,6 +36,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   constructor(
     private authService: AuthService,
+    private formularioService: FormularioService,
     private envioService: EnvioService,
     private formioContextService: FormioContextService,
     private contextService: ContextService,
@@ -62,10 +64,18 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     else
       this.dominioActual = this.dominioVacio;
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    if (this.dominioActual.data.path)
+      this.formularioService.setFormulariosVisibility(true);
+    else
+      this.formularioService.setFormulariosVisibility(false);
   }
 
   ngAfterContentChecked() {
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    if (this.dominioActual.data.path)
+      this.formularioService.setFormulariosVisibility(true);
+    else
+      this.formularioService.setFormulariosVisibility(false);
     this.userName = this.formioContextService.getUserName();
   }
 
@@ -140,6 +150,10 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
       }
       this.contextService.setDominio(this.dominioActual);
       this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+      if (this.dominioActual.data.path)
+        this.formularioService.setFormulariosVisibility(true);
+      else
+        this.formularioService.setFormulariosVisibility(false);
       this.router.navigate(['']); // vuelve a la página inicial
   }
 }
