@@ -16,9 +16,10 @@ export class SubmissionService implements FormioProvider {
     private authService: AuthService
   ) { }
 
-  headers = new HttpHeaders({
+  headers() {
+    return new HttpHeaders({
     'x-jwt-token': localStorage.getItem('tokenFormio')
-  });
+  })};
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string, dominioPath?: string): Observable<Array<Submission>> {
     let params = new HttpParams();
@@ -37,7 +38,7 @@ export class SubmissionService implements FormioProvider {
 
     return this.http.get<Array<Submission>>(
       path,
-      { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
+      { headers: this.headers(), params: params, responseType: 'json', observe: 'body' }
     );
   }
 
@@ -45,7 +46,7 @@ export class SubmissionService implements FormioProvider {
     let path = CONSTANTS.routes.submission.delete.replace(':formPath', formPath).replace(':id', String(id));
     return this.http.delete<Submission>(
       path,
-      { headers: this.headers, responseType: 'json', observe: 'body' }
+      { headers: this.headers(), responseType: 'json', observe: 'body' }
     );
   }
 
@@ -53,7 +54,7 @@ export class SubmissionService implements FormioProvider {
     let path = CONSTANTS.routes.submission.create.replace(':formPath', formPath).replace(':id', String(id));
     return this.http.get<Submission>(
       path,
-      { headers: this.headers, responseType: 'json', observe: 'body' }
+      { headers: this.headers(), responseType: 'json', observe: 'body' }
     );
   }
 
@@ -63,14 +64,14 @@ export class SubmissionService implements FormioProvider {
       return this.http.put<Submission>(
         path,
         submission,
-        { headers: this.headers, responseType: 'json', observe: 'body'}
+        { headers: this.headers(), responseType: 'json', observe: 'body'}
       );
     } else { // creación
       let path = CONSTANTS.routes.submission.create.replace(':formPath', formPath);
       return this.http.post<Submission>(
         path,
         submission,
-        { headers: this.headers, responseType: 'json', observe: 'body' }
+        { headers: this.headers(), responseType: 'json', observe: 'body' }
       );
     }
   }

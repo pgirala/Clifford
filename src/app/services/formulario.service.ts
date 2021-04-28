@@ -14,9 +14,10 @@ export class FormularioService implements FormioProvider {
     private http: HttpClient,
   ) { }
 
-  headers = new HttpHeaders({
+  headers() {
+    return new HttpHeaders({
     'x-jwt-token': localStorage.getItem('tokenFormio')
-  });
+  }) };
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
     let params = new HttpParams();
@@ -31,7 +32,7 @@ export class FormularioService implements FormioProvider {
 
     return this.http.get<Array<Formulario>>(
       CONSTANTS.routes.formulario.list,
-      { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
+      { headers: this.headers(), params: params, responseType: 'json', observe: 'body' }
     );
   }
 
@@ -42,7 +43,7 @@ export class FormularioService implements FormioProvider {
   getOne(id: string): Observable<Formulario> {
     return this.http.get<Formulario>(
       CONSTANTS.routes.formulario.get.replace(':id', String(id)),
-      { headers: this.headers }
+      { headers: this.headers() }
     );
   }
 
@@ -52,7 +53,7 @@ export class FormularioService implements FormioProvider {
 
     return this.http.get<any>(
       CONSTANTS.routes.formulario.find,
-      { headers: this.headers,
+      { headers: this.headers(),
       params: nameFilter }
     );
   }
