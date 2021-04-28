@@ -1,7 +1,9 @@
 import { environment } from '../../environments/environment';
 
 export const CONSTANTS = {
-    permissions: {},
+    permissions: {
+      sufijoCorreo: '@gob.es'
+    },
     keycloak: {
       url: environment.KC_HOST + '/auth',
       realm: 'Clifford',

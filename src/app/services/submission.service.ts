@@ -4,6 +4,7 @@ import { CONSTANTS } from '~utils/constants';
 import { Submission } from '~app/models/submission';
 
 import { FormioProvider } from '~base/formio-provider';
+import { FormioContextService } from '~app/services/formio-context.service';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -13,12 +14,13 @@ export class SubmissionService implements FormioProvider {
 
   constructor(
     private http: HttpClient,
+    private formioContextService: FormioContextService,
     private authService: AuthService
   ) { }
 
   headers() {
     return new HttpHeaders({
-    'x-jwt-token': localStorage.getItem('tokenFormio')
+    'x-jwt-token': this.formioContextService.getTokenFormio()
   })};
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string, dominioPath?: string): Observable<Array<Submission>> {

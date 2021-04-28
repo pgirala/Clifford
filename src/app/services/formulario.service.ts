@@ -4,7 +4,9 @@ import { CONSTANTS } from '~utils/constants';
 import { Formulario } from '~app/models/formulario';
 
 import { FormioProvider } from '~base/formio-provider';
+import { FormioContextService } from '~app/services/formio-context.service';
 import { Observable } from 'rxjs';
+import { ContextService } from '~app/services/context.service';
 
 @Injectable()
 export class FormularioService implements FormioProvider {
@@ -12,11 +14,13 @@ export class FormularioService implements FormioProvider {
 
   constructor(
     private http: HttpClient,
+    private formioContextService: FormioContextService,
+    private contextService: ContextService
   ) { }
 
   headers() {
     return new HttpHeaders({
-    'x-jwt-token': localStorage.getItem('tokenFormio')
+    'x-jwt-token': this.formioContextService.getTokenFormio()
   }) };
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
@@ -24,7 +28,7 @@ export class FormularioService implements FormioProvider {
     params = params.append('select', 'title');
     params = params.append('select', 'path');
     params = params.append('title__regex', search);
-    params = params.append('path__regex', '/^' + JSON.parse(localStorage.getItem('dominio')).data.path + '/i');
+    params = params.append('path__regex', '/^' + this.contextService.getDominio().data.path + '/i');
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
     params = params.append('limit', pageSize.toString());
     let numeroItemsYaMostrados = pageSize * (page - 1);

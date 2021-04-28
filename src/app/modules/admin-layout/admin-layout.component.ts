@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '~services/auth.service';
+import { ContextService } from '~services/context.service';
+import { FormioContextService } from '~services/formio-context.service';
 import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
@@ -22,7 +24,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
 
-  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false}};
+  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false, individual:false}};
   dominioActual:Dominio = this.dominioVacio;
   userName:string;
   dominios:Array<Dominio>;
@@ -34,6 +36,8 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   constructor(
     private authService: AuthService,
     private envioService: EnvioService,
+    private formioContextService: FormioContextService,
+    private contextService: ContextService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public dialog: MatDialog,
@@ -53,8 +57,8 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
-    if (localStorage.getItem('dominio'))
-      this.dominioActual = JSON.parse(localStorage.getItem('dominio'))
+    if (this.contextService.getDominio())
+      this.dominioActual = this.contextService.getDominio();
     else
       this.dominioActual = this.dominioVacio;
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
@@ -62,7 +66,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
-    this.userName = localStorage.getItem('userName');
+    this.userName = this.formioContextService.getUserName();
   }
 
   ngOnDestroy(): void {
@@ -82,7 +86,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
         this.authService.logout().subscribe(response => {
           if(response == "OK") {
             this.authService.loggedIn.next(false);
-            localStorage.removeItem('tokenFormio');
+            this.contextService.removeTokenFormio();
           }
         });
       }
@@ -121,7 +125,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   determinarContextos():void {
     try {
-      this.dominios = JSON.parse(localStorage.getItem('userFormio')).data.dominios;
+      this.dominios = this.formioContextService.getDominios();
     } catch {
       this.dominios = new Array<Dominio>();
     }
@@ -134,7 +138,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
         this.dominioActual = dominio;
         break;
       }
-      localStorage.setItem('dominio', JSON.stringify(this.dominioActual));
+      this.contextService.setDominio(this.dominioActual);
       this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
       this.router.navigate(['']); // vuelve a la página inicial
   }

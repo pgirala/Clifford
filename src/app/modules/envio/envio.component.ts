@@ -23,6 +23,7 @@ import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { FormularioService } from '~app/services/formulario.service';
 import { User } from '~app/models/user';
+import { ContextService } from '~app/services/context.service';
 
 @Component({
   selector: 'app-client',
@@ -53,6 +54,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
     private submissionService: SubmissionService,
     private formularioService: FormularioService,
     private authService: AuthService,
+    private contextService: ContextService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -112,7 +114,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             1,
             this.search,
             CONSTANTS.formEnvio,
-            JSON.parse(localStorage.getItem('dominio')).data.path
+            this.contextService.getDominio().data.path
           );
         }),
         map(data => {
@@ -145,7 +147,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             this.page,
             this.search,
             CONSTANTS.formEnvio,
-            JSON.parse(localStorage.getItem('dominio')).data.path
+            this.contextService.getDominio().data.path
           );
         }),
         map(data => {
@@ -165,7 +167,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
 
   save(): void {
     const jefe = this.authService.getSuperior();
-    const submissionVacia: Submission= {data:{dominio:JSON.parse(localStorage.getItem('dominio')).data.path, destinatario: (jefe == null ? null : jefe)}};
+    const submissionVacia: Submission= {data:{dominio:this.contextService.getDominio().data.path, destinatario: (jefe == null ? null : jefe)}};
 
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',

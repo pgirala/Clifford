@@ -9,8 +9,8 @@ import { DialogUser } from '~models/dialog-user';
 import { CONSTANTS } from '~utils/constants';
 
 import {KeycloakService} from "../keycloak/keycloak.service";
+import { FormioContextService } from '~services/formio-context.service';
 import { User } from '~app/models/user';
-import { errorObject } from 'rxjs/internal-compatibility';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +22,8 @@ export class AuthService {
 
   constructor(
     public http: HttpClient,
-    public keycloakService:KeycloakService
+    public keycloakService:KeycloakService,
+    public formioContextService: FormioContextService
   ) { }
 
   headers = new HttpHeaders({
@@ -57,11 +58,11 @@ export class AuthService {
   }
 
   public getTokenFormio():string {
-    return localStorage.getItem('tokenFormio');
+    return this.formioContextService.getTokenFormio();
   }
 
   hasTokenFormio(): boolean {
-    return !!this.getTokenFormio();
+    return !!this.formioContextService.getTokenFormio();
   }
 
   hasToken(): boolean {
@@ -70,7 +71,7 @@ export class AuthService {
 
   getSuperior(): User {
     try {
-      return JSON.parse(localStorage.getItem('userFormio')).data.superior;
+      return this.formioContextService.getUserFormio().data.superior;
     } catch {
       return null;
     }

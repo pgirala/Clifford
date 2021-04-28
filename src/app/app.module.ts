@@ -37,6 +37,8 @@ import { ClientService } from '~app/services/client.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~app/services/envio.service';
+import { FormioContextService } from '~app/services/formio-context.service';
+import { ContextService } from '~app/services/context.service';
 
 /*IMPORTACION DE LOS MODULES QUE A SU VEZ ELLOS IMPORTAN SUS PROPIOS COMPONENTES
 ASI SE EVITA SATURAR ESTE ARCHIVO DE IMPORTACIONES Y SE MODULARIZA EL PROYECTO.*/
@@ -97,6 +99,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     FormularioService,
     SubmissionService,
     EnvioService,
+    FormioContextService,
+    ContextService,
     {provide: FormioAppConfig, useValue: AppConfig}
   ],
   entryComponents: [ /*AQUI SE AGREGAN LOS MAT-CONFIRM Y LOS MAT-SNACKBAR DE ANGULAR MATERIAL*/

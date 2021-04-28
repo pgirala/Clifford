@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '~services/auth.service';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 import { HttpResponse } from '@angular/common/http';
+import { FormioContextService } from '~services/formio-context.service';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +22,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private formioContextService: FormioContextService,
     private router: Router,
     public snack: MatSnackBar,
   ) { }
 
   ngOnInit() {
-    if (localStorage.getItem('tokenFormio')) {
+    if (this.formioContextService.getTokenFormio()) {
       this.router.navigate(['/']);
     }
 
@@ -68,7 +70,7 @@ export class LoginComponent implements OnInit {
           this.isLogin = false;
           if (resp.headers.get('x-jwt-token')) {
             this.authService.loggedIn.next(true);
-            localStorage.setItem('tokenFormio', resp.headers.get('x-jwt-token'));
+            this.formioContextService.setTokenFormioOrganizacion(resp.headers.get('x-jwt-token'));
             this.router.navigate(['/']);
           } else {
             this.snack.openFromComponent(SnackbarComponent, {

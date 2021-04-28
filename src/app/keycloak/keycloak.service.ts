@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import jwt_decode from "jwt-decode";
 import { DialogUser } from '~models/dialog-user';
 import { UserService } from '~services/user.service';
+import { FormioContextService } from '~services/formio-context.service';
+import { ContextService } from '~services/context.service';
 import { User } from "~app/models/user";
 
 @Injectable({
@@ -16,7 +18,9 @@ export class KeycloakService
 {
   private keycloakAuth: KeycloakInstance;
 
-  constructor(public http: HttpClient, public userService: UserService)
+  constructor(public http: HttpClient, public userService: UserService,
+              public formioContextService: FormioContextService,
+              public contextService: ContextService)
   {
 
   }
@@ -35,7 +39,7 @@ export class KeycloakService
       this.keycloakAuth.init({onLoad: 'login-required'})
           .then(() =>
           {
-            this.obtenerTokenFormio(); // va pidiendo el token con form.io
+            this.obtenerTokensFormio(); // va pidiendo el token con form.io
             resolve();
           })
           .catch(() =>
@@ -45,11 +49,11 @@ export class KeycloakService
     });
   }
 
-  formioLogin(dialogUser: DialogUser): Observable<HttpResponse<any>> {
+  formioLogin(dialogUser: DialogUser, individual:boolean = false): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(
       CONSTANTS.routes.authorization.login, {
         data: {
-          email: dialogUser.email,
+          email: (individual ?  dialogUser.email : dialogUser.organization + CONSTANTS.permissions.sufijoCorreo),
           password: dialogUser.password
         }
       },
@@ -57,18 +61,50 @@ export class KeycloakService
     );
   }
 
-  obtenerTokenFormio() {
+  obtenerTokensFormio() {
+    // El usuario puede actuar en nombre propio o en nombre de su organización, por lo que se obtienen los dos tokens
     let acreditacion:DialogUser = this.acreditacionFormio(this.getToken());
-    this.formioLogin(acreditacion).subscribe(
+    this.obtenerTokenFormioIndividual(acreditacion);
+    this.obtenerTokenFormioOrganizacion(acreditacion);
+  }
+
+  obtenerTokenFormioIndividual(acreditacion:DialogUser) {
+    // elimina los token existentes
+    this.formioContextService.removeTokenFormioIndividual();
+    this.formioContextService.removeUserFormioIndividual();
+
+    this.formioLogin(acreditacion, true).subscribe(
       (resp: HttpResponse<any>) => {
         if (resp.headers.get('x-jwt-token')) {
-          localStorage.setItem('tokenFormio', resp.headers.get('x-jwt-token'));
-
-          this.userService.getOne(this.acreditacionFormio(this.getToken()).email).subscribe(
+          this.formioContextService.setTokenFormioIndividual(resp.headers.get('x-jwt-token'));
+          this.userService.getOneIndividual(acreditacion.email).subscribe(
             (users: User) => {
-              if (users[0])
-                localStorage.setItem('userFormio', JSON.stringify(users[0]));
-                localStorage.setItem('userName', acreditacion.name)
+              if (users[0]) {
+                this.contextService.setUserFormioIndividual(users[0]);
+                this.contextService.setUserNameIndividual(acreditacion.name);
+              }
+            }
+          );
+        }
+      }
+    );
+  }
+
+  obtenerTokenFormioOrganizacion(acreditacion:DialogUser) {
+    // elimina los token existentes
+    this.formioContextService.removeTokenFormioOrganizacion();
+    this.formioContextService.removeUserFormioOrganizacion();
+
+    this.formioLogin(acreditacion, false).subscribe(
+      (resp: HttpResponse<any>) => {
+        if (resp.headers.get('x-jwt-token')) {
+          this.formioContextService.setTokenFormioOrganizacion(resp.headers.get('x-jwt-token'));
+          this.userService.getOneOrganizacion(acreditacion.organization + CONSTANTS.permissions.sufijoCorreo).subscribe(
+            (users: User) => {
+              if (users[0]) {
+                this.contextService.setUserFormioOrganizacion(users[0]);
+                this.contextService.setUserNameOrganizacion(acreditacion.organization);
+              }
             }
           );
         }
@@ -77,12 +113,12 @@ export class KeycloakService
   }
 
   acreditacionFormio(token: any): DialogUser {
-    // obtener el payload del token original y firmarlo con
     let tokenDecodificado = jwt_decode(token);
     let tokenJSON = JSON.parse(JSON.stringify(tokenDecodificado));
     let dialogUser: DialogUser = {name: tokenJSON.preferred_username,
-                                  email: tokenJSON.user.id,
-                                  password: tokenJSON.user.pwd};
+                                  email: tokenJSON.email,
+                                  password: tokenJSON.user.pwd,
+                                  organization: tokenJSON.user.organization};
     return dialogUser;
   }
 
@@ -106,5 +142,4 @@ export class KeycloakService
     };
     this.keycloakAuth.logout(options);
   }
-
 }

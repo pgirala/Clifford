@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '~utils/constants';
 import { User } from '~app/models/user';
+import { FormioContextService } from '~services/formio-context.service';
 
 import { FormioProvider } from '~base/formio-provider';
 import { Observable } from 'rxjs';
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService implements FormioProvider  {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private formioContextService:FormioContextService) { }
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<User>> {
     return null;
@@ -19,7 +20,33 @@ export class UserService implements FormioProvider  {
     let path = CONSTANTS.routes.user.find.replace(':email', email);
 
     let headers = new HttpHeaders({
-      'x-jwt-token': localStorage.getItem('tokenFormio')
+      'x-jwt-token': this.formioContextService.getTokenFormio()
+    });
+
+    return this.http.get<User>(
+      path,
+      { headers: headers, responseType: 'json', observe: 'body' }
+    );
+  }
+
+  getOneIndividual(email: string): Observable<User> {
+    let path = CONSTANTS.routes.user.find.replace(':email', email);
+
+    let headers = new HttpHeaders({
+      'x-jwt-token': this.formioContextService.getTokenFormioIndividual()
+    });
+
+    return this.http.get<User>(
+      path,
+      { headers: headers, responseType: 'json', observe: 'body' }
+    );
+  }
+
+  getOneOrganizacion(email: string): Observable<User> {
+    let path = CONSTANTS.routes.user.find.replace(':email', email);
+
+    let headers = new HttpHeaders({
+      'x-jwt-token': this.formioContextService.getTokenFormioOrganizacion()
     });
 
     return this.http.get<User>(
