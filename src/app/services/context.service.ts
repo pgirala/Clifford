@@ -18,6 +18,10 @@ export class ContextService {
     localStorage.setItem('dominio', JSON.stringify(dominio));
   }
 
+  removeDominio(): void {
+    localStorage.removeItem('dominio');
+  }
+
   // usuario activo
 
   getUserNameIndividual(): string {

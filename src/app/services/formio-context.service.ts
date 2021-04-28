@@ -22,9 +22,13 @@ export class FormioContextService {
     }
 
     isIndividual(): boolean {
-      if (this.contextService.getDominio().data.individual)
-        return new Boolean(this.contextService.getDominio().data.individual).valueOf();
-      return false; // por defecto es de organización
+      try {
+        if (this.contextService.getDominio().data.individual)
+          return new Boolean(this.contextService.getDominio().data.individual).valueOf();
+        return false; // por defecto es de organización
+      } catch {
+        return false;
+      }
     }
 
     public getTokenFormioIndividual():string {

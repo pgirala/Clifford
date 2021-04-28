@@ -64,6 +64,7 @@ export class KeycloakService
   obtenerTokensFormio() {
     // El usuario puede actuar en nombre propio o en nombre de su organización, por lo que se obtienen los dos tokens
     let acreditacion:DialogUser = this.acreditacionFormio(this.getToken());
+    this.contextService.removeDominio();
     this.obtenerTokenFormioIndividual(acreditacion);
     this.obtenerTokenFormioOrganizacion(acreditacion);
   }
