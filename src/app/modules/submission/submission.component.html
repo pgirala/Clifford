@@ -24,10 +24,16 @@
         </mat-form-field>
 
         <!-- Add button -->
-
         <div *ngIf="formulario.tags.includes('common') || totalItems === 0">
           <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
             <mat-icon>add</mat-icon> Nueva instancia
+          </button>
+        </div>
+
+        <!-- Download button -->
+        <div *ngIf="totalItems != 0">
+          <button mat-raised-button (click)="descargar()" style="margin-bottom: 15px;" color="primary">
+            <mat-icon>download</mat-icon>
           </button>
         </div>
       </div>

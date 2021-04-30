@@ -191,6 +191,37 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       });
   }
 
+  descargar(): void {
+    this.submissionService.getList(
+      this.sort.active,
+      this.sort.direction,
+      Number.MAX_SAFE_INTEGER,
+      1,
+      this.search,
+      this.formPath
+    ).subscribe((resp: any) => {
+      const file = new Blob([JSON.stringify(resp)], {type: 'text/json'});
+      this.download(file,"descarga.json");
+    });
+  }
+
+  download(blob, filename) {
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(blob, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(blob);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    }
+  }
+
   save(): void {
     const submissionVacia: Submission = {data:{}};
     const dialogRef = this.dialog.open(DetailComponent, {
