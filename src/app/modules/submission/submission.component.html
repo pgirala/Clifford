@@ -22,22 +22,25 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-
-        <!-- Add button -->
-        <div *ngIf="formulario.tags.includes('common') || totalItems === 0">
-          <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
-            <mat-icon>add</mat-icon> Nueva instancia
-          </button>
-        </div>
-
-        <!-- Download button -->
-        <div *ngIf="totalItems != 0">
-          <button mat-raised-button (click)="descargar()" style="margin-bottom: 15px;" color="primary">
-            <mat-icon>download</mat-icon>
-          </button>
-        </div>
+        <mat-grid-list cols="2" rowHeight="50px">
+          <mat-grid-tile>
+            <!-- Add button -->
+            <div *ngIf="formulario.tags.includes('common') || totalItems === 0">
+              <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
+                <mat-icon>add</mat-icon> Nueva instancia
+              </button>
+            </div>
+          </mat-grid-tile>
+            <!-- Download button -->
+          <mat-grid-tile>
+            <div *ngIf="totalItems != 0">
+              <button mat-raised-button (click)="descargar()" style="margin-bottom: 15px;" color="primary">
+                <mat-icon>download</mat-icon>
+              </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
-
       <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="resumen" matSortDisableClear
         matSortDirection="asc">
         <!-- Table content -->
