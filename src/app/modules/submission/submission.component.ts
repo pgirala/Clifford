@@ -167,7 +167,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   view(item: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
-      width: '1000px',
+      width: '1200px',
       data: { action: 'view',
             formulario: this.formulario,
             submission: this.submissionService.addToken(item) }
@@ -177,7 +177,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   edit(submission: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
-      width: '1000px',
+      width: '1200px',
       data: { action: 'update',
             formulario: this.formulario,
             submission: submission }
@@ -226,7 +226,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
     const submissionVacia: Submission = {data:{}};
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
-      width: '1000px',
+      width: '1200px',
       data: { action: 'save',
             formulario: this.formulario,
             submission: this.submissionService.addToken(submissionVacia)  }
