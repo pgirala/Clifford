@@ -44,6 +44,11 @@ export const CONSTANTS = {
     },
     formularios: {
         multiple: 'common',
+        size: {
+            small: 'small',
+            medium: 'medium',
+            large: 'large'
+        },
         formEnvio: 'envio',
         lang: {},
         session: {},
