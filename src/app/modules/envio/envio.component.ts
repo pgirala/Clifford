@@ -43,7 +43,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
-  public formPath = CONSTANTS.formEnvio;
+  public formPath = CONSTANTS.formularios.formEnvio;
   public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags:['common']};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -66,7 +66,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findByName(CONSTANTS.formEnvio).subscribe((formularios:any) => {
+    this.formularioService.findByName(CONSTANTS.formularios.formEnvio).subscribe((formularios:any) => {
       this.formulario = formularios[0];
     })
   }
@@ -113,7 +113,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             Number.MAX_SAFE_INTEGER,
             1,
             this.search,
-            CONSTANTS.formEnvio,
+            CONSTANTS.formularios.formEnvio,
             this.contextService.getDominio().data.path
           );
         }),
@@ -146,7 +146,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
             this.pageSize,
             this.page,
             this.search,
-            CONSTANTS.formEnvio,
+            CONSTANTS.formularios.formEnvio,
             this.contextService.getDominio().data.path
           );
         }),
