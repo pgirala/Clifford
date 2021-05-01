@@ -20,6 +20,7 @@ import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { FormularioService } from '~app/services/formulario.service';
+import { CONSTANTS } from '~utils/constants';
 
 @Component({
   selector: 'app-client',
@@ -41,7 +42,8 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public search = '';
   public formId = '';
   public formPath = '';
-  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags: ['common']};
+  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags: [CONSTANTS.formularios.multiple]};
+  public multiple = CONSTANTS.formularios.multiple;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;

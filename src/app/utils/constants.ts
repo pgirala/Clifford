@@ -43,6 +43,7 @@ export const CONSTANTS = {
         }
     },
     formularios: {
+        multiple: 'common',
         formEnvio: 'envio',
         lang: {},
         session: {},
