@@ -58,6 +58,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit() {
+    this.contextService.reset();
     this.isLoggedIn$ = this.authService.isLoggedIn;
     if (this.contextService.getDominio())
       this.dominioActual = this.contextService.getDominio();

@@ -6,6 +6,16 @@ import { User } from '~app/models/user';
 export class ContextService {
   constructor() { }
 
+  reset() {
+    localStorage.removeItem('dominio');
+    localStorage.removeItem('userNameIndividual');
+    localStorage.removeItem('userNameOrganizacion');
+    localStorage.removeItem('tokenFormioIndividual');
+    localStorage.removeItem('tokenFormioOrganizacion');
+    localStorage.removeItem('userFormioIndividual');
+    localStorage.removeItem('userFormioOrganizacion');
+  }
+
   getDominio(): Dominio {
     try {
       return JSON.parse(localStorage.getItem('dominio'));
