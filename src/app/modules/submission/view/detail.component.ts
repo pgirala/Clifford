@@ -11,6 +11,7 @@ import { CONSTANTS } from '~app/utils/constants';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit{
+  public submission: any;
   public renderOptions: any;
   public readOnly: boolean = false;
   triggerRefresh: any=new EventEmitter();
@@ -19,6 +20,7 @@ export class DetailComponent implements OnInit{
     action: string, formulario: any, submission: any},
     private submissionService: SubmissionService,
     public snack: MatSnackBar) {
+      this.submission = JSON.parse(JSON.stringify(data.submission));
       this.readOnly = (data.action == 'view');
       this.renderOptions = {
         language: 'sp',
