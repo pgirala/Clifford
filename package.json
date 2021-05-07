@@ -1,8 +1,8 @@
 {
-  "name": "Angular-CRUD",
-  "version": "9.0.0",
+  "name": "Clifford",
+  "version": "3.1.2",
   "license": "MIT",
-  "author": "Edgar Mejía <edgar1315@gmail.com>",
+  "author": "Pablo Gálvez <pgirala@gmail.com>",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
