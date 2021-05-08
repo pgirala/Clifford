@@ -163,7 +163,7 @@
     "universal-analytics" "0.4.23"
     "uuid" "8.3.0"
 
-"@angular/common@^10.0.3", "@angular/common@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0", "@angular/common@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/common@>=7.0.0", "@angular/common@>=8.0.0":
+"@angular/common@^10.0.3", "@angular/common@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/common@>=7.0.0", "@angular/common@>=8.0.0":
   "integrity" "sha512-R2q/Vt07PHgcmvZBVGcYjf6K2xERCHWUYQYN1HsgjVQUu5ypvE7Kqs+6s0BfIoBKc+ejKmjMHHumnm+89O+gXg=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-10.0.3.tgz"
   "version" "10.0.3"
@@ -196,14 +196,14 @@
   dependencies:
     "tslib" "^2.0.0"
 
-"@angular/core@^10.0.3", "@angular/core@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0", "@angular/core@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/core@>=7.0.0", "@angular/core@>=8.0.0", "@angular/core@9.1.13":
+"@angular/core@^10.0.3", "@angular/core@^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/core@>=7.0.0", "@angular/core@>=8.0.0", "@angular/core@9.1.13":
   "integrity" "sha512-EfWAz5StlPYo2ZtvVzeoNlGrFAXRncwGd/CExbLFOZx4HcDXVkATw5d4vnKHmmKacDqnbuvMD2M0Tl0EJi5q4g=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-10.0.3.tgz"
   "version" "10.0.3"
   dependencies:
     "tslib" "^2.0.0"
 
-"@angular/elements@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0", "@angular/elements@^9.0.0 || ^10.0.0 || ^11.0.0":
+"@angular/elements@^9.0.0 || ^10.0.0 || ^11.0.0":
   "integrity" "sha512-0yho3+oj/E51JT5gsNfKXEX3BcaqdEYhPzJTKch8wW1uMYmrnWdOMHCEEnV1lBr7sXF4+qdlIXrTei65x+ei7g=="
   "resolved" "https://registry.npmjs.org/@angular/elements/-/elements-9.1.13.tgz"
   "version" "9.1.13"
@@ -215,7 +215,7 @@
   dependencies:
     "tslib" "^2.0.0"
 
-"@angular/forms@^10.0.3", "@angular/forms@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0":
+"@angular/forms@^10.0.3":
   "integrity" "sha512-08XlERBGVnzea4sVY7J1JsU6zX/ENGZGB9V4K1jpX6gNjlAk2AbskC76+ngdsgdzv0neNEqPoLdMAZerNECnUg=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-10.0.3.tgz"
   "version" "10.0.3"
@@ -248,7 +248,7 @@
   dependencies:
     "tslib" "^2.0.0"
 
-"@angular/router@^10.0.3", "@angular/router@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0":
+"@angular/router@^10.0.3":
   "integrity" "sha512-WMNJ4yS3xvgOPa73hKQNHoTCT2l+bvompxdqZSqN7dh92QtPJBXCm+qBC2jRDj4wgP7Eq5dgymh7a/dZqseFEQ=="
   "resolved" "https://registry.npmjs.org/@angular/router/-/router-10.0.3.tgz"
   "version" "10.0.3"
@@ -1574,16 +1574,6 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"angular-formio@^4.11.4":
-  "integrity" "sha512-etBKoBLCGkfygEIS1FSPAv+P1mXKb26/vnwveQZI60/sPbZaEW98kCuC+2LZeiVSULWKBSh7+Ntkfgd8EEcQeA=="
-  "resolved" "https://registry.npmjs.org/angular-formio/-/angular-formio-4.11.4.tgz"
-  "version" "4.11.4"
-  dependencies:
-    "core-js" "^3.8.1"
-    "formiojs" "^4.12.6"
-    "lodash" "^4.17.20"
-    "ngx-bootstrap" "^5.6.1"
-
 "angular-oauth2-oidc@^10.0.3":
   "integrity" "sha512-9wC8I3e3cN6rMBOlo5JB2y3Fd2erp8pJ67t4vEVzyPbnRG6BJ4rreSOznSL9zw/2SjhC9kRV2OfFie29CUCzEg=="
   "resolved" "https://registry.npmjs.org/angular-oauth2-oidc/-/angular-oauth2-oidc-10.0.3.tgz"
@@ -2827,11 +2817,6 @@
   "integrity" "sha512-SaMnchL//WwU2Ot1hhkPflE8gzo7uq1FGvUJ8GKmi3TOU7rGTHIU+eir1WGf6qOtTyxdfdcp10yPdGZ59sQ3hw=="
   "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.12.0.tgz"
   "version" "3.12.0"
-
-"core-js@^3.8.1":
-  "integrity" "sha512-gSjRvzkxQc1zjM/5paAmL4idJBFzuJoo+jDjF1tStYFMV2ERfD02HhahhCGXUyHxQRG4yFKVSdO6g62eoRMcDg=="
-  "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.9.1.tgz"
-  "version" "3.9.1"
 
 "core-js@3.6.4":
   "integrity" "sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw=="
@@ -4142,7 +4127,7 @@
     "combined-stream" "^1.0.6"
     "mime-types" "^2.1.12"
 
-"formiojs@^4.12.6", "formiojs@^4.12.7", "formiojs@^4.13.0-rc.20":
+"formiojs@^4.12.7", "formiojs@^4.13.0-rc.20":
   "integrity" "sha512-bd6QnFdYw8ctR4D/TvsdmKxDeYWydzv5P+zORd2t42+N4RLkud8HiqeKyOK/BIC0OZywAh6oFomSEQH4UNt/Sg=="
   "resolved" "https://registry.npmjs.org/formiojs/-/formiojs-4.13.1.tgz"
   "version" "4.13.1"
@@ -7878,7 +7863,7 @@
   "resolved" "https://registry.npmjs.org/rxjs-compat/-/rxjs-compat-6.6.0.tgz"
   "version" "6.6.0"
 
-"rxjs@^5.0.0 || ^6.0.0", "rxjs@^6.5.3", "rxjs@^6.6.0":
+"rxjs@^6.5.3", "rxjs@^6.6.0":
   "integrity" "sha512-trsQc+xYYXZ3urjOiJOuCOa5N3jAZ3eiSpQB5hIT8zGlL2QfnHLJ2r7GMkBGuIausdJN1OneaI6gQlsqNHHmZQ=="
   "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-6.6.3.tgz"
   "version" "6.6.3"
