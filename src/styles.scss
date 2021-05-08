@@ -61,6 +61,10 @@ body {
   font-size: 0.8rem;
 }
 
+.row {
+  flex-wrap: nowrap;
+}
+
 /* @media (prefers-color-scheme: dark) {
     body {
         background-color: black;
