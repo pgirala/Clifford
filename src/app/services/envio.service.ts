@@ -18,12 +18,17 @@ export class EnvioService {
     private keycloakService: KeycloakService
   ) { }
 
+  headers = new HttpHeaders({
+    'Authorization': this.keycloakService.getAuthHeader()
+  });
+
   create(submissionId: string): Observable<any> {
     // perfecciona la instancia del envío generado a través de su formulario
     return this.http.post<any>(
       CONSTANTS.routes.envio.create,
       {submissionId: submissionId},
-      {responseType: 'json', observe: 'body'}
+      {headers: this.headers,
+        responseType: 'json', observe: 'body'}
     );
   }
 
