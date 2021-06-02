@@ -25,6 +25,6 @@ $ npm install --force
 $ npm start
 ```
 
-`http://localhost:4200/`
+`http://clifford:4200/`
 
 La aplicación se recarga cada vez que se cambia un fichero.
