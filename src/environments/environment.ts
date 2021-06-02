@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   CL_HOST: 'http://localhost:4200',
   FI_HOST: 'http://localhost:3001',
-  KC_HOST: 'http://localhost:8080',
+  KC_HOST: 'http://keycloak:8080', // en C:\Windows\System32\drivers\etc se ha incluido la línea 127.0.0.1 keycloak
   BK_HOST: 'http://localhost:8090'
 };
