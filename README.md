@@ -21,8 +21,16 @@ $ npm install --force
 
 ## Ejecutar la aplicación (desarrollo)
 
+En primer lugar hay que habilitar en Chrome la url como de confianza. Para ello.
+
+- Poner http://clifford:4200 en el navegador.
+- Pinchar donde dice que no es seguro.
+- Entrar en la configuración de sitios web.
+- Permitir el contenido no seguro para la url.
+
 ```
-$ npm start
+$ ng serve --host 0.0.0.0 --disable-host-check
+(con npm start habrá problemas ya que hay que deshabilitar el control del host)
 ```
 
 `http://clifford:4200/`
