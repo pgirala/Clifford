@@ -60,7 +60,7 @@ export class DetailComponent implements OnInit {
 
   onSubmit(event) {
     this.successEmitter.emit('Operación realizada con éxito');
-    this.currentForm.emit('submitDone')
+    this.currentForm.emit('submitDone');
 
     let subm: any;
 
