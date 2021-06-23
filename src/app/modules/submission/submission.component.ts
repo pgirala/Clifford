@@ -21,6 +21,7 @@ import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { FormularioService } from '~app/services/formulario.service';
 import { CONSTANTS } from '~utils/constants';
+import { Formio } from 'formiojs';
 
 @Component({
   selector: 'app-client',
@@ -70,6 +71,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
       this.formularioService.getOne(this.formId).subscribe((form:Formulario) => {
         this.formulario = form;
+        Formio.clearCache(); // en caso contrario los select cargados no volverán a refrescarse
       })
     });
   }
