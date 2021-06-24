@@ -15,7 +15,9 @@ export class DetailComponent implements OnInit{
   public submission: any;
   public renderOptions: any;
   public readOnly: boolean = false;
+  public successEmitter: any = new EventEmitter();
   triggerRefresh: any=new EventEmitter();
+  public currentForm: any;
   constructor(public dialogRef: MatDialogRef<DetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
     action: string, formulario: any, submission: any},
@@ -53,7 +55,15 @@ export class DetailComponent implements OnInit{
     });
   }
 
+  // ready function
+  ready(event) {
+    this.currentForm = event.formio;
+  }
+
   onSubmit(event) {
+    this.successEmitter.emit('Operación solicitada');
+    this.currentForm.emit('submitDone');
+
     let subm: any;
 
     if (this.data.action == 'save')
