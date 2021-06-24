@@ -19,9 +19,11 @@ import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
+import { TipoPermiso } from '~app/models/enums';
 import { FormularioService } from '~app/services/formulario.service';
 import { CONSTANTS } from '~utils/constants';
 import { Formio } from 'formiojs';
+import { FormioContextService } from '~app/services/formio-context.service';
 
 @Component({
   selector: 'app-client',
@@ -45,6 +47,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public formPath = '';
   public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags: [CONSTANTS.formularios.multiple]};
   public multiple = CONSTANTS.formularios.multiple;
+  public altaHabilitada = false;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -54,6 +57,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
     private submissionService: SubmissionService,
     private formularioService: FormularioService,
     private authService: AuthService,
+    private formioContext: FormioContextService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -72,6 +76,9 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       this.formularioService.getOne(this.formId).subscribe((form:Formulario) => {
         this.formulario = form;
         Formio.clearCache(); // en caso contrario los select cargados no volverán a refrescarse
+        // determina los permisos
+        this.altaHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearPropio) ||
+                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearCualquiera);
       })
     });
   }

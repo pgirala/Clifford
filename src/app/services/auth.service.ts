@@ -11,6 +11,9 @@ import { CONSTANTS } from '~utils/constants';
 import {KeycloakService} from "../keycloak/keycloak.service";
 import { FormioContextService } from '~services/formio-context.service';
 import { User } from '~app/models/user';
+import { Role } from '~app/models/role';
+import { Formulario } from "~app/models/Formulario";
+import { TipoPermiso } from "~app/models/Enums";
 
 @Injectable()
 export class AuthService {
@@ -75,5 +78,30 @@ export class AuthService {
     } catch {
       return null;
     }
+  }
+
+  tieneAcceso(user: User, formulario: Formulario, tipoPermiso: TipoPermiso): boolean {
+    try {
+      if (!user || !formulario || !tipoPermiso)
+        return false;
+      // primero localiza el tipo de permiso en el formulario
+      let roles = new Array<Role>();
+      for (let permiso of formulario.submissionAccess)
+        if (permiso.type == tipoPermiso.valueOf()) {
+          roles = permiso.roles;
+          break;
+        }
+      // después comprueba si alguno de los roles está entre los roles del usuario
+      if (roles.length == 0)
+        return false;
+      for (let roleGranted of roles)
+        for (let rolePlayed of user.roles)
+          if (rolePlayed == roleGranted) {
+            return true;
+          }
+      return false;
+      } catch {
+        return false;
+      }
   }
 }

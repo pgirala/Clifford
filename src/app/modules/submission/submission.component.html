@@ -25,7 +25,7 @@
         <mat-grid-list cols="2" rowHeight="50px">
           <mat-grid-tile>
             <!-- Add button -->
-            <div *ngIf="formulario.tags.includes(multiple) || totalItems === 0">
+            <div *ngIf="(formulario.tags.includes(multiple) || totalItems === 0) && altaHabilitada">
               <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
                 <mat-icon>add</mat-icon> Nueva instancia
               </button>
