@@ -74,12 +74,16 @@
               <button mat-menu-item (click)="view(row)">
                 <mat-icon aria-label="Ver">more_horizon</mat-icon> Ver
               </button>
-              <button mat-menu-item (click)="edit(row)">
-                <mat-icon aria-label="Editar">create</mat-icon> Actualizar
-              </button>
-              <button mat-menu-item (click)="delete(row)">
-                <mat-icon aria-label="Borrar">clear</mat-icon> Eliminar
-              </button>
+              <div *ngIf="modificacionHabilitada">
+                <button mat-menu-item (click)="edit(row)">
+                  <mat-icon aria-label="Editar">create</mat-icon> Actualizar
+                </button>
+              </div>
+              <div *ngIf="eliminacionHabilitada">
+                <button mat-menu-item (click)="delete(row)">
+                  <mat-icon aria-label="Borrar">clear</mat-icon> Eliminar
+                </button>
+              </div>
             </mat-menu>
           </mat-cell>
         </ng-container>

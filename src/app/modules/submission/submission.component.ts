@@ -48,6 +48,8 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags: [CONSTANTS.formularios.multiple]};
   public multiple = CONSTANTS.formularios.multiple;
   public altaHabilitada = false;
+  public modificacionHabilitada = false;
+  public eliminacionHabilitada = false;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -79,6 +81,11 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
         // determina los permisos
         this.altaHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearPropio) ||
                               this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearCualquiera);
+        this.modificacionHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarPropio) ||
+                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarCualquiera);
+        this.eliminacionHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.EliminarPropio) ||
+                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.EliminarCualquiera);
+
       })
     });
   }
