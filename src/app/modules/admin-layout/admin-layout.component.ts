@@ -27,7 +27,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false, individual:false}};
   dominioActual:Dominio = this.dominioVacio;
-  userName:string;
+  userName:string = "Anónimo";
   dominios:Array<Dominio>;
 
   @ViewChild('progressBar', { static: false })
