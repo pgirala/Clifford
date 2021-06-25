@@ -16,7 +16,7 @@ export class DetailComponent implements OnInit{
   public renderOptions: any;
   public readOnly: boolean = false;
   public successEmitter: any = new EventEmitter();
-  triggerRefresh: any=new EventEmitter();
+  public triggerRefresh: any=new EventEmitter();
   public currentForm: any;
   constructor(public dialogRef: MatDialogRef<DetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
