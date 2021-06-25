@@ -56,11 +56,16 @@ export class FormioContextService {
     }
 
     getUserName(): string {
-      if (this.isIndividual())
-        return this.contextService.getUserNameIndividual();
+      let resultado = '';
+      if (this.contextService.getUserNameIndividual())
+        resultado = this.contextService.getUserNameIndividual();
       else
-      return this.contextService.getUserNameIndividual() + (this.contextService.getUserNameOrganizacion() == null ? '' : '/' + this.contextService.getUserNameOrganizacion());
-    }
+        resultado = 'Anónimo';
+      if (!this.isIndividual()) {
+        resultado = resultado + (this.contextService.getUserNameOrganizacion() == null ? '' : '/' + this.contextService.getUserNameOrganizacion());
+      }
+        return resultado;
+      }
 
     public getUserFormio():User {
       // tiene en cuenta el contexto para determinar si el dominio es para individuos u organizaciones
