@@ -3,5 +3,5 @@ import { Role } from "./role";
 
 export interface User extends Submission {
   roles: Array<Role>;
-  data: {superior: User, dominios?:Array<any>};
+  data: {superior: User, dominios?:Array<any>, email?:string, administrador?:boolean};
 }

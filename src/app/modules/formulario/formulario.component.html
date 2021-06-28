@@ -43,6 +43,14 @@
               <i class="material-icons">topic</i>
             </button>
 
+            <div *ngIf="disenoHabilitado">
+              <button mat-menu-item (click)="design(row)">
+                <mat-icon aria-label="Disenar"><span class="material-icons">
+                  account_balance
+                  </span></mat-icon>
+              </button>
+            </div>
+
           </mat-cell>
         </ng-container>
 

@@ -17,7 +17,6 @@ import { DetailComponent } from '~modules/submission/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
-import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { TipoPermiso } from '~app/models/enums';
 import { FormularioService } from '~app/services/formulario.service';

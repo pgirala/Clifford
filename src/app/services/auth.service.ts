@@ -67,6 +67,14 @@ export class AuthService {
     }
   }
 
+  isAdministrador(user: User): boolean {
+    try {
+      return user.data.administrador;
+    } catch {
+      return false;
+    }
+  }
+
   tieneAcceso(user: User, formulario: Formulario, tipoPermiso: TipoPermiso): boolean {
     try {
       if (!user || !formulario || !tipoPermiso)

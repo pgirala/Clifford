@@ -15,6 +15,7 @@ import { AuthService } from '~services/auth.service';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
+import { FormioContextService } from '~app/services/formio-context.service';
 
 @Component({
   selector: 'app-client',
@@ -34,6 +35,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
+  public disenoHabilitado = false;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -42,6 +44,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     private changeDetectorRef: ChangeDetectorRef,
     private formularioService: FormularioService,
     private authService: AuthService,
+    private formioContext: FormioContextService,
     private router: Router,
     public dialog: MatDialog,
     public snack: MatSnackBar
@@ -51,6 +54,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     if (!this.authService.loggedIn.getValue()) {
       this.router.navigate(['/login']);
     }
+    this.disenoHabilitado = this.authService.isAdministrador(this.formioContext.getUserFormio());
   }
 
   ngAfterViewInit() {
@@ -154,5 +158,9 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   delete(item: Object): void {
+  }
+
+  design(item: Formulario): void {
+    alert('Diseño');
   }
 }
