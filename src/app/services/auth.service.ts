@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { DialogUser } from '~models/dialog-user';
 import { CONSTANTS } from '~utils/constants';
 
 import {KeycloakService} from "../keycloak/keycloak.service";

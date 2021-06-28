@@ -4,11 +4,9 @@ COMO EL SHARED.MODULES SU FUNCIÓN ES AHORRARNOS LÍNEAS DE CÓDIGO*/
 export { ContactUsComponent } from '~components/contact-us/contact-us.component';
 export { TablesComponent } from '~components/tables/tables.component';
 export { NotFoundComponent } from '~components/not-found/not-found.component';
-export { LoginComponent } from '~modules/login-layout/login/login.component';
 export { DashboardComponent } from '~modules/dashboard/dashboard.component';
 
 // CRUD
-export { ClientComponent } from '~modules/client/client.component';
 export { FormularioComponent } from '~modules/formulario/formulario.component';
 export { SubmissionComponent } from '~modules/submission/submission.component';
 export { UserComponent } from '~modules/user/user.component';

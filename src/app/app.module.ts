@@ -31,7 +31,6 @@ import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 // IMPORTACIÓN DE LOS SERVICES
 import { AuthService } from '~services/auth.service';
 import { UserService } from '~services/user.service';
-import { ClientService } from '~app/services/client.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~app/services/envio.service';
@@ -42,7 +41,6 @@ import { ContextService } from '~app/services/context.service';
 ASI SE EVITA SATURAR ESTE ARCHIVO DE IMPORTACIONES Y SE MODULARIZA EL PROYECTO.*/
 import { UserModule } from '~modules/user/user.module';
 import { AdminLayoutModule } from '~modules/admin-layout/admin-layout.module';
-import { LoginLayoutModule } from '~modules/login-layout/login-layout.module';
 
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
@@ -71,8 +69,6 @@ export function kcFactory(keycloakService: KeycloakService) {
       }
     }),
     AdminLayoutModule,
-    LoginLayoutModule,
-    UserModule,
     FormioModule,
     BackButtonDisableModule.forRoot()
   ],
@@ -93,7 +89,6 @@ export function kcFactory(keycloakService: KeycloakService) {
     AuthGuard,
     AuthService,
     UserService,
-    ClientService,
     FormularioService,
     SubmissionService,
     EnvioService,

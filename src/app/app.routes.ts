@@ -6,7 +6,6 @@ import { AuthGuard } from '~guards/auth.guard';
 
 // LAYOUTS
 import { AdminLayoutComponent } from '~modules/admin-layout/admin-layout.component';
-import { LoginLayoutComponent } from '~modules/login-layout/login-layout.component';
 
 /*CON LA CREACIÓN DEL ARCHIVO INDEX.PAGES NOS AHORRAMOS TENER QUE HACER
 UNA IMPORTACIÓN POR CADA COMPONENTE DE LAS VISTAS*/
@@ -45,18 +44,6 @@ const routes: Routes = [
         path: 'users',
         loadChildren: '~modules/user/user.module#UserModule',
       },
-    ]
-  },
-  {
-    path: '',
-    component: LoginLayoutComponent,
-    children: [
-      {
-        path: 'login',
-        loadChildren: '~modules/login-layout/login/login.module#LoginModule',
-      },
-      { path: '404', component: NotFoundComponent },
-      { path: '**', redirectTo: '/404' }
     ]
   }
 ];
