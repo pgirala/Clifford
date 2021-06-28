@@ -64,25 +64,7 @@ export class LoginComponent implements OnInit {
 
   public login() {
     if (this.form.valid) {
-      this.isLogin = true;
-      this.authService.login(this.form.value).subscribe(
-        (resp: HttpResponse<any>) => {
-          this.isLogin = false;
-          if (resp.headers.get('x-jwt-token')) {
-            this.authService.loggedIn.next(true);
-            this.formioContextService.setTokenFormioOrganizacion(resp.headers.get('x-jwt-token'));
-            this.router.navigate(['/']);
-          } else {
-            this.snack.openFromComponent(SnackbarComponent, {
-              data: { data: resp },
-              duration: 3000
-            });
-          }
-        },
-        (error) => {
-          this.isLogin = false;
-        }
-      );
+      this.isLogin = false;
     }
   }
 

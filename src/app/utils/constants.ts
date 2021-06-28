@@ -14,7 +14,8 @@ export const CONSTANTS = {
           root: environment.CL_HOST + '/'
         },
         authorization: {
-            login: environment.FI_HOST + '/user/login',
+            loginIndividual: environment.BK_HOST + '/clifford-back/rest/usuarios/token/usuario',
+            loginOrganizacion: environment.BK_HOST + '/clifford-back/rest/usuarios/token/organizacion',
             logout: environment.FI_HOST + '/logout'
         },
         client: {

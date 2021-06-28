@@ -62,7 +62,7 @@ export class FormioContextService {
       else
         resultado = 'Anónimo';
       if (!this.isIndividual()) {
-        resultado = resultado + (this.contextService.getUserNameOrganizacion() == null ? '' : '/' + this.contextService.getUserNameOrganizacion());
+        resultado = resultado + (this.contextService.getUserNameOrganizacion() == null ? '' : ' / ' + this.contextService.getUserNameOrganizacion());
       }
         return resultado;
       }

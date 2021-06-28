@@ -33,18 +33,6 @@ export class AuthService {
     'x-access-token': this.getTokenFormio()
   });
 
-  login(dialogUser: DialogUser): Observable<HttpResponse<any>> {
-    return this.http.post<HttpResponse<any>>(
-      CONSTANTS.routes.authorization.login, {
-        data: {
-          email: dialogUser.email,
-          password: dialogUser.password
-        }
-      },
-      {observe: 'response'}
-    );
-  }
-
   logout(): Observable<String> {
     if (this.keycloakService != null && this.keycloakService.getToken() != null) {
       this.keycloakService.logout();
