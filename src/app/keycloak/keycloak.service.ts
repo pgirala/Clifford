@@ -4,13 +4,10 @@ import {KeycloakInstance} from "keycloak-js";
 import { CONSTANTS } from '~utils/constants';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import jwt_decode from "jwt-decode";
-import { DialogUser } from '~models/dialog-user';
 import { UserService } from '~services/user.service';
 import { FormioContextService } from '~services/formio-context.service';
 import { ContextService } from '~services/context.service';
 import { User } from "~app/models/user";
-import { URLSearchParams } from "url";
 
 @Injectable({
   providedIn: 'root'

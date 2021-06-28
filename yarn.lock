@@ -4147,7 +4147,6 @@
     "ismobilejs" "^1.1.1"
     "json-logic-js" "^2.0.0"
     "jstimezonedetect" "^1.0.7"
-    "jwt-decode" "^3.1.2"
     "lodash" "^4.17.21"
     "moment" "^2.29.1"
     "moment-timezone" "^0.5.33"
@@ -5442,11 +5441,6 @@
     "pako" "~1.0.2"
     "readable-stream" "~2.3.6"
     "set-immediate-shim" "~1.0.1"
-
-"jwt-decode@^3.1.2":
-  "integrity" "sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A=="
-  "resolved" "https://registry.npmjs.org/jwt-decode/-/jwt-decode-3.1.2.tgz"
-  "version" "3.1.2"
 
 "karma-chrome-launcher@~3.1.0":
   "integrity" "sha512-3dPs/n7vgz1rxxtynpzZTvb9y/GIaW8xjAwcIGttLbycqoFtI7yo1NGnQi6oFTherRE+GIhCAHZC4vEqWGhNvg=="
