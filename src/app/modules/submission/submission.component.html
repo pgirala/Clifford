@@ -61,30 +61,24 @@
 
         <!-- Table actions -->
         <ng-container matColumnDef="personid">
-          <mat-header-cell *matHeaderCellDef>
+          <mat-header-cell *matHeaderCellDef width=10%>
             Acciones
           </mat-header-cell>
 
           <mat-cell *matCellDef="let row">
-
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Ver acciones">
-              <i class="material-icons">more_vert</i>
-            </button>
-            <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="view(row)">
-                <mat-icon aria-label="Ver">more_horizon</mat-icon> Ver
+                <mat-icon aria-label="Ver">visibility</mat-icon>
               </button>
               <div *ngIf="modificacionHabilitada">
                 <button mat-menu-item (click)="edit(row)">
-                  <mat-icon aria-label="Editar">create</mat-icon> Actualizar
+                  <mat-icon aria-label="Editar">create</mat-icon>
                 </button>
               </div>
               <div *ngIf="eliminacionHabilitada">
                 <button mat-menu-item (click)="delete(row)">
-                  <mat-icon aria-label="Borrar">clear</mat-icon> Eliminar
+                  <mat-icon aria-label="Borrar">delete_forever</mat-icon>
                 </button>
               </div>
-            </mat-menu>
           </mat-cell>
         </ng-container>
 
