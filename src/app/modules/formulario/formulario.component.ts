@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Formulario } from '~models/formulario';
 import { FormularioService } from '~services/formulario.service';
 import { AuthService } from '~services/auth.service';
+import { DetailComponent } from '~modules/formulario/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
@@ -161,6 +162,10 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   design(item: Formulario): void {
-    alert('Diseño');
+    const dialogRef = this.dialog.open(DetailComponent, {
+      height: '700px',
+      width: '1500px',
+      data: {formulario: item}
+    });
   }
 }
