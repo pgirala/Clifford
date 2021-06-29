@@ -33,9 +33,25 @@ export class DetailComponent implements OnInit {
     this.formularioService.getOne(this.id).subscribe((form:Formulario) => {
       this.form = form;
     })
+
+    this.dialogRef.disableClose = true;
+    this.dialogRef.backdropClick().subscribe(_ => {
+      let cn = confirm('¿Está seguro de abandonar la edición?')
+      if (cn) {
+        this.dialogRef.close();
+      }
+    });
   }
 
   onChange(event) {
     console.log(event.form);
+    this.form = event.form;
+  }
+
+  @HostListener('window:keyup.esc') onKeyUp() {
+    let cn = confirm('¿Está seguro de abandonar la edición?')
+    if (cn) {
+      this.dialogRef.close();
+    }
   }
 }
