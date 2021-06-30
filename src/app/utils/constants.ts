@@ -27,7 +27,8 @@ export const CONSTANTS = {
         formulario: {
             list: environment.FI_HOST + '/form',
             get: environment.FI_HOST + '/form/:id',
-            find: environment.FI_HOST + '/form'
+            find: environment.FI_HOST + '/form',
+            update: environment.FI_HOST + '/form/:id'
         },
         submission: {
           list: environment.FI_HOST + '/:formPath/submission',

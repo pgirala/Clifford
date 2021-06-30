@@ -44,8 +44,18 @@ export class DetailComponent implements OnInit {
   }
 
   onChange(event) {
-    console.log(event.form);
-    this.form = event.form;
+    this.formularioService.save(event.form).subscribe((res: any) => {
+      this.dialogRef.close(res.data.resumen);
+    }, (error: any) => {
+      this.openSnack(error);
+    });
+  }
+
+  private openSnack(data: any): void {
+    this.snack.openFromComponent(SnackbarComponent, {
+      data: { data: data },
+      duration: 3000
+    });
   }
 
   @HostListener('window:keyup.esc') onKeyUp() {
