@@ -82,11 +82,13 @@ export class KeycloakService
             (users: User) => {
               if (users[0]) {
                 let usuario = users[0];
+                this.contextService.setUserFormioIndividual(usuario);
+                this.contextService.setUserNameIndividual(usuario.data.name);
+                // determina si es administrador
                 this.userService.getRoleList().subscribe(
                   (roles: Array<Role>) => {
                     usuario.admin = this.esAdministrador(usuario, roles);
                     this.contextService.setUserFormioIndividual(usuario);
-                    this.contextService.setUserNameIndividual(usuario.data.name);
                   }
                 )
               }
@@ -110,11 +112,12 @@ export class KeycloakService
             (users: User) => {
               if (users[0]) {
                 let usuario = users[0];
+                this.contextService.setUserFormioOrganizacion(usuario);
+                this.contextService.setUserNameOrganizacion(usuario.data.name);
                 this.userService.getRoleList().subscribe(
                   (roles: Array<Role>) => {
                     usuario.admin = this.esAdministrador(usuario, roles);
                     this.contextService.setUserFormioOrganizacion(usuario);
-                    this.contextService.setUserNameOrganizacion(usuario.data.name);
                   }
                 )
               }
