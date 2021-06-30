@@ -55,7 +55,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     if (!this.authService.loggedIn.getValue()) {
       this.router.navigate(['/login']);
     }
-    this.disenoHabilitado = this.authService.isAdministrador(this.formioContext.getUserFormio());
+    this.disenoHabilitado = this.formioContext.getUserFormio().admin;
   }
 
   ngAfterViewInit() {

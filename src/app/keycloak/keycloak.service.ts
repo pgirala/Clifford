@@ -8,6 +8,7 @@ import { UserService } from '~services/user.service';
 import { FormioContextService } from '~services/formio-context.service';
 import { ContextService } from '~services/context.service';
 import { User } from "~app/models/user";
+import { Role } from "~app/models/role";
 
 @Injectable({
   providedIn: 'root'
@@ -80,8 +81,14 @@ export class KeycloakService
           this.userService.getOneIndividual(resp.body.codigoUsuario + CONSTANTS.permissions.sufijoCorreo).subscribe(
             (users: User) => {
               if (users[0]) {
-                this.contextService.setUserFormioIndividual(users[0]);
-                this.contextService.setUserNameIndividual(users[0].data.name);
+                let usuario = users[0];
+                this.userService.getRoleList().subscribe(
+                  (roles: Array<Role>) => {
+                    usuario.admin = this.esAdministrador(usuario, roles);
+                    this.contextService.setUserFormioIndividual(usuario);
+                    this.contextService.setUserNameIndividual(usuario.data.name);
+                  }
+                )
               }
             }
           );
@@ -102,14 +109,31 @@ export class KeycloakService
           this.userService.getOneOrganizacion(resp.body.codigoUsuario + CONSTANTS.permissions.sufijoCorreo).subscribe(
             (users: User) => {
               if (users[0]) {
-                this.contextService.setUserFormioOrganizacion(users[0]);
-                this.contextService.setUserNameOrganizacion(users[0].data.name);
+                let usuario = users[0];
+                this.userService.getRoleList().subscribe(
+                  (roles: Array<Role>) => {
+                    usuario.admin = this.esAdministrador(usuario, roles);
+                    this.contextService.setUserFormioOrganizacion(usuario);
+                    this.contextService.setUserNameOrganizacion(usuario.data.name);
+                  }
+                )
               }
             }
           );
         }
       }
     );
+  }
+
+  esAdministrador(user: User, roles: Array<Role>) {
+    for (let userRole of user.roles) {
+      for (let role of roles) {
+        if (userRole == role._id && role.admin == true) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   getToken(): string

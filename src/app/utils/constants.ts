@@ -37,6 +37,9 @@ export const CONSTANTS = {
           update: environment.FI_HOST + '/:formPath/submission/:id',
           get: environment.FI_HOST + '/:formPath/submission/:id'
         },
+        role: {
+          list: environment.FI_HOST + '/role'
+        },
         user: {
           find: environment.FI_HOST + '/user/submission?data.email=:email'
         },

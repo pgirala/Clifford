@@ -67,14 +67,6 @@ export class AuthService {
     }
   }
 
-  isAdministrador(user: User): boolean {
-    try {
-      return true; // TODO: hay que consultar los roles y comprobar si el usuario tiene rol de administrador
-    } catch {
-      return false;
-    }
-  }
-
   tieneAcceso(user: User, formulario: Formulario, tipoPermiso: TipoPermiso): boolean {
     try {
       if (!user || !formulario || !tipoPermiso)
