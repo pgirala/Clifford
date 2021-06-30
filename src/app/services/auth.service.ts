@@ -69,7 +69,7 @@ export class AuthService {
 
   isAdministrador(user: User): boolean {
     try {
-      return user.data.administrador;
+      return true; // TODO: hay que consultar los roles y comprobar si el usuario tiene rol de administrador
     } catch {
       return false;
     }
