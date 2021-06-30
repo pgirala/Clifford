@@ -13,11 +13,11 @@ import { Observable } from 'rxjs';
 export class UserService implements FormioProvider  {
   constructor(private http: HttpClient, private formioContextService:FormioContextService) { }
 
-  getRoleList(): Observable<Array<Role>>  {
+  getRoleList(token: string): Observable<Array<Role>>  {
     let path = CONSTANTS.routes.role.list;
 
     let headers = new HttpHeaders({
-      'x-jwt-token': this.formioContextService.getTokenFormio()
+      'x-jwt-token': token
     });
 
     return this.http.get<Array<Role>>(

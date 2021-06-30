@@ -85,7 +85,7 @@ export class KeycloakService
                 this.contextService.setUserFormioIndividual(usuario);
                 this.contextService.setUserNameIndividual(usuario.data.name);
                 // determina si es administrador
-                this.userService.getRoleList().subscribe(
+                this.userService.getRoleList(this.contextService.getTokenFormioIndividual()).subscribe(
                   (roles: Array<Role>) => {
                     usuario.admin = this.esAdministrador(usuario, roles);
                     this.contextService.setUserFormioIndividual(usuario);
@@ -114,7 +114,7 @@ export class KeycloakService
                 let usuario = users[0];
                 this.contextService.setUserFormioOrganizacion(usuario);
                 this.contextService.setUserNameOrganizacion(usuario.data.name);
-                this.userService.getRoleList().subscribe(
+                this.userService.getRoleList(this.contextService.getTokenFormioOrganizacion()).subscribe(
                   (roles: Array<Role>) => {
                     usuario.admin = this.esAdministrador(usuario, roles);
                     this.contextService.setUserFormioOrganizacion(usuario);
@@ -129,6 +129,9 @@ export class KeycloakService
   }
 
   esAdministrador(user: User, roles: Array<Role>) {
+    if (!user || !roles)
+      return false;
+
     for (let userRole of user.roles) {
       for (let role of roles) {
         if (userRole == role._id && role.admin == true) {
