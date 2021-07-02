@@ -16,6 +16,7 @@ import { FormularioService } from '~app/services/formulario.service';
 export class DetailComponent implements OnInit {
   @ViewChild('json') jsonElement?: ElementRef;
   public form: Object = {components: []};
+  public updatedform;
   public id: string;
   public title: string;
 
@@ -32,20 +33,35 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
     this.formularioService.getOne(this.id).subscribe((form:Formulario) => {
       this.form = form;
+      this.updatedform = form;
     })
 
     this.dialogRef.disableClose = true;
     this.dialogRef.backdropClick().subscribe(_ => {
-      let cn = confirm('¿Está seguro de abandonar la edición?')
-      if (cn) {
-        this.dialogRef.close();
-      }
+      this.abandonarEdicion();
     });
   }
 
+  abandonarEdicion(): void {
+    let cn = confirm('¿Terminar la edición?')
+    if (cn) {
+      let cn = confirm('¿Guardar el formulario?')
+        if (cn) {
+          this.dialogRef.close('Se procede a guardar el formulario');
+          this.saveUpdatedForm();
+        } else
+          this.dialogRef.close('Se abandona la edición sin guardar el formulario');
+      }
+
+  }
+
   onChange(event) {
-    this.formularioService.save(event.form).subscribe((res: any) => {
-      this.dialogRef.close(res.data.resumen);
+    this.updatedform = event.form;
+  }
+
+  saveUpdatedForm(): void {
+    this.formularioService.save(this.updatedform).subscribe((res: any) => {
+      this.openSnack({message: "Se ha guardado el formulario"});
     }, (error: any) => {
       this.openSnack(error);
     });
@@ -59,9 +75,6 @@ export class DetailComponent implements OnInit {
   }
 
   @HostListener('window:keyup.esc') onKeyUp() {
-    let cn = confirm('¿Está seguro de abandonar la edición?')
-    if (cn) {
-      this.dialogRef.close();
-    }
+    this.abandonarEdicion();
   }
 }
