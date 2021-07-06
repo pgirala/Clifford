@@ -11,8 +11,8 @@ import {KeycloakService} from "../keycloak/keycloak.service";
 import { FormioContextService } from '~services/formio-context.service';
 import { User } from '~app/models/user';
 import { Role } from '~app/models/role';
-import { Formulario } from "~app/models/Formulario";
-import { TipoPermiso } from "~app/models/Enums";
+import { Formulario } from "~app/models/formulario";
+import { TipoPermiso } from "~app/models/enums";
 
 @Injectable()
 export class AuthService {
