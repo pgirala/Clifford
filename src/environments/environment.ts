@@ -7,6 +7,8 @@ export const environment = {
   production: false,
   CL_HOST: 'http://clifford:4200',
   FI_HOST: 'http://formio:3001',
+  FI_BASE_URL: 'http://localhost:3001',
+  FI_PROJECT_URL: 'http://localhost:3001',
   KC_HOST: 'http://keycloak:8080',
   BK_HOST: 'http://clifford-back:8090'
 };
