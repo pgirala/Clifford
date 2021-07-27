@@ -98,7 +98,8 @@ export const CONSTANTS = {
             submit: 'Aceptar',
             confirmCancel: '¿Está seguro de que quiere limpiar el formulario?',
             'Type to search': 'Filtro',
-            'Add Another': 'Añadir'
+            'Add Another': 'Añadir',
+            'No choices to choose from': 'No hay elementos'
           }
         }
     }
