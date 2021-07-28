@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '~app/models/user';
 import { ContextService } from '~app/services/context.service';
 import { Dominio } from '~app/models/dominio';
+import { Formio } from 'formiojs';
 
 @Injectable()
 export class FormioContextService {
@@ -14,11 +15,15 @@ export class FormioContextService {
     }
 
     public getTokenFormio():string {
+      let token = null;
       // tiene en cuenta el contexto para determinar si el dominio es para individuos u organizaciones
       if (this.isIndividual())
-        return this.getTokenFormioIndividual();
+        token = this.getTokenFormioIndividual();
       else
-        return this.getTokenFormioOrganizacion();
+        token = this.getTokenFormioOrganizacion();
+      // actualiza el token en la instancia de formio para las peticiones que haga directamente el renderer (resources y formularios empotrados)
+      Formio.setToken(token); // TODO eliminar las adiciones del token en cabecera, ya no son necesarias.
+      return token;
     }
 
     isIndividual(): boolean {
