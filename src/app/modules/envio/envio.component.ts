@@ -34,7 +34,7 @@ import { ContextService } from '~app/services/context.service';
 export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
-  public pageSize = 5;
+  public pageSize = 20;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
   public resultsLength = 0;
@@ -170,8 +170,8 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
     const submissionVacia: Submission= {data:{dominio:this.contextService.getDominio().data.path, destinatario: (jefe == null ? null : jefe)}};
 
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
-      width: '1000px',
+      height: '60%',
+      width: '60%',
       data: { action: 'save',
             formulario: this.formulario,
             submission: this.submissionService.addToken(submissionVacia) }

@@ -27,7 +27,7 @@ import { FormioContextService } from '~app/services/formio-context.service';
 export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['title', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
-  public pageSize = 5;
+  public pageSize = 20;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
   public resultsLength = 0;
@@ -163,8 +163,8 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
 
   design(item: Formulario): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
-      width: '1500px',
+      height: '90%',
+      width: '90%',
       data: {formulario: item}
     });
   }

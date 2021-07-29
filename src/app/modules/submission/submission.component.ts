@@ -33,7 +33,7 @@ import { FormioContextService } from '~app/services/formio-context.service';
 export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
-  public pageSize = 5;
+  public pageSize = 20;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
   public resultsLength = 0;
@@ -183,7 +183,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
   view(item: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
+      height: '70%',
       width: this.getFormWidth(),
       data: { action: 'view',
             formulario: this.formulario,
@@ -193,7 +193,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
   edit(submission: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
+      height: '70%',
       width: this.getFormWidth(),
       data: { action: 'update',
             formulario: this.formulario,
@@ -242,7 +242,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   save(): void {
     const submissionVacia: Submission = {data:{}};
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
+      height: '70%',
       width: this.getFormWidth(),
       data: { action: 'save',
             formulario: this.formulario,
@@ -277,7 +277,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   }
 
   getFormWidth(): string {
-    return (this.formulario.tags.includes(CONSTANTS.formularios.size.small) ? '800px' :
-      (this.formulario.tags.includes(CONSTANTS.formularios.size.large) ? '1500px': '1000px'))
+    return (this.formulario.tags.includes(CONSTANTS.formularios.size.small) ? '40%' :
+      (this.formulario.tags.includes(CONSTANTS.formularios.size.large) ? '80%': '60%'))
   }
 }
