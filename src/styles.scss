@@ -65,6 +65,17 @@ body {
   flex-wrap: nowrap;
 }
 
+// traduce el texto del paginador al español
+
+.mat-paginator-page-size-label {
+  visibility: hidden;
+}
+
+.mat-paginator-page-size-label:before {
+  content: "Elementos por página:";
+  visibility: visible;
+}
+
 /* @media (prefers-color-scheme: dark) {
     body {
         background-color: black;
