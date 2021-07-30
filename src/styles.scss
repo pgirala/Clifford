@@ -76,6 +76,11 @@ body {
   visibility: visible;
 }
 
+// puntos suspensivos si el tamaño es excesivo en los Select
+.choices__item.choices__item--selectable {
+  text-overflow: ellipsis;
+}
+
 /* @media (prefers-color-scheme: dark) {
     body {
         background-color: black;
