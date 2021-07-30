@@ -144,6 +144,8 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
       this.submissionService.getOne(dominio._id, CONSTANTS.formularios.formDominio).subscribe((dominioPrimario:Dominio) => {
         if (!this.dominios.includes(dominioPrimario))
           this.dominios.push(dominioPrimario);
+          // ordenar el vector
+          this.dominios.sort((a, b) => (a.data.nombre < b.data.nombre ? -1:(a.data.nombre == b.data.nombre ? 0: 1)));
       })
     }
   }
