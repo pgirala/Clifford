@@ -81,6 +81,15 @@ body {
   text-overflow: ellipsis;
 }
 
+// color de los elementos seleccionados
+
+div.choices__list.choices__list--multiple {
+  div.choices__item.choices__item--selectable {
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+  }
+}
+
 /* @media (prefers-color-scheme: dark) {
     body {
         background-color: black;
