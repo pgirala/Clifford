@@ -55,6 +55,7 @@ export const CONSTANTS = {
             large: 'large'
         },
         formEnvio: 'envio',
+        formDominio: 'admon/dominio',
         lang: {},
         session: {},
         parameters: {},

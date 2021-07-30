@@ -8,10 +8,12 @@ import { AuthService } from '~services/auth.service';
 import { ContextService } from '~services/context.service';
 import { FormioContextService } from '~services/formio-context.service';
 import { FormularioService } from '~services/formulario.service';
+import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
 import { Dominio } from '~app/models/dominio';
+import { CONSTANTS } from '~utils/constants';
 
 @Component({
   selector: 'app-admin-layout',
@@ -37,6 +39,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   constructor(
     private authService: AuthService,
     private formularioService: FormularioService,
+    private submissionService: SubmissionService,
     private envioService: EnvioService,
     private formioContextService: FormioContextService,
     private contextService: ContextService,
@@ -135,10 +138,13 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   }
 
   determinarContextos():void {
-    try {
-      this.dominios = this.formioContextService.getDominios();
-    } catch {
-      this.dominios = new Array<Dominio>();
+    this.dominios = new Array<Dominio>();
+    // obtiene la última versión de los dominios asignados al usuario
+    for (let dominio of this.formioContextService.getDominios()) {
+      this.submissionService.getOne(dominio._id, CONSTANTS.formularios.formDominio).subscribe((dominioPrimario:Dominio) => {
+        if (!this.dominios.includes(dominioPrimario))
+          this.dominios.push(dominioPrimario);
+      })
     }
   }
 
