@@ -41,7 +41,7 @@ export const CONSTANTS = {
           list: environment.FI_HOST + '/role'
         },
         user: {
-          find: environment.FI_HOST + '/user/submission?data.email=:email'
+          find: environment.FI_HOST + 'admin/user/submission?data.email=:email'
         },
         envio: {
           create: environment.BK_HOST + '/clifford-back/rest/envios'
