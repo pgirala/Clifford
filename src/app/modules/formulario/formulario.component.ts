@@ -13,7 +13,7 @@ import { Formulario } from '~models/formulario';
 import { FormularioService } from '~services/formulario.service';
 import { AuthService } from '~services/auth.service';
 import { DetailComponent } from '~modules/formulario/view/detail.component';
-import { MetadataComponent } from '~modules/formulario/view/metadata.component';
+import { MetadataComponent } from '~modules/formulario/alternativeView/metadata.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
