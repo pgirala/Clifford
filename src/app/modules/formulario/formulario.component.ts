@@ -16,8 +16,13 @@ import { DetailComponent } from '~modules/formulario/view/detail.component';
 import { MetadataComponent } from '~modules/formulario/alternativeView/metadata.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
+import { Submission } from '~models/submission';
+import { SubmissionService } from '~services/submission.service';
+
 import { Controller } from '~base/controller';
 import { FormioContextService } from '~app/services/formio-context.service';
+
+import { CONSTANTS } from '~utils/constants';
 
 @Component({
   selector: 'app-client',
@@ -38,12 +43,15 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   public totalItems = 0;
   public search = '';
   public disenoHabilitado = false;
+  public formMetadatosPath = CONSTANTS.formularios.formMetadatos;
+  public formularioMetadatos: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags:[CONSTANTS.formularios.multiple]};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private submissionService: SubmissionService,
     private formularioService: FormularioService,
     private authService: AuthService,
     private formioContext: FormioContextService,
@@ -56,6 +64,11 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     if (!this.authService.loggedIn.getValue()) {
       this.router.navigate(['/login']);
     }
+
+    this.formularioService.findByName(CONSTANTS.formularios.formMetadatos).subscribe((formularios:any) => {
+      this.formularioMetadatos = formularios[0];
+    })
+
     this.disenoHabilitado = this.formioContext.getUserFormio().admin;
   }
 
@@ -154,16 +167,18 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   edit(item: Formulario): void {
+    const submission: Submission= {data:{}}; // TODO: rellenarla con los metadatos del formulario recibido
     const dialogRef = this.dialog.open(MetadataComponent, {
       height: '70%',
       width: '40%',
       data: { action: 'update',
-            formulario: item }
+            formulario: this.formularioMetadatos,
+            submission: this.submissionService.addToken(submission)  }
       });
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.openSnack({message: "Instancia actualizada: " + result});
+          this.openSnack({message: "Datos del formulario actualizados: " + result});
           this.paginator._changePageSize(this.paginator.pageSize);
         }
       });

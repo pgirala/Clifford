@@ -1,4 +1,12 @@
-<h2>{{title}}</h2>
+<h2>{{data.formulario.title}}</h2>
 <div class="container container-fluid">
-HOLA
+  <formio [form]="data.formulario"
+  [readOnly]="readOnly"
+  [submission]='submission'
+  [renderOptions]="renderOptions"
+  [success]="successEmitter"
+  [refresh]="triggerRefresh"
+  (submit)="onSubmit($event)"
+  (ready)="ready($event)">
+  </formio>
 </div>

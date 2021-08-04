@@ -14,57 +14,37 @@ import { FormularioService } from '~app/services/formulario.service';
   providers: [FormularioService]
 })
 export class MetadataComponent implements OnInit {
-  @ViewChild('json') jsonElement?: ElementRef;
-  public form: Object = {components: []};
-  public updatedform;
-  public id: string;
-  public title: string;
-
+  public submission: any;
+  public renderOptions: any;
+  public readOnly: boolean = false;
+  public successEmitter: any = new EventEmitter();
+  public triggerRefresh: any=new EventEmitter();
+  public currentForm: any;
   constructor(public dialogRef: MatDialogRef<MetadataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
-      action: string, formulario: any
-    },
-    private formularioService: FormularioService,
+    action: string, formulario: any, submission: any},
     public snack: MatSnackBar) {
-      this.id = data.formulario._id;
-      this.title = data.formulario.title;
+      this.submission = JSON.parse(JSON.stringify(data.submission));
+      this.readOnly = (data.action == 'view');
+      this.renderOptions = {
+        language: 'sp',
+        i18n: CONSTANTS.formularios.i18n,
+        submitMessage: "Acción realizada",
+        disableAlerts: true,
+        noAlerts: true
+      };
   }
 
   ngOnInit() {
-    this.formularioService.getOne(this.id).subscribe((form:Formulario) => {
-      this.form = form;
-      this.updatedform = form;
-    })
-
-    this.dialogRef.disableClose = true;
-    this.dialogRef.backdropClick().subscribe(_ => {
-      this.abandonarEdicion();
-    });
-  }
-
-  abandonarEdicion(): void {
-    let cn = confirm('¿Terminar la edición?')
-    if (cn) {
-      let cn = confirm('¿Guardar los datos del formulario?')
+    if (this.data.action == 'save' || this.data.action == 'update') {
+      this.dialogRef.disableClose = true;
+      this.dialogRef.backdropClick().subscribe(_ => {
+        let cn = confirm('¿Está seguro de abandonar la edición?')
         if (cn) {
-          this.dialogRef.close('Se procede a guardar los datos del formulario');
-          this.saveUpdatedForm();
-        } else
-          this.dialogRef.close('Se abandona la edición sin guardar los datos del formulario');
-      }
-
-  }
-
-  onChange(event) {
-    this.updatedform = event.form;
-  }
-
-  saveUpdatedForm(): void {
-    this.formularioService.save(this.updatedform).subscribe((res: any) => {
-      this.openSnack({message: "Se han guardado los datos del formulario"});
-    }, (error: any) => {
-      this.openSnack(error);
-    });
+          this.dialogRef.close();
+        }
+      });
+    }
   }
 
   private openSnack(data: any): void {
@@ -74,7 +54,19 @@ export class MetadataComponent implements OnInit {
     });
   }
 
+
+  // ready function
+  ready(event) {
+    this.currentForm = event.formio;
+  }
+
+  onSubmit(event) {
+  }
+
   @HostListener('window:keyup.esc') onKeyUp() {
-    this.abandonarEdicion();
+    let cn = confirm('¿Está seguro de abandonar la edición?')
+    if (cn) {
+      this.dialogRef.close();
+    }
   }
 }
