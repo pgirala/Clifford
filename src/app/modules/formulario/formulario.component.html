@@ -50,6 +50,13 @@
                   </span></mat-icon>
               </button>
             </div>
+            <div *ngIf="disenoHabilitado">
+              <button mat-menu-item (click)="edit(row)">
+                <mat-icon aria-label="Editar"><span class="material-icons">
+                  create
+                  </span></mat-icon>
+              </button>
+            </div>
 
           </mat-cell>
         </ng-container>

@@ -13,6 +13,7 @@ import { Formulario } from '~models/formulario';
 import { FormularioService } from '~services/formulario.service';
 import { AuthService } from '~services/auth.service';
 import { DetailComponent } from '~modules/formulario/view/detail.component';
+import { MetadataComponent } from '~modules/formulario/view/metadata.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
@@ -152,7 +153,20 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     this.router.navigate(['/submissions'], { queryParams: {formId: item._id, formPath: item.path}});
   }
 
-  edit(item: Object): void {
+  edit(item: Formulario): void {
+    const dialogRef = this.dialog.open(MetadataComponent, {
+      height: '70%',
+      width: '40%',
+      data: { action: 'update',
+            formulario: item }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.openSnack({message: "Instancia actualizada: " + result});
+          this.paginator._changePageSize(this.paginator.pageSize);
+        }
+      });
   }
 
   save(): void {

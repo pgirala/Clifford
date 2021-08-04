@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '~utils/shared.module';
 import { FormularioComponent } from './formulario.component';
 import { DetailComponent } from './view/detail.component';
+import { MetadataComponent } from './view/metadata.component';
 import { FormioModule } from '@formio/angular';
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormioModule } from '@formio/angular';
   ],
   declarations: [
     FormularioComponent,
-    DetailComponent
+    DetailComponent,
+    MetadataComponent
   ],
   providers: [],
   entryComponents: [
