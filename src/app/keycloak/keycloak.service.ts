@@ -85,14 +85,16 @@ export class KeycloakService
                 this.contextService.setUserFormioIndividual(usuario);
                 this.contextService.setUserNameIndividual(usuario.data.name);
                 // determina si es administrador
-                if (this.userService.getListaRoles() != null && this.userService.getListaRoles().length > 0)
-                  this.determinarCondicionAdministrador(usuario);
-                else
+                if (this.userService.getListaRoles() != null && this.userService.getListaRoles().length > 0) {
+                  usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                  this.contextService.setUserFormioIndividual(usuario);
+                } else
                   this.userService.getRoleList(this.contextService.getTokenFormioIndividual()).subscribe(
                     (roles: Array<Role>) => {
                       if (roles != null && roles.length > 0)
                         this.userService.setListaRoles(roles);
-                      this.determinarCondicionAdministrador(usuario);
+                      usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                      this.contextService.setUserFormioIndividual(usuario);
                     }
                   )
               }
@@ -101,11 +103,6 @@ export class KeycloakService
         }
       }
     );
-  }
-
-  determinarCondicionAdministrador(usuario: User) {
-    usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
-    this.contextService.setUserFormioOrganizacion(usuario);
   }
 
   obtenerTokenFormioOrganizacion() {
@@ -124,14 +121,16 @@ export class KeycloakService
                 this.contextService.setUserFormioOrganizacion(usuario);
                 this.contextService.setUserNameOrganizacion(usuario.data.name);
                 // determina si es el administrador
-                if (this.userService.getListaRoles() != null && this.userService.getListaRoles().length > 0)
-                  this.determinarCondicionAdministrador(usuario);
-                else
+                if (this.userService.getListaRoles() != null && this.userService.getListaRoles().length > 0) {
+                  usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                  this.contextService.setUserFormioOrganizacion(usuario);
+                } else
                   this.userService.getRoleList(this.contextService.getTokenFormioOrganizacion()).subscribe(
                     (roles: Array<Role>) => {
                       if (roles != null && roles.length > 0)
                         this.userService.setListaRoles(roles);
-                      this.determinarCondicionAdministrador(usuario);
+                      usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                      this.contextService.setUserFormioOrganizacion(usuario);
                     }
                   )
               }

@@ -32,6 +32,7 @@ export class FormularioService implements FormioProvider {
     params = params.append('select', 'display');
     params = params.append('select', 'path');
     params = params.append('select', 'tags');
+    params = params.append('select', 'submissionAccess');
     params = params.append('title__regex', search);
     params = params.append('path__regex', '/^' + this.contextService.getDominio().data.path + '/i');
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
