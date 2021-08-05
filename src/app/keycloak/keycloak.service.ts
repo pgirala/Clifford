@@ -105,6 +105,10 @@ export class KeycloakService
     );
   }
 
+  public getListaRoles():Array<Role> {
+    return this.userService.getListaRoles();
+  }
+
   obtenerTokenFormioOrganizacion() {
     // elimina los token existentes
     this.formioContextService.removeTokenFormioOrganizacion();

@@ -166,8 +166,16 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     this.router.navigate(['/submissions'], { queryParams: {formId: item._id, formPath: item.path}});
   }
 
+  transformarIdRoles(item: Formulario):Formulario {
+    let formulario = JSON.stringify(item);
+    for (let role of this.authService.getListaRoles()) {
+      formulario = formulario.split(role._id).join(role.machineName);
+    }
+    return JSON.parse(formulario);
+  }
+
   edit(item: Formulario): void {
-    const submission: Submission= {data:item};
+    const submission: Submission= {data:this.transformarIdRoles(item)};
     const dialogRef = this.dialog.open(MetadataComponent, {
       height: '70%',
       width: '70%',
