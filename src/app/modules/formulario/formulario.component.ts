@@ -44,7 +44,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   public search = '';
   public disenoHabilitado = false;
   public formMetadatosPath = CONSTANTS.formularios.formMetadatos;
-  public formularioMetadatos: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags:[CONSTANTS.formularios.multiple]};
+  public formularioMetadatos: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', type:null, name:null, display: null, path: null, tags:[CONSTANTS.formularios.multiple]};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -167,10 +167,10 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   edit(item: Formulario): void {
-    const submission: Submission= {data:{}}; // TODO: rellenarla con los metadatos del formulario recibido
+    const submission: Submission= {data:item};
     const dialogRef = this.dialog.open(MetadataComponent, {
       height: '70%',
-      width: '40%',
+      width: '70%',
       data: { action: 'update',
             formulario: this.formularioMetadatos,
             submission: this.submissionService.addToken(submission)  }

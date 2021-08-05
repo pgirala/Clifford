@@ -26,8 +26,12 @@ export class FormularioService implements FormioProvider {
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
     let params = new HttpParams();
+    params = params.append('select', 'type');
     params = params.append('select', 'title');
+    params = params.append('select', 'name');
+    params = params.append('select', 'display');
     params = params.append('select', 'path');
+    params = params.append('select', 'tags');
     params = params.append('title__regex', search);
     params = params.append('path__regex', '/^' + this.contextService.getDominio().data.path + '/i');
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);

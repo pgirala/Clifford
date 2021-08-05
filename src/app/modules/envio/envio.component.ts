@@ -44,7 +44,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   public totalItems = 0;
   public search = '';
   public formPath = CONSTANTS.formularios.formEnvio;
-  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags:[CONSTANTS.formularios.multiple]};
+  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', type:null, name: null, display: null, path: null, tags:[CONSTANTS.formularios.multiple]};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
