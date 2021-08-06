@@ -5,7 +5,9 @@ import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 import { CONSTANTS } from '~app/utils/constants';
 import { RequiredValidator } from '@angular/forms';
 import { Formulario } from '~app/models/formulario';
+import { Role } from '~app/models/role';
 import { FormularioService } from '~app/services/formulario.service';
+import { AuthService } from '~services/auth.service';
 
 @Component({
   selector: 'app-metadata',
@@ -23,7 +25,9 @@ export class MetadataComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<MetadataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
     action: string, formulario: any, submission: any},
-    public snack: MatSnackBar) {
+    public snack: MatSnackBar,
+    private formularioService: FormularioService,
+    private authService: AuthService) {
       this.submission = JSON.parse(JSON.stringify(data.submission));
       this.readOnly = (data.action == 'view');
       this.renderOptions = {
@@ -54,13 +58,34 @@ export class MetadataComponent implements OnInit {
     });
   }
 
-
   // ready function
   ready(event) {
     this.currentForm = event.formio;
   }
 
+  obtenerFormulario(formularioBase:Formulario) {
+    let resultado:Formulario = formularioBase;
+    delete resultado.token;
+    delete resultado.submit;
+    return this.transformarIdRoles(resultado);
+  }
+
+  transformarIdRoles(item: Formulario):Formulario {
+    let formulario = JSON.stringify(item);
+    for (let role of this.authService.getListaRoles()) {
+      formulario = formulario.split(role.machineName).join(role._id);
+    }
+    return JSON.parse(formulario);
+  }
+
   onSubmit(event) {
+    this.successEmitter.emit('Operación solicitada');
+    this.currentForm.emit('submitDone');
+    this.formularioService.save(this.obtenerFormulario(event.data)).subscribe((res: any) => {
+      this.dialogRef.close("OK");
+    }, (error: any) => {
+      this.openSnack(error);
+    });
   }
 
   @HostListener('window:keyup.esc') onKeyUp() {

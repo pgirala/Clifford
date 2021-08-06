@@ -9,5 +9,7 @@ export interface Formulario extends FormioModel{
   display: string,
   tags: Array<string>;
   submissionAccess?: Array<Permiso>;
+  token?: string;
+  submit?: boolean;
 }
 

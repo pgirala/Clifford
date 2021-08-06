@@ -186,7 +186,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.openSnack({message: "Datos del formulario actualizados: " + result});
+          this.openSnack({message: "Datos del formulario actualizados"});
           this.paginator._changePageSize(this.paginator.pageSize);
         }
       });
