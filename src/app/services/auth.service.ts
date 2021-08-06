@@ -91,4 +91,8 @@ export class AuthService {
         return false;
       }
   }
+
+  getListaRoles() {
+    return this.keycloakService.getListaRoles();
+  }
 }

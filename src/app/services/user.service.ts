@@ -11,7 +11,16 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService implements FormioProvider  {
+  private roleList:Array<Role>;
   constructor(private http: HttpClient, private formioContextService:FormioContextService) { }
+
+  getListaRoles():Array<Role> {
+    return this.roleList;
+  }
+
+  setListaRoles(listaRoles:Array<Role>) {
+    this.roleList = listaRoles;
+  }
 
   getRoleList(token: string): Observable<Array<Role>>  {
     let path = CONSTANTS.routes.role.list;

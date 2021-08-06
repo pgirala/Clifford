@@ -26,8 +26,13 @@ export class FormularioService implements FormioProvider {
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
     let params = new HttpParams();
+    params = params.append('select', 'type');
     params = params.append('select', 'title');
+    params = params.append('select', 'name');
+    params = params.append('select', 'display');
     params = params.append('select', 'path');
+    params = params.append('select', 'tags');
+    params = params.append('select', 'submissionAccess');
     params = params.append('title__regex', search);
     params = params.append('path__regex', '/^' + this.contextService.getDominio().data.path + '/i');
     params = params.append('sort', (order == 'desc' ? '-' : '') + sortActive);
@@ -64,11 +69,19 @@ export class FormularioService implements FormioProvider {
   }
 
   save(formulario: Formulario): Observable<Formulario> {
-    return this.http.put<Formulario>(
-      CONSTANTS.routes.formulario.update.replace(':id', String(formulario._id)),
-      formulario,
-      { headers: this.headers(), responseType: 'json', observe: 'body'}
-    );
+    if (formulario._id) { // actualización
+      return this.http.put<Formulario>(
+        CONSTANTS.routes.formulario.update.replace(':id', String(formulario._id)),
+        formulario,
+        { headers: this.headers(), responseType: 'json', observe: 'body'}
+      );
+      } else {
+        return this.http.post<Formulario>(
+          CONSTANTS.routes.formulario.create,
+          formulario,
+          { headers: this.headers(), responseType: 'json', observe: 'body'}
+        );
+      }
   }
 
   setFormulariosVisibility(visibilidad:boolean) {

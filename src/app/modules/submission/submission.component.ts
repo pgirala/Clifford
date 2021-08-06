@@ -44,7 +44,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   public search = '';
   public formId = '';
   public formPath = '';
-  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', path: null, tags: [CONSTANTS.formularios.multiple]};
+  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', type:null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple]};
   public multiple = CONSTANTS.formularios.multiple;
   public altaHabilitada = false;
   public modificacionHabilitada = false;

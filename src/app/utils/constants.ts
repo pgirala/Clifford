@@ -28,7 +28,8 @@ export const CONSTANTS = {
             list: environment.FI_HOST + '/form',
             get: environment.FI_HOST + '/form/:id',
             find: environment.FI_HOST + '/form',
-            update: environment.FI_HOST + '/form/:id'
+            update: environment.FI_HOST + '/form/:id',
+            create: environment.FI_HOST + '/form'
         },
         submission: {
           list: environment.FI_HOST + '/:formPath/submission',
@@ -55,6 +56,7 @@ export const CONSTANTS = {
             large: 'large'
         },
         formEnvio: 'envio',
+        formMetadatos: 'metadatos',
         formDominio: 'admon/dominio',
         lang: {},
         session: {},
