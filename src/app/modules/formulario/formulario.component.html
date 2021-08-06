@@ -22,6 +22,13 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
+
+        <!-- Add button -->
+        <div *ngIf="disenoHabilitado">
+          <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
+            <mat-icon>add</mat-icon> Nuevo formulario
+          </button>
+        </div>
       </div>
 
       <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="title" matSortDisableClear

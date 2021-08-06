@@ -193,6 +193,21 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   save(): void {
+    const submission: Submission= {data:{}};
+    const dialogRef = this.dialog.open(MetadataComponent, {
+      height: '70%',
+      width: '70%',
+      data: { action: 'save',
+            formulario: this.formularioMetadatos,
+            submission: this.submissionService.addToken(submission)  }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.openSnack({message: "Formulario creado. Puede proceder a su diseño"});
+          this.paginator._changePageSize(this.paginator.pageSize);
+        }
+      });
   }
 
   delete(item: Object): void {

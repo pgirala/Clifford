@@ -69,11 +69,19 @@ export class FormularioService implements FormioProvider {
   }
 
   save(formulario: Formulario): Observable<Formulario> {
-    return this.http.put<Formulario>(
-      CONSTANTS.routes.formulario.update.replace(':id', String(formulario._id)),
-      formulario,
-      { headers: this.headers(), responseType: 'json', observe: 'body'}
-    );
+    if (formulario._id) { // actualización
+      return this.http.put<Formulario>(
+        CONSTANTS.routes.formulario.update.replace(':id', String(formulario._id)),
+        formulario,
+        { headers: this.headers(), responseType: 'json', observe: 'body'}
+      );
+      } else {
+        return this.http.post<Formulario>(
+          CONSTANTS.routes.formulario.create,
+          formulario,
+          { headers: this.headers(), responseType: 'json', observe: 'body'}
+        );
+      }
   }
 
   setFormulariosVisibility(visibilidad:boolean) {
