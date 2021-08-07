@@ -228,6 +228,20 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
         this.formularioService.delete(item.path).subscribe((data: any) => {
           this.openSnack({message: "Formulario eliminado"});
           this.paginator._changePageSize(this.paginator.pageSize);
+          // elimina las instancias del formulario
+          this.submissionService.getList(
+            this.sort.active,
+            this.sort.direction,
+            Number.MAX_SAFE_INTEGER,
+            1,
+            this.search,
+            item.path
+          ).subscribe((resp: any) => {
+            for (let formulario in resp)
+              this.submissionService.delete(resp._id, item.path).subscribe((res: any) => {
+              }, (error:any) => {
+                this.openSnack(error);});
+          });
         });
       }
     });
