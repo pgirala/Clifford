@@ -226,7 +226,6 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.formularioService.delete(item.path).subscribe((data: any) => {
-          console.log('================>' + data);
           this.openSnack({message: "Formulario eliminado"});
           this.paginator._changePageSize(this.paginator.pageSize);
         });
