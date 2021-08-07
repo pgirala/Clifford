@@ -46,8 +46,12 @@ export class FormularioService implements FormioProvider {
     );
   }
 
-  delete(id: string): Observable<Formulario> {
-    return null;
+  delete(formPath: string): Observable<Object> {
+    let path = CONSTANTS.routes.formulario.delete.replace(':formPath', formPath);
+    return this.http.delete<Object>(
+      path,
+      { headers: this.headers(), responseType: 'text' as 'json', observe: 'body' }
+    );
   }
 
   getOne(id: string): Observable<Formulario> {

@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Formulario } from '~models/formulario';
 import { FormularioService } from '~services/formulario.service';
 import { AuthService } from '~services/auth.service';
+import { ConfirmComponent } from '~components/confirm/confirm.component';
 import { DetailComponent } from '~modules/formulario/view/detail.component';
 import { MetadataComponent } from '~modules/formulario/alternativeView/metadata.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
@@ -213,7 +214,24 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
       });
   }
 
-  delete(item: Object): void {
+  delete(item: Formulario): void {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '250px',
+      data: {
+        title: 'Eliminar formulario',
+        message: '¿Quiere eliminar el formulario?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.formularioService.delete(item.path).subscribe((data: any) => {
+          console.log('================>' + data);
+          this.openSnack({message: "Formulario eliminado"});
+          this.paginator._changePageSize(this.paginator.pageSize);
+        });
+      }
+    });
   }
 
   design(item: Formulario): void {

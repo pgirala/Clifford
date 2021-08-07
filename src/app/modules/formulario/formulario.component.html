@@ -64,7 +64,11 @@
                   </span></mat-icon>
               </button>
             </div>
-
+            <div *ngIf="disenoHabilitado">
+              <button mat-menu-item (click)="delete(row)">
+                <mat-icon aria-label="Borrar">delete_forever</mat-icon>
+              </button>
+            </div>
           </mat-cell>
         </ng-container>
 

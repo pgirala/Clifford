@@ -29,7 +29,8 @@ export const CONSTANTS = {
             get: environment.FI_HOST + '/form/:id',
             find: environment.FI_HOST + '/form',
             update: environment.FI_HOST + '/form/:id',
-            create: environment.FI_HOST + '/form'
+            create: environment.FI_HOST + '/form',
+            delete: environment.FI_HOST + '/:formPath'
         },
         submission: {
           list: environment.FI_HOST + '/:formPath/submission',
