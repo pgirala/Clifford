@@ -22,6 +22,8 @@ import { SubmissionService } from '~services/submission.service';
 import { Controller } from '~base/controller';
 import { FormioContextService } from '~app/services/formio-context.service';
 
+import { ContextService } from '~services/context.service';
+
 import { CONSTANTS } from '~utils/constants';
 
 @Component({
@@ -55,6 +57,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     private formularioService: FormularioService,
     private authService: AuthService,
     private formioContext: FormioContextService,
+    private contextService: ContextService,
     private router: Router,
     public dialog: MatDialog,
     public snack: MatSnackBar
@@ -193,7 +196,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   save(): void {
-    const submission: Submission= {data:{}};
+    const submission: Submission= {data:{path:this.contextService.getDominio().data.path + '/'}};
     const dialogRef = this.dialog.open(MetadataComponent, {
       height: '70%',
       width: '70%',
