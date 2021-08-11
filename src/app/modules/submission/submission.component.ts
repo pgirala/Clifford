@@ -197,7 +197,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       width: this.getFormWidth(),
       data: { action: 'update',
             formulario: this.formulario,
-            submission: submission }
+            submission: this.submissionService.addToken(submission) }
       });
 
       dialogRef.afterClosed().subscribe(result => {
