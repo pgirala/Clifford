@@ -77,7 +77,7 @@ export const CONSTANTS = {
             pattern : "{{field}} no cumple el patrón {{pattern}}",
             previous : "Anterior",
             required : "{{field}} obligatorio",
-            complete: "Operación completada",
+            complete: "Actualización en curso. Espere la confirmación (puede tardar unos segundos)",
             submitError: "Corrija los errores existentes",
             submitMessage: "Operación solicitada",
             submitDone: "Operación solicitada",
