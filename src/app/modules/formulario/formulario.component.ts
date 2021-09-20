@@ -73,7 +73,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
       this.formularioMetadatos = formularios[0];
     })
 
-    this.disenoHabilitado = this.formioContext.getUserFormio().admin;
+    this.disenoHabilitado = this.formioContext.getUserFormio().super;
   }
 
   ngAfterViewInit() {

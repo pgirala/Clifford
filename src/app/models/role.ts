@@ -3,5 +3,6 @@ export interface Role {
   admin: boolean;
   description: string;
   machineName: string;
+  super: boolean;
 }
 

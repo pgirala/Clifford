@@ -87,6 +87,7 @@ export class KeycloakService
                 // determina si es administrador
                 if (this.userService.getListaRoles() != null && this.userService.getListaRoles().length > 0) {
                   usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                  usuario.super = this.esSuperadministrador(usuario, this.userService.getListaRoles());
                   this.contextService.setUserFormioIndividual(usuario);
                 } else
                   this.userService.getRoleList(this.contextService.getTokenFormioIndividual()).subscribe(
@@ -94,6 +95,7 @@ export class KeycloakService
                       if (roles != null && roles.length > 0)
                         this.userService.setListaRoles(roles);
                       usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                      usuario.super = this.esSuperadministrador(usuario, this.userService.getListaRoles());
                       this.contextService.setUserFormioIndividual(usuario);
                     }
                   )
@@ -127,6 +129,7 @@ export class KeycloakService
                 // determina si es el administrador
                 if (this.userService.getListaRoles() != null && this.userService.getListaRoles().length > 0) {
                   usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                  usuario.super = this.esSuperadministrador(usuario, this.userService.getListaRoles());
                   this.contextService.setUserFormioOrganizacion(usuario);
                 } else
                   this.userService.getRoleList(this.contextService.getTokenFormioOrganizacion()).subscribe(
@@ -134,6 +137,7 @@ export class KeycloakService
                       if (roles != null && roles.length > 0)
                         this.userService.setListaRoles(roles);
                       usuario.admin = this.esAdministrador(usuario, this.userService.getListaRoles());
+                      usuario.super = this.esSuperadministrador(usuario, this.userService.getListaRoles());
                       this.contextService.setUserFormioOrganizacion(usuario);
                     }
                   )
@@ -152,6 +156,20 @@ export class KeycloakService
     for (let userRole of user.roles) {
       for (let role of roles) {
         if (userRole == role._id && role.admin == true) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  esSuperadministrador(user: User, roles: Array<Role>) {
+    if (!user || !roles)
+      return false;
+
+    for (let userRole of user.roles) {
+      for (let role of roles) {
+        if (userRole == role._id && (role.super && role.super == true)) {
           return true;
         }
       }
