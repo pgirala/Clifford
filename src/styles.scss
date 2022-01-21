@@ -158,3 +158,11 @@ label {
 .spacer {
   flex: 1 1 auto !important;
 }
+
+/* EXPANDE AL MÁXIMO EL ÁREA DEL TOOLTIP Y LO ALINEA A LA IZQUIERDA */
+.clifford-max-tooltip {
+  .tooltip-inner {
+    max-width: 80%;
+    text-align: left;
+  }
+}
