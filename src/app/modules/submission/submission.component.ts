@@ -23,6 +23,7 @@ import { FormularioService } from '~app/services/formulario.service';
 import { CONSTANTS } from '~utils/constants';
 import { Formio } from 'formiojs';
 import { FormioContextService } from '~app/services/formio-context.service';
+import {FormioExport} from 'formio-export';
 
 @Component({
   selector: 'app-client',
@@ -274,6 +275,60 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
         });
       }
     });
+  }
+
+  print(submission1: Submission): void {
+    let component = {
+      type: 'form',
+      title: 'Example',
+      display: 'form',
+      components: [
+        {
+          type: 'textfield',
+          key: 'name',
+          label: 'Name',
+          input: true
+        },
+        {
+          type: 'number',
+          key: 'age',
+          label: 'Age',
+          input: true
+        }
+      ]
+    };
+
+    let submission = {
+      _id: '<submission id>',
+      owner: '<owner id>',
+      modified: '1970-01-01T00:00:00.000Z',
+      data: {
+        name: 'John Doe',
+        age: 25
+      }
+    };
+
+    let options = {
+      ignoreLayout: true
+    }
+
+    let exporter = new FormioExport(component, submission, options);
+
+    exporter.toHtml().then((html) => {
+      document.body.appendChild(html);
+    });
+
+    let config = {
+      download: false,
+      filename: 'instancia.pdf'
+    };
+
+    exporter.toPdf(config).then((pdf) => {
+      // download the pdf file
+      pdf.save();
+      // get the datauri string
+      let datauri = pdf.output('datauristring');
+    })
   }
 
   getFormWidth(): string {
