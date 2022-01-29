@@ -277,42 +277,12 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
     });
   }
 
-  print(submission1: Submission): void {
-    let component = {
-      type: 'form',
-      title: 'Example',
-      display: 'form',
-      components: [
-        {
-          type: 'textfield',
-          key: 'name',
-          label: 'Name',
-          input: true
-        },
-        {
-          type: 'number',
-          key: 'age',
-          label: 'Age',
-          input: true
-        }
-      ]
-    };
-
-    let submission = {
-      _id: '<submission id>',
-      owner: '<owner id>',
-      modified: '1970-01-01T00:00:00.000Z',
-      data: {
-        name: 'John Doe',
-        age: 25
-      }
-    };
-
+  print(submission: Submission): void {
     let options = {
       ignoreLayout: true
     }
 
-    let exporter = new FormioExport(component, submission, options);
+    let exporter = new FormioExport(this.formulario, submission, options);
 
     exporter.toHtml().then((html) => {
       document.body.appendChild(html);
