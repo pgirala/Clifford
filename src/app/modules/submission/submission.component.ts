@@ -284,10 +284,6 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
     let exporter = new FormioExport(this.formulario, submission, options);
 
-    exporter.toHtml().then((html) => {
-      document.body.appendChild(html);
-    });
-
     let config = {
       download: false,
       filename: 'instancia.pdf'
