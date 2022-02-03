@@ -39,6 +39,10 @@ export const CONSTANTS = {
           update: environment.FI_HOST + '/:formPath/submission/:id',
           get: environment.FI_HOST + '/:formPath/submission/:id'
         },
+        jbpm: {
+          patronURL: 'kie-server',
+          createInstance: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/clifford.envio/instances'
+        },
         role: {
           list: environment.FI_HOST + '/role'
         },
