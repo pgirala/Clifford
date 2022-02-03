@@ -282,7 +282,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       ignoreLayout: true
     }
 
-    let exporter = new FormioExport(this.formulario, submission, options);
+    let exporter = new FormioExport(JSON.parse(JSON.stringify(this.formulario)), JSON.parse(JSON.stringify(submission)), options);
 
     let config = {
       download: false,
