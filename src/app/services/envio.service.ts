@@ -4,10 +4,7 @@ import { CONSTANTS } from '~utils/constants';
 
 import { Observable, Subject } from 'rxjs';
 import { KeycloakService } from '../keycloak/keycloak.service';
-
-import { Submission } from '~app/models/submission';
-
-import { Response } from '~app/models/response';
+import { JbpmService } from '~app/services/jbpm.service';
 
 @Injectable()
 export class EnvioService {
@@ -15,7 +12,8 @@ export class EnvioService {
 
   constructor(
     private http: HttpClient,
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private jbpmService: JbpmService
   ) { }
 
   headers = new HttpHeaders({
@@ -24,12 +22,7 @@ export class EnvioService {
 
   create(submissionId: string): Observable<any> {
     // perfecciona la instancia del envío generado a través de su formulario
-    return this.http.post<any>(
-      CONSTANTS.routes.envio.create,
-      {submissionId: submissionId},
-      {headers: this.headers,
-        responseType: 'json', observe: 'body'}
-    );
+    return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId);
   }
 
   setEnviosVisibility(visibilidad:boolean) {
