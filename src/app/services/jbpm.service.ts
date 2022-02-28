@@ -3,26 +3,25 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '~utils/constants';
 
 import { Observable } from 'rxjs';
-import { KeycloakService } from '../keycloak/keycloak.service';
-
-import { Submission } from '~app/models/submission';
-
-import { Response } from '~app/models/response';
+import { AuthService } from '~services/auth.service';
 
 @Injectable()
 export class JbpmService {
 
   constructor(
     private http: HttpClient,
-    private keycloakService: KeycloakService
+    private authService: AuthService
   ) { }
 
   createInstance(flujo: string, submissionId: string): Observable<any> {
     let path = CONSTANTS.routes.jbpm.createInstance.replace(':flujo', flujo);
     return this.http.post<any>(
       path,
-      {submissionId: submissionId},
-      {responseType: 'json', observe: 'body'}
+      {
+        submissionId: submissionId,
+        kctoken: this.authService.getTokenKC(),
+        fitoken: this.authService.getTokenFormio()},
+      { responseType: 'json', observe: 'body' }
     );
   }
 

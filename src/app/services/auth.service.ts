@@ -47,6 +47,12 @@ export class AuthService {
     return (this.keycloakService != null && this.keycloakService.getToken() != null);
   }
 
+  public getTokenKC():string {
+    if (this.hasTokenKC())
+      return this.keycloakService.getToken();
+    return null;
+  }
+
   public getTokenFormio():string {
     return this.formioContextService.getTokenFormio();
   }
