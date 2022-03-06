@@ -81,10 +81,10 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
         // determina los permisos
         this.altaHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearPropio) ||
                               this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearCualquiera);
-        this.modificacionHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarPropio) ||
-                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarCualquiera);
-        this.eliminacionHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.EliminarPropio) ||
-                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.EliminarCualquiera);
+        this.modificacionHabilitada = !this.formioContext.getUserFormio().data.soloLectura && (this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarPropio) ||
+                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarCualquiera));
+        this.eliminacionHabilitada = !this.formioContext.getUserFormio().data.soloLectura && (this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.EliminarPropio) ||
+                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.EliminarCualquiera));
 
       })
     });
