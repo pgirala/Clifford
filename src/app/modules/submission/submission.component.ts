@@ -79,8 +79,8 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
         this.formulario = form;
         Formio.clearCache(); // en caso contrario los select cargados no volverán a refrescarse
         // determina los permisos
-        this.altaHabilitada = this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearPropio) ||
-                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearCualquiera);
+        this.altaHabilitada = !this.formioContext.getUserFormio().data.soloLectura && (this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearPropio) ||
+                              this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.CrearCualquiera));
         this.modificacionHabilitada = !this.formioContext.getUserFormio().data.soloLectura && (this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarPropio) ||
                               this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.ActualizarCualquiera));
         this.eliminacionHabilitada = !this.formioContext.getUserFormio().data.soloLectura && (this.authService.tieneAcceso(this.formioContext.getUserFormio(), this.formulario, TipoPermiso.EliminarPropio) ||
