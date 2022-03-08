@@ -7,6 +7,7 @@ import { FormularioModule } from '~modules/formulario/formulario.module';
 import { SubmissionModule } from '~modules/submission/submission.module';
 import { EnvioModule } from '~modules/envio/envio.module';
 import { FormioModule } from '@formio/angular';
+import { AyudaModule } from '~modules/ayuda/ayuda.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { FormioModule } from '@formio/angular';
     FormularioModule,
     SubmissionModule,
     EnvioModule,
-    FormioModule
+    FormioModule,
+    AyudaModule
   ],
   declarations: [
     AdminLayoutComponent
