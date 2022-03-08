@@ -44,6 +44,10 @@ const routes: Routes = [
         path: 'users',
         loadChildren: '~modules/user/user.module#UserModule',
       },
+      {
+        path: 'ayuda',
+        loadChildren: '~modules/ayuda/ayuda.module#AyudaModule',
+      },
     ]
   }
 ];
