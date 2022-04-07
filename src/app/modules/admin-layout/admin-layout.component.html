@@ -1,11 +1,11 @@
 <mat-toolbar class="toolbar" color="accent">
 
-  <img src="assets/img/logo.png" class="menu" routerLink="/" style="cursor: pointer;">
+  <img src="assets/img/logo.png" class="menu" routerLink="/" style="cursor: pointer;" title="Inicio">
 
   <span class="spacer"></span>
 
   <h3>{{dominioActual.data.nombre}}</h3>
-  <button mat-icon-button [matMenuTriggerFor]="domainMenu" mdTooltip="Cambiar contexto" (click)="determinarContextos()">
+  <button mat-icon-button [matMenuTriggerFor]="domainMenu" mdTooltip="Cambiar contexto" (click)="determinarContextos()" title="Elegir contexto">
     <mat-icon>find_replace</mat-icon>
   </button>
 
@@ -17,7 +17,7 @@
 
   <span class="spacer"></span>
 
-  <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+  <button mat-icon-button [matMenuTriggerFor]="profileMenu" title="Sesión">
     <mat-icon>person_pin</mat-icon>
   </button>
   <h3>{{userName}}</h3>
