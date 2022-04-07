@@ -46,26 +46,26 @@
 
           <mat-cell *matCellDef="let row">
 
-            <button mat-icon-button (click)="view(row)" aria-label="Ver el formulario">
+            <button mat-icon-button (click)="view(row)" aria-label="Ver el formulario" title="Ver instancias">
               <i class="material-icons">topic</i>
             </button>
 
             <div *ngIf="disenoHabilitado">
-              <button mat-menu-item (click)="design(row)">
+              <button mat-menu-item (click)="design(row)" title="Diseñar el formulario">
                 <mat-icon aria-label="Disenar"><span class="material-icons">
                   account_balance
                   </span></mat-icon>
               </button>
             </div>
             <div *ngIf="disenoHabilitado">
-              <button mat-menu-item (click)="edit(row)">
+              <button mat-menu-item (click)="edit(row)" title="Editar metadatos del formulario">
                 <mat-icon aria-label="Editar"><span class="material-icons">
                   create
                   </span></mat-icon>
               </button>
             </div>
             <div *ngIf="disenoHabilitado">
-              <button mat-menu-item (click)="delete(row)">
+              <button mat-menu-item (click)="delete(row)" title="Eliminar formulario y sus instancias">
                 <mat-icon aria-label="Borrar">delete_forever</mat-icon>
               </button>
             </div>

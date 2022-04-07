@@ -34,7 +34,7 @@
             <!-- Download button -->
           <mat-grid-tile>
             <div *ngIf="totalItems != 0">
-              <button mat-raised-button (click)="descargar()" style="margin-bottom: 15px;" color="primary">
+              <button mat-raised-button (click)="descargar()" style="margin-bottom: 15px;" color="primary" title="Descargar las instancias en formato JSON">
                 <mat-icon>download</mat-icon>
               </button>
             </div>
@@ -66,20 +66,20 @@
           </mat-header-cell>
 
           <mat-cell *matCellDef="let row">
-              <button mat-menu-item (click)="view(row)">
+              <button mat-menu-item (click)="view(row)" title="Ver la instancia">
                 <mat-icon aria-label="Ver">visibility</mat-icon>
               </button>
               <div *ngIf="modificacionHabilitada">
-                <button mat-menu-item (click)="edit(row)">
+                <button mat-menu-item (click)="edit(row)" title="Modificar la instancia">
                   <mat-icon aria-label="Editar">create</mat-icon>
                 </button>
               </div>
               <div *ngIf="eliminacionHabilitada">
-                <button mat-menu-item (click)="delete(row)">
+                <button mat-menu-item (click)="delete(row)" title="Eliminar la instancia">
                   <mat-icon aria-label="Borrar">delete_forever</mat-icon>
                 </button>
               </div>
-              <button mat-menu-item (click)="print(row)">
+              <button mat-menu-item (click)="print(row)" title="Obtener el volcado de pantalla de la instancia en PDF">
                 <mat-icon aria-label="Imprimir">description</mat-icon>
               </button>
           </mat-cell>
