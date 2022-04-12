@@ -184,7 +184,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
   view(item: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '70%',
+      height: this.getFormHeight(),
       width: this.getFormWidth(),
       data: { action: 'view',
             formulario: this.formulario,
@@ -194,7 +194,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
 
   edit(submission: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '70%',
+      height: this.getFormHeight(),
       width: this.getFormWidth(),
       data: { action: 'update',
             formulario: this.formulario,
@@ -243,7 +243,7 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
   save(): void {
     const submissionVacia: Submission = {data:{}};
     const dialogRef = this.dialog.open(DetailComponent, {
-      height: '70%',
+      height: this.getFormHeight(),
       width: this.getFormWidth(),
       data: { action: 'save',
             formulario: this.formulario,
@@ -295,6 +295,11 @@ export class SubmissionComponent implements AfterViewInit, OnInit, Controller {
       // get the datauri string
       let datauri = pdf.output('datauristring');
     })
+  }
+
+  getFormHeight(): string {
+    return (this.formulario.tags.includes(CONSTANTS.formularios.size.small) ? '40%' :
+      (this.formulario.tags.includes(CONSTANTS.formularios.size.large) ? '90%': '60%'))
   }
 
   getFormWidth(): string {
