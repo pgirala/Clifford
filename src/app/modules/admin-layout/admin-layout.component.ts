@@ -81,6 +81,10 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     else
       this.formularioService.setFormulariosVisibility(false);
     this.userName = this.formioContextService.getUserName();
+    // si no se había asignado dominio y si solo se tiene acceso a uno se asigna inmediatamente
+    if (this.esDominioVacio(this.contextService.getDominio()) &&
+        this.formioContextService.getDominios().length == 1)
+        this.dominioActual = this.formioContextService.getDominios()[0];
   }
 
   ngOnDestroy(): void {
@@ -164,5 +168,9 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
       else
         this.formularioService.setFormulariosVisibility(false);
       this.router.navigate(['']); // vuelve a la página inicial
+  }
+
+  esDominioVacio(dominio: Dominio): boolean {
+    return !dominio || dominio.data.path === '';
   }
 }
