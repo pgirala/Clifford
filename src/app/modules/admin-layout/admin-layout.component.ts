@@ -13,6 +13,9 @@ import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '~components/snackbar/snackbar.component';
+
 import { Dominio } from '~app/models/dominio';
 import { CONSTANTS } from '~utils/constants';
 
@@ -48,7 +51,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public dialog: MatDialog,
-
+    public snack: MatSnackBar,
     private router: Router,
     private ngZone: NgZone,
     private renderer: Renderer2
@@ -83,7 +86,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     this.userService.ping().subscribe(
       (respuestas: Object) => {
       },
-      (err) => {console.log('Servidor inactivo')});
+      (err) => {this.openSnack({message: "No se pudo contactar con el servidor de formularios"});});
   }
 
   ngAfterContentChecked() {
@@ -188,5 +191,12 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
 
   esDominioVacio(dominio: Dominio): boolean {
     return !dominio || dominio.data.path === '';
+  }
+
+  private openSnack(data: any): void {
+    this.snack.openFromComponent(SnackbarComponent, {
+      data: { data: data },
+      duration: 3000
+    });
   }
 }
