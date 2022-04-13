@@ -51,6 +51,9 @@ export const CONSTANTS = {
         },
         envio: {
           create: environment.BK_HOST + '/clifford-back/rest/envios'
+        },
+        check: {
+          ping:  environment.BK_HOST + '/clifford-back/rest/usuarios/ping'
         }
     },
     formularios: {

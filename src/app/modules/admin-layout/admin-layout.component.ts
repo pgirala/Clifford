@@ -8,9 +8,13 @@ import { AuthService } from '~services/auth.service';
 import { ContextService } from '~services/context.service';
 import { FormioContextService } from '~services/formio-context.service';
 import { FormularioService } from '~services/formulario.service';
+import { UserService } from '~services/user.service';
 import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Dominio } from '~app/models/dominio';
 import { CONSTANTS } from '~utils/constants';
@@ -43,10 +47,11 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     private envioService: EnvioService,
     private formioContextService: FormioContextService,
     private contextService: ContextService,
+    private userService: UserService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public dialog: MatDialog,
-
+    public snack: MatSnackBar,
     private router: Router,
     private ngZone: NgZone,
     private renderer: Renderer2
@@ -72,6 +77,16 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
       this.formularioService.setFormulariosVisibility(true);
     else
       this.formularioService.setFormulariosVisibility(false);
+    this.ping();
+    setInterval(() => this.ping(), 60000);
+
+  }
+
+  ping() {
+    this.userService.ping().subscribe(
+      (respuestas: Object) => {
+      },
+      (err) => {this.openSnack({message: "No se pudo contactar con el servidor de formularios"});});
   }
 
   ngAfterContentChecked() {
@@ -81,6 +96,14 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     else
       this.formularioService.setFormulariosVisibility(false);
     this.userName = this.formioContextService.getUserName();
+    // si no se había asignado dominio y si solo se tiene acceso a uno se asigna inmediatamente
+    if (this.esDominioVacio(this.contextService.getDominio()) && this.formioContextService.getDominios().length == 1)
+      this.submissionService.getOne(this.formioContextService.getDominios()[0]._id, CONSTANTS.formularios.formDominio).subscribe((dominioPrimario:Dominio) =>
+      {
+        this.dominioActual = dominioPrimario;
+        this.contextService.setDominio(this.dominioActual);
+        this.router.navigate(['']); // vuelve a la página inicial
+      })
   }
 
   ngOnDestroy(): void {
@@ -164,5 +187,16 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
       else
         this.formularioService.setFormulariosVisibility(false);
       this.router.navigate(['']); // vuelve a la página inicial
+  }
+
+  esDominioVacio(dominio: Dominio): boolean {
+    return !dominio || dominio.data.path === '';
+  }
+
+  private openSnack(data: any): void {
+    this.snack.openFromComponent(SnackbarComponent, {
+      data: { data: data },
+      duration: 3000
+    });
   }
 }
