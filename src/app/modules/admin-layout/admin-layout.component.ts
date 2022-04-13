@@ -82,8 +82,8 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   ping() {
     this.userService.ping().subscribe(
       (respuestas: Object) => {
-        console.log('Servidor activo');
-      });
+      },
+      (err) => {console.log('Servidor inactivo')});
   }
 
   ngAfterContentChecked() {
