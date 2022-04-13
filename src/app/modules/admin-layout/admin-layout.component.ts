@@ -8,6 +8,7 @@ import { AuthService } from '~services/auth.service';
 import { ContextService } from '~services/context.service';
 import { FormioContextService } from '~services/formio-context.service';
 import { FormularioService } from '~services/formulario.service';
+import { UserService } from '~services/user.service';
 import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~services/envio.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
@@ -43,6 +44,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     private envioService: EnvioService,
     private formioContextService: FormioContextService,
     private contextService: ContextService,
+    private userService: UserService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public dialog: MatDialog,
@@ -72,6 +74,16 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
       this.formularioService.setFormulariosVisibility(true);
     else
       this.formularioService.setFormulariosVisibility(false);
+    this.ping();
+    setInterval(() => this.ping(), 60000);
+
+  }
+
+  ping() {
+    this.userService.ping().subscribe(
+      (respuestas: Object) => {
+        console.log('Servidor activo');
+      });
   }
 
   ngAfterContentChecked() {

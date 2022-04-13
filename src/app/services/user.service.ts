@@ -14,6 +14,15 @@ export class UserService implements FormioProvider  {
   private roleList:Array<Role>;
   constructor(private http: HttpClient, private formioContextService:FormioContextService) { }
 
+  ping(): Observable<Object>  {
+    let path = CONSTANTS.routes.check.ping;
+
+    return this.http.get<Object>(
+      path,
+      { responseType: 'json', observe: 'body' }
+    );
+  }
+
   getListaRoles():Array<Role> {
     return this.roleList;
   }
