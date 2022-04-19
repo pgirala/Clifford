@@ -50,7 +50,7 @@ export const CONSTANTS = {
           find: environment.FI_HOST + '/admon/user/submission?data.email=:email'
         },
         envio: {
-          create: environment.BK_HOST + '/clifford-back/rest/envios'
+          create: environment.LOCAL_BK_HOST + '/clifford-back/rest/envios'
         },
         check: {
           ping:  environment.BK_HOST + '/clifford-back/rest/usuarios/ping'
