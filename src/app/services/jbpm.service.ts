@@ -22,7 +22,12 @@ export class JbpmService {
         kctoken: this.authService.getTokenKC(),
         url: url
       },
-      { responseType: 'json', observe: 'body' }
+      {
+        headers: new HttpHeaders({
+          'Authorization': 'Basic ' + btoa(CONSTANTS.routes.jbpm.usuario + ':' + CONSTANTS.routes.jbpm.clave)
+        }),
+        responseType: 'json',
+        observe: 'body' }
     );
   }
 

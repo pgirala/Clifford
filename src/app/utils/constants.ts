@@ -40,6 +40,8 @@ export const CONSTANTS = {
           get: environment.FI_HOST + '/:formPath/submission/:id'
         },
         jbpm: {
+          usuario: 'wbadmin',
+          clave: 'wbadmin',
           flujoEnvio: 'clifford.envio',
           createInstance: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/:flujo/instances'
         },
