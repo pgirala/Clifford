@@ -16,10 +16,6 @@ export class EnvioService {
     private jbpmService: JbpmService
   ) { }
 
-  headers = new HttpHeaders({
-    'Authorization': this.keycloakService.getAuthHeader()
-  });
-
   create(submissionId: string): Observable<any> {
     // perfecciona la instancia del envío generado a través de su formulario
     return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.envio.create);

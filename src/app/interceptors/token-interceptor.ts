@@ -12,13 +12,15 @@ export class TokenInterceptor implements HttpInterceptor
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
   {
-    const token = this.tokenExtractor.getToken() as string;
+    if (request.headers.get("Authorization") == null) {
+      const token = this.tokenExtractor.getToken() as string;
 
-    request = request.clone({
-      setHeaders: {
-        "Authorization": this.kcService.getAuthHeader()
-      }
-    });
+      request = request.clone({
+        setHeaders: {
+          "Authorization": this.kcService.getAuthHeader()
+        }
+      });
+    }
     return next.handle(request);
   }
 }
