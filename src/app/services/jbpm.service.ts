@@ -18,6 +18,7 @@ export class JbpmService {
     return this.http.post<any>(
       path,
       {
+        initiator: CONSTANTS.routes.jbpm.initiator,
         submissionId: submissionId,
         kctoken: this.authService.getTokenKC(),
         url: url
