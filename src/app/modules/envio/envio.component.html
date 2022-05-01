@@ -39,12 +39,12 @@
 
         <ng-container matColumnDef="created">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de envío</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.created | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{ row.data.momentoEnvio | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="modified">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de recepción</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.modified  | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{ row.data.momentoRecepcion  | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <!-- Table actions -->
