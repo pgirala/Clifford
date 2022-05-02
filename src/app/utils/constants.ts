@@ -42,7 +42,7 @@ export const CONSTANTS = {
         jbpm: {
           usuario: 'wbadmin',
           clave: 'wbadmin',
-          flujoEnvio: 'clifford.envio',
+          flujoEnvio: 'clifford.envioExtendido',
           createInstance: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/:flujo/instances'
         },
         role: {
@@ -52,7 +52,10 @@ export const CONSTANTS = {
           find: environment.FI_HOST + '/admon/user/submission?data.email=:email'
         },
         envio: {
-          create: environment.LOCAL_BK_HOST + '/clifford-back/rest/envios'
+          url: environment.LOCAL_BK_HOST + '/clifford-back/rest/envios'
+        },
+        usuario: {
+          url:  environment.LOCAL_BK_HOST + '/clifford-back/rest/usuarios'
         },
         check: {
           ping:  environment.BK_HOST + '/clifford-back/rest/usuarios/ping'

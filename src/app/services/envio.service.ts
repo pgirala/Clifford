@@ -18,7 +18,7 @@ export class EnvioService {
 
   create(submissionId: string): Observable<any> {
     // perfecciona la instancia del envío generado a través de su formulario
-    return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.envio.create);
+    return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.envio.url, CONSTANTS.routes.usuario.url);
   }
 
   setEnviosVisibility(visibilidad:boolean) {

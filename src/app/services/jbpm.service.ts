@@ -13,14 +13,15 @@ export class JbpmService {
     private authService: AuthService
   ) { }
 
-  createInstance(flujo: string, submissionId: string, url:string): Observable<any> {
+  createInstance(flujo: string, submissionId: string, urlEnvio:string, urlUsuario:string): Observable<any> {
     let path = CONSTANTS.routes.jbpm.createInstance.replace(':flujo', flujo);
     return this.http.post<any>(
       path,
       {
         submissionId: submissionId,
         kctoken: this.authService.getTokenKC(),
-        url: url
+        urlEnvio: urlEnvio,
+        urlUsuario: urlUsuario
       },
       {
         headers: new HttpHeaders({
