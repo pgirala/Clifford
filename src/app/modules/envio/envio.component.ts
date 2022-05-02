@@ -199,4 +199,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
     });
   }
 
+  toDate(sdate: string): Date {
+    return new Date(sdate);
+  }
 }

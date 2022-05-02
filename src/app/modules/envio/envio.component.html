@@ -39,7 +39,7 @@
 
         <ng-container matColumnDef="created">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de envío</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.data.momentoEnvio | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{ (row.data.momentoEnvio == null ? row.created : toDate(row.data.momentoEnvio)) | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="modified">
