@@ -39,7 +39,6 @@ import { ContextService } from '~app/services/context.service';
 
 /*IMPORTACION DE LOS MODULES QUE A SU VEZ ELLOS IMPORTAN SUS PROPIOS COMPONENTES
 ASI SE EVITA SATURAR ESTE ARCHIVO DE IMPORTACIONES Y SE MODULARIZA EL PROYECTO.*/
-import { UserModule } from '~modules/user/user.module';
 import { AdminLayoutModule } from '~modules/admin-layout/admin-layout.module';
 
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';

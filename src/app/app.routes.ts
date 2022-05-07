@@ -41,10 +41,6 @@ const routes: Routes = [
         loadChildren: '~modules/envio/envio.module#EnvioModule',
       },
       {
-        path: 'users',
-        loadChildren: '~modules/user/user.module#UserModule',
-      },
-      {
         path: 'ayuda',
         loadChildren: '~modules/ayuda/ayuda.module#AyudaModule',
       },

@@ -22,7 +22,6 @@ import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { FormularioService } from '~app/services/formulario.service';
-import { User } from '~app/models/user';
 import { ContextService } from '~app/services/context.service';
 
 @Component({
