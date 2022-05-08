@@ -38,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'tareas',
-        loadChildren: '~modules/tarea/tarea.module#EnvioModule',
+        loadChildren: '~modules/tarea/tarea.module#TareaModule',
       },
       {
         path: 'ayuda',

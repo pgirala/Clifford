@@ -31,7 +31,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
 
-  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',tareas:true, individual:false}};
+  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',tareas:false, individual:false}};
   dominioActual:Dominio = this.dominioVacio;
   userName:string = "Anónimo";
   dominios:Array<Dominio>;
