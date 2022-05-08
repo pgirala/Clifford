@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~utils/shared.module';
-import { EnvioComponent } from './envio.component';
+import { TareaComponent } from './tarea.component';
 import { DetailComponent } from './view/detail.component';
 import { FormioModule } from '@formio/angular';
 
@@ -12,7 +12,7 @@ import { FormioModule } from '@formio/angular';
     SharedModule
   ],
   declarations: [
-    EnvioComponent,
+    TareaComponent,
     DetailComponent
   ],
   providers: [],
@@ -22,5 +22,5 @@ import { FormioModule } from '@formio/angular';
     RouterModule,
   ]
 })
-export class EnvioModule { }
+export class TareaModule { }
 

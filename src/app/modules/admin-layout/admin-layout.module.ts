@@ -5,7 +5,7 @@ import { AdminLayoutComponent } from './admin-layout.component';
 import { DashboardModule } from '~modules/dashboard/dashboard.module';
 import { FormularioModule } from '~modules/formulario/formulario.module';
 import { SubmissionModule } from '~modules/submission/submission.module';
-import { EnvioModule } from '~modules/envio/envio.module';
+import { TareaModule } from '~modules/tarea/tarea.module';
 import { FormioModule } from '@formio/angular';
 import { AyudaModule } from '~modules/ayuda/ayuda.module';
 

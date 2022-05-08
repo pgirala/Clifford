@@ -10,7 +10,7 @@ import { FormioContextService } from '~services/formio-context.service';
 import { FormularioService } from '~services/formulario.service';
 import { UserService } from '~services/user.service';
 import { SubmissionService } from '~app/services/submission.service';
-import { EnvioService } from '~services/envio.service';
+import { EnvioService } from '~services/tarea.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,7 +31,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
 
-  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false, individual:false}};
+  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',tareas:true, individual:false}};
   dominioActual:Dominio = this.dominioVacio;
   userName:string = "Anónimo";
   dominios:Array<Dominio>;
@@ -44,7 +44,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     private authService: AuthService,
     private formularioService: FormularioService,
     private submissionService: SubmissionService,
-    private envioService: EnvioService,
+    private tareaService: TareaService,
     private formioContextService: FormioContextService,
     private contextService: ContextService,
     private userService: UserService,
@@ -72,7 +72,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
       this.dominioActual = this.contextService.getDominio();
     else
       this.dominioActual = this.dominioVacio;
-    this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    this.tareaService.setTareasVisibility(this.dominioActual.data.tareas);
     if (this.dominioActual.data.path)
       this.formularioService.setFormulariosVisibility(true);
     else
@@ -90,7 +90,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked() {
-    this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    this.tareaService.setTareasVisibility(this.dominioActual.data.tareas);
     if (this.dominioActual.data.path)
       this.formularioService.setFormulariosVisibility(true);
     else
@@ -181,7 +181,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
         break;
       }
       this.contextService.setDominio(this.dominioActual);
-      this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+      this.tareaService.setTareasVisibility(this.dominioActual.data.tareas);
       if (this.dominioActual.data.path)
         this.formularioService.setFormulariosVisibility(true);
       else

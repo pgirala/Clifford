@@ -15,7 +15,7 @@ import { Submission } from '~models/submission';
 import { SubmissionService } from '~services/submission.service';
 import { AuthService } from '~services/auth.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
-import { DetailComponent } from '~modules/envio/view/detail.component';
+import { DetailComponent } from '~modules/tarea/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
 import { Controller } from '~base/controller';
@@ -26,11 +26,11 @@ import { ContextService } from '~app/services/context.service';
 
 @Component({
   selector: 'app-client',
-  templateUrl: './envio.component.html',
-  styleUrls: ['./envio.component.scss'],
+  templateUrl: './tarea.component.html',
+  styleUrls: ['./tarea.component.scss'],
   providers: [SubmissionService, FormularioService]
 })
-export class EnvioComponent implements AfterViewInit, OnInit, Controller {
+export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 20;

@@ -45,8 +45,8 @@ export const CONSTANTS = {
         user: {
           find: environment.FI_HOST + '/admon/user/submission?data.email=:email'
         },
-        envio: {
-          create: environment.BK_HOST + '/clifford-back/rest/envios'
+        tarea: {
+          create: environment.BK_HOST + '/clifford-back/rest/tareas'
         },
         check: {
           ping:  environment.BK_HOST + '/clifford-back/rest/usuarios/ping'
@@ -59,7 +59,7 @@ export const CONSTANTS = {
             medium: 'medium',
             large: 'large'
         },
-        formEnvio: 'envio',
+        formTarea: 'tarea',
         formMetadatos: 'metadatos',
         formDominio: 'admon/dominio',
         lang: {},

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, EventEmitter, HostListener} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EnvioService } from '~services/envio.service';
+import { TareaService } from '~services/tarea.service';
 import { SubmissionService } from '~services/submission.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
@@ -22,7 +22,7 @@ export class DetailComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: {
     action: string, formulario: any, submission: any},
     private submissionService: SubmissionService,
-    private envioService: EnvioService,
+    private tareaService: TareaService,
     public snack: MatSnackBar) {
       this.submission = JSON.parse(JSON.stringify(data.submission));
       this.readOnly = (data.action == 'view');
@@ -74,7 +74,7 @@ export class DetailComponent implements OnInit{
     this.submissionService.save(subm, this.data.formulario.path).subscribe((res: any) => {
       let submissionId = res._id;
       let resumen = res.data.resumen;
-      this.envioService.create(submissionId).subscribe((res: any) => {
+      this.tareaService.create(submissionId).subscribe((res: any) => {
         this.dialogRef.close(resumen);
       }, (error:any) => {
         this.openSnack(error);
