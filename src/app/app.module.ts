@@ -33,7 +33,7 @@ import { AuthService } from '~services/auth.service';
 import { UserService } from '~services/user.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { SubmissionService } from '~app/services/submission.service';
-import { EnvioService } from '~app/services/tarea.service';
+import { TareaService } from '~app/services/tarea.service';
 import { FormioContextService } from '~app/services/formio-context.service';
 import { ContextService } from '~app/services/context.service';
 
@@ -90,7 +90,7 @@ export function kcFactory(keycloakService: KeycloakService) {
     UserService,
     FormularioService,
     SubmissionService,
-    EnvioService,
+    TareaService,
     FormioContextService,
     ContextService
   ],
