@@ -16,7 +16,7 @@ import { AyudaModule } from '~modules/ayuda/ayuda.module';
     DashboardModule,
     FormularioModule,
     SubmissionModule,
-    EnvioModule,
+    TareaModule,
     FormioModule,
     AyudaModule
   ],

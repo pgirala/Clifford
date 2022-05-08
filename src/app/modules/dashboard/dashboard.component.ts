@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
-import { EnvioService } from '~services/tarea.service';
+import { TareaService } from '~services/tarea.service';
 import { ContextService } from '~services/context.service';
 import { FormularioService } from '~services/formulario.service';
 
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
     this.formularioService.formulariosVisibilityChange.subscribe((value) => {
       this.formulariosVisibles = value;
     })
-    this.tareaService.tareassVisibilityChange.subscribe((value) => {
+    this.tareaService.tareasVisibilityChange.subscribe((value) => {
       this.tareasVisibles = value;
     })
   }

@@ -42,7 +42,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
-  public formPath = CONSTANTS.formularios.formEnvio;
+  public formPath = CONSTANTS.formularios.formTarea;
   public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', type:null, name: null, display: null, path: null, tags:[CONSTANTS.formularios.multiple]};
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -65,7 +65,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findByName(CONSTANTS.formularios.formEnvio).subscribe((formularios:any) => {
+    this.formularioService.findByName(CONSTANTS.formularios.formTarea).subscribe((formularios:any) => {
       this.formulario = formularios[0];
     })
   }
@@ -112,7 +112,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
             Number.MAX_SAFE_INTEGER,
             1,
             this.search,
-            CONSTANTS.formularios.formEnvio,
+            CONSTANTS.formularios.formTarea,
             this.contextService.getDominio().data.path
           );
         }),
@@ -145,7 +145,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
             this.pageSize,
             this.page,
             this.search,
-            CONSTANTS.formularios.formEnvio,
+            CONSTANTS.formularios.formTarea,
             this.contextService.getDominio().data.path
           );
         }),

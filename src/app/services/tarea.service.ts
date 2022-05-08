@@ -32,7 +32,7 @@ export class TareaService {
     );
   }
 
-  setEnviosVisibility(visibilidad:boolean) {
+  setTareasVisibility(visibilidad:boolean) {
     this.tareasVisibilityChange.next(visibilidad);
   }
 }

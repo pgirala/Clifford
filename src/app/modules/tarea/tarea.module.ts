@@ -7,7 +7,7 @@ import { FormioModule } from '@formio/angular';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([{path: '', component: EnvioComponent}]),
+    RouterModule.forChild([{path: '', component: TareaComponent}]),
     FormioModule,
     SharedModule
   ],

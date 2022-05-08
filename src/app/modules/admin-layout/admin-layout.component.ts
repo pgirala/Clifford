@@ -10,7 +10,7 @@ import { FormioContextService } from '~services/formio-context.service';
 import { FormularioService } from '~services/formulario.service';
 import { UserService } from '~services/user.service';
 import { SubmissionService } from '~app/services/submission.service';
-import { EnvioService } from '~services/tarea.service';
+import { TareaService } from '~services/tarea.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
