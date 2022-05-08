@@ -1,9 +1,9 @@
 <div class="animated fadeIn table-container mat-elevation-z20">
   <mat-card>
     <mat-card-header>
-      <i class="material-icons">share</i>
+      <i class="material-icons">settings</i>
       <mat-card-title>{{formulario.title}}</mat-card-title>
-      <mat-card-subtitle>Envíos producidos</mat-card-subtitle>
+      <mat-card-subtitle>Relación de tareas</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -25,7 +25,7 @@
 
         <!-- Add button -->
         <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
-          <mat-icon>add</mat-icon> Nuevo envío
+          <mat-icon>add</mat-icon> Nueva tarea
         </button>
       </div>
 
@@ -33,17 +33,17 @@
         matSortDirection="desc">
         <!-- Table content -->
         <ng-container matColumnDef="resumen">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Envío</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Tarea</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.data.resumen }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="created">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de envío</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Inicio</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.created | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="modified">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de recepción</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Fin</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.modified  | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
@@ -55,7 +55,7 @@
 
           <mat-cell *matCellDef="let row">
 
-            <button mat-icon-button (click)="view(row)" aria-label="Ver el envío" title="Ver detalles del envío">
+            <button mat-icon-button (click)="view(row)" aria-label="Ver la tarea" title="Ver detalles de la tarea">
               <i class="material-icons">visibility</i>
             </button>
 
