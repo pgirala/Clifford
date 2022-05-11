@@ -4,6 +4,7 @@ import { CONSTANTS } from '~utils/constants';
 
 import { Observable, Subject } from 'rxjs';
 import { KeycloakService } from '../keycloak/keycloak.service';
+import { JbpmService } from '~app/services/jbpm.service';
 
 import { Submission } from '~app/models/submission';
 
@@ -15,7 +16,8 @@ export class TareaService {
 
   constructor(
     private http: HttpClient,
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private jbpmService: JbpmService
   ) { }
 
   headers = new HttpHeaders({
@@ -23,13 +25,8 @@ export class TareaService {
   });
 
   create(submissionId: string): Observable<any> {
-    // perfecciona la instancia del envío generado a través de su formulario
-    return this.http.post<any>(
-      CONSTANTS.routes.tarea.create,
-      {submissionId: submissionId},
-      {headers: this.headers,
-        responseType: 'json', observe: 'body'}
-    );
+    // crea la instancia de un proceso
+    return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.tarea.url, CONSTANTS.routes.usuario.url);
   }
 
   setTareasVisibility(visibilidad:boolean) {

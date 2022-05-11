@@ -39,6 +39,12 @@ export const CONSTANTS = {
           update: environment.FI_HOST + '/:formPath/submission/:id',
           get: environment.FI_HOST + '/:formPath/submission/:id'
         },
+        jbpm: {
+          usuario: 'wbadmin',
+          clave: 'wbadmin',
+          flujoEnvio: 'clifford.envioExtendido',
+          createInstance: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/:flujo/instances'
+        },
         role: {
           list: environment.FI_HOST + '/role'
         },
@@ -46,7 +52,10 @@ export const CONSTANTS = {
           find: environment.FI_HOST + '/admon/user/submission?data.email=:email'
         },
         tarea: {
-          create: environment.BK_HOST + '/clifford-back/rest/tareas'
+          url: environment.LOCAL_BK_HOST + '/clifford-back/rest/envios'
+        },
+        usuario: {
+          url:  environment.LOCAL_BK_HOST + '/clifford-back/rest/usuarios'
         },
         check: {
           ping:  environment.BK_HOST + '/clifford-back/rest/usuarios/ping'

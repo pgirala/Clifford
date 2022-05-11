@@ -10,5 +10,7 @@ export const environment = {
   FI_BASE_URL: 'http://localhost:3001',
   FI_PROJECT_URL: 'http://localhost:3001',
   KC_HOST: 'http://keycloak:8080',
-  BK_HOST: 'http://localhost:8010/proxy'
+  BK_HOST: 'http://localhost:8010/proxy',
+  LOCAL_BK_HOST: 'http://host.docker.internal:8090',
+  JB_HOST: 'http://localhost:8012/proxy'
 };

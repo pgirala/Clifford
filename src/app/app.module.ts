@@ -34,6 +34,7 @@ import { UserService } from '~services/user.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { SubmissionService } from '~app/services/submission.service';
 import { TareaService } from '~app/services/tarea.service';
+import { JbpmService } from '~app/services/jbpm.service';
 import { FormioContextService } from '~app/services/formio-context.service';
 import { ContextService } from '~app/services/context.service';
 
@@ -89,7 +90,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     AuthService,
     UserService,
     FormularioService,
-    SubmissionService,
+    SubmissionService,,
+    JbpmService,
     TareaService,
     FormioContextService,
     ContextService
