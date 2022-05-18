@@ -30,7 +30,8 @@ export const CONSTANTS = {
             find: environment.FI_HOST + '/form',
             update: environment.FI_HOST + '/form/:id',
             create: environment.FI_HOST + '/form',
-            delete: environment.FI_HOST + '/:formPath'
+            delete: environment.FI_HOST + '/:formPath',
+            clone: environment.BK_HOST + '/clifford-back/rest/formularios'
         },
         submission: {
           list: environment.FI_HOST + '/:formPath/submission',

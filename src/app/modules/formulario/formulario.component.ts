@@ -254,4 +254,23 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
       data: {formulario: item}
     });
   }
+
+  clone(item: Formulario): void {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '250px',
+      data: {
+        title: 'Duplicar formulario',
+        message: '¿Quiere duplicar el formulario?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.formularioService.clone(item._id).subscribe((data: any) => {
+          this.openSnack({message: "Formulario clonado"});
+          this.paginator._changePageSize(this.paginator.pageSize);
+        });
+      }
+    });
+  }
 }
