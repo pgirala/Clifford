@@ -7,6 +7,7 @@ import { FormioProvider } from '~base/formio-provider';
 import { FormioContextService } from '~app/services/formio-context.service';
 import { Observable, Subject } from 'rxjs';
 import { ContextService } from '~app/services/context.service';
+import { KeycloakService } from '../keycloak/keycloak.service';
 
 @Injectable()
 export class FormularioService implements FormioProvider {
@@ -16,12 +17,18 @@ export class FormularioService implements FormioProvider {
   constructor(
     private http: HttpClient,
     private formioContextService: FormioContextService,
-    private contextService: ContextService
+    private contextService: ContextService,
+    private keycloakService: KeycloakService
   ) { }
 
   headers() {
     return new HttpHeaders({
     'x-jwt-token': this.formioContextService.getTokenFormio()
+  }) };
+
+  KCheaders() {
+    return  new HttpHeaders({
+    'Authorization': this.keycloakService.getAuthHeader()
   }) };
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
@@ -51,6 +58,15 @@ export class FormularioService implements FormioProvider {
     return this.http.delete<Object>(
       path,
       { headers: this.headers(), responseType: 'text' as 'json', observe: 'body' }
+    );
+  }
+
+  clone(id: string): Observable<Object> {
+    return this.http.post<any>(
+      CONSTANTS.routes.formulario.clone,
+      {idOriginal: id},
+      {headers: this.KCheaders(),
+        responseType: 'json', observe: 'body'}
     );
   }
 
