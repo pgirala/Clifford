@@ -198,14 +198,8 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     });
   }
 
-  descargar(): void {
-    this.formularioService.getList(
-      this.sort.active,
-      this.sort.direction,
-      Number.MAX_SAFE_INTEGER,
-      1,
-      this.search
-    ).subscribe((resp: any) => {
+  descargar(item: Formulario): void {
+    this.formularioService.getOne(item._id).subscribe((resp: any) => {
       const file = new Blob([JSON.stringify(resp)], { type: 'text/json' });
       this.download(file, "descarga.json");
     });
