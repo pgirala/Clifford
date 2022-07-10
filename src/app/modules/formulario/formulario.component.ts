@@ -20,7 +20,7 @@ import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 import { Submission } from '~models/submission';
 import { SubmissionService } from '~services/submission.service';
 
-import { Controller } from '~base/controller';
+import { Controller } from '~base/controller';
 import { FormioContextService } from '~app/services/formio-context.service';
 
 import { ContextService } from '~services/context.service';
@@ -47,7 +47,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   public search = '';
   public disenoHabilitado = false;
   public formMetadatosPath = CONSTANTS.formularios.formMetadatos;
-  public formularioMetadatos: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', type:null, name:null, display: null, path: null, tags:[CONSTANTS.formularios.multiple]};
+  public formularioMetadatos: Formulario = { _id: '', owner: '', created: null, modified: null, title: '', type: null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple] };
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -69,7 +69,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findByName(CONSTANTS.formularios.formMetadatos).subscribe((formularios:any) => {
+    this.formularioService.findByName(CONSTANTS.formularios.formMetadatos).subscribe((formularios: any) => {
       this.formularioMetadatos = formularios[0];
     })
 
@@ -127,7 +127,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
           return;
         }),
         catchError(() => {
-          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
+          this.openSnack({ message: "No se pudo contactar con el servidor de formularios" });
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
@@ -158,7 +158,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
           return data;
         }),
         catchError(() => {
-          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
+          this.openSnack({ message: "No se pudo contactar con el servidor de formularios" });
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
@@ -167,10 +167,10 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   view(item: Formulario): void {
-    this.router.navigate(['/submissions'], { queryParams: {formId: item._id, formPath: item.path}});
+    this.router.navigate(['/submissions'], { queryParams: { formId: item._id, formPath: item.path } });
   }
 
-  transformarIdRoles(item: Formulario):Formulario {
+  transformarIdRoles(item: Formulario): Formulario {
     let formulario = JSON.stringify(item);
     for (let role of this.authService.getListaRoles()) {
       formulario = formulario.split(role._id).join(role.machineName);
@@ -179,39 +179,73 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
   }
 
   edit(item: Formulario): void {
-    const submission: Submission= {data:this.transformarIdRoles(item)};
+    const submission: Submission = { data: this.transformarIdRoles(item) };
     const dialogRef = this.dialog.open(MetadataComponent, {
       height: '70%',
       width: '70%',
-      data: { action: 'update',
-            formulario: this.formularioMetadatos,
-            submission: this.submissionService.addToken(submission)  }
-      });
+      data: {
+        action: 'update',
+        formulario: this.formularioMetadatos,
+        submission: this.submissionService.addToken(submission)
+      }
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.openSnack({message: "Datos del formulario actualizados"});
-          this.paginator._changePageSize(this.paginator.pageSize);
-        }
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.openSnack({ message: "Datos del formulario actualizados" });
+        this.paginator._changePageSize(this.paginator.pageSize);
+      }
+    });
+  }
+
+  descargar(): void {
+    this.formularioService.getList(
+      this.sort.active,
+      this.sort.direction,
+      Number.MAX_SAFE_INTEGER,
+      1,
+      this.search
+    ).subscribe((resp: any) => {
+      const file = new Blob([JSON.stringify(resp)], { type: 'text/json' });
+      this.download(file, "descarga.json");
+    });
+  }
+
+  download(blob, filename) {
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+      window.navigator.msSaveOrOpenBlob(blob, filename);
+    else { // Others
+      var a = document.createElement("a"),
+        url = URL.createObjectURL(blob);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
+    }
   }
 
   save(): void {
-    const submission: Submission= {data:{path:this.contextService.getDominio().data.path + '/'}};
+    const submission: Submission = { data: { path: this.contextService.getDominio().data.path + '/' } };
     const dialogRef = this.dialog.open(MetadataComponent, {
       height: '70%',
       width: '70%',
-      data: { action: 'save',
-            formulario: this.formularioMetadatos,
-            submission: this.submissionService.addToken(submission)  }
-      });
+      data: {
+        action: 'save',
+        formulario: this.formularioMetadatos,
+        submission: this.submissionService.addToken(submission)
+      }
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.openSnack({message: "Formulario creado. Puede proceder a su diseño"});
-          this.paginator._changePageSize(this.paginator.pageSize);
-        }
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.openSnack({ message: "Formulario creado. Puede proceder a su diseño" });
+        this.paginator._changePageSize(this.paginator.pageSize);
+      }
+    });
   }
 
   delete(item: Formulario): void {
@@ -226,7 +260,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.formularioService.delete(item.path).subscribe((data: any) => {
-          this.openSnack({message: "Formulario eliminado"});
+          this.openSnack({ message: "Formulario eliminado" });
           this.paginator._changePageSize(this.paginator.pageSize);
           // elimina las instancias del formulario
           this.submissionService.getList(
@@ -239,8 +273,9 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
           ).subscribe((resp: any) => {
             for (let formulario in resp)
               this.submissionService.delete(resp._id, item.path).subscribe((res: any) => {
-              }, (error:any) => {
-                this.openSnack(error);});
+              }, (error: any) => {
+                this.openSnack(error);
+              });
           });
         });
       }
@@ -251,7 +286,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '90%',
       width: '90%',
-      data: {formulario: item}
+      data: { formulario: item }
     });
   }
 
@@ -267,7 +302,7 @@ export class FormularioComponent implements AfterViewInit, OnInit, Controller {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.formularioService.clone(item._id).subscribe((data: any) => {
-          this.openSnack({message: "Formulario clonado"});
+          this.openSnack({ message: "Formulario clonado" });
           this.paginator._changePageSize(this.paginator.pageSize);
         });
       }

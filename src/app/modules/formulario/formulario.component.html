@@ -22,13 +22,27 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-
-        <!-- Add button -->
-        <div *ngIf="disenoHabilitado">
-          <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
-            <mat-icon>add</mat-icon> Nuevo formulario
-          </button>
-        </div>
+        <mat-grid-list cols="2" rowHeight="50px">
+          <mat-grid-tile>
+            <!-- Add button -->
+            <div *ngIf="disenoHabilitado">
+              <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
+                <mat-icon>add</mat-icon> Nuevo formulario
+              </button>
+            </div>
+          </mat-grid-tile>
+          <!-- Download button -->
+          <mat-grid-tile>
+            <div *ngIf="disenoHabilitado">
+              <div *ngIf="totalItems != 0">
+                <button mat-raised-button (click)="descargar()" style="margin-bottom: 15px;" color="primary"
+                  title="Descargar los formularios en formato JSON">
+                  <mat-icon>download</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
 
       <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="title" matSortDisableClear
@@ -53,21 +67,21 @@
             <div *ngIf="disenoHabilitado">
               <button mat-menu-item (click)="design(row)" title="Diseñar el formulario">
                 <mat-icon aria-label="Disenar"><span class="material-icons">
-                  account_balance
+                    account_balance
                   </span></mat-icon>
               </button>
             </div>
             <div *ngIf="disenoHabilitado">
               <button mat-menu-item (click)="edit(row)" title="Editar metadatos del formulario">
                 <mat-icon aria-label="Editar"><span class="material-icons">
-                  create
+                    create
                   </span></mat-icon>
               </button>
             </div>
             <div *ngIf="disenoHabilitado">
               <button mat-menu-item (click)="clone(row)" title="Clonar el formulario">
                 <mat-icon aria-label="Clonar"><span class="material-icons">
-                  supervised_user_circle
+                    supervised_user_circle
                   </span></mat-icon>
               </button>
             </div>
