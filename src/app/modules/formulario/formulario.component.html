@@ -22,7 +22,6 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-
         <!-- Add button -->
         <div *ngIf="disenoHabilitado">
           <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
@@ -53,20 +52,33 @@
             <div *ngIf="disenoHabilitado">
               <button mat-menu-item (click)="design(row)" title="Diseñar el formulario">
                 <mat-icon aria-label="Disenar"><span class="material-icons">
-                  account_balance
+                    account_balance
                   </span></mat-icon>
               </button>
             </div>
             <div *ngIf="disenoHabilitado">
               <button mat-menu-item (click)="edit(row)" title="Editar metadatos del formulario">
                 <mat-icon aria-label="Editar"><span class="material-icons">
-                  create
+                    create
+                  </span></mat-icon>
+              </button>
+            </div>
+            <div *ngIf="disenoHabilitado">
+              <button mat-menu-item (click)="clone(row)" title="Clonar el formulario">
+                <mat-icon aria-label="Clonar"><span class="material-icons">
+                    supervised_user_circle
                   </span></mat-icon>
               </button>
             </div>
             <div *ngIf="disenoHabilitado">
               <button mat-menu-item (click)="delete(row)" title="Eliminar formulario y sus instancias">
                 <mat-icon aria-label="Borrar">delete_forever</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="disenoHabilitado">
+              <button mat-raised-button (click)="descargar(row)" style="margin-bottom: 15px;" color="primary"
+                title="Descargar el formulario en formato JSON">
+                <mat-icon>download</mat-icon>
               </button>
             </div>
           </mat-cell>
