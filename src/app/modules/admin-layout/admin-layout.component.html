@@ -5,7 +5,8 @@
   <span class="spacer"></span>
 
   <h3>{{dominioActual.data.nombre}}</h3>
-  <button mat-icon-button [matMenuTriggerFor]="domainMenu" mdTooltip="Cambiar contexto" (click)="determinarContextos()" title="Elegir contexto">
+  <button mat-icon-button [matMenuTriggerFor]="domainMenu" mdTooltip="Cambiar contexto" (click)="determinarContextos()"
+    title="Elegir contexto">
     <mat-icon>find_replace</mat-icon>
   </button>
 
@@ -43,19 +44,22 @@
         <i class="material-icons">help</i>
         &nbsp;Ayuda
       </a>
-
       <!--<a mat-list-item routerLink="/">
         <i class="material-icons">dashboard</i>
         &nbsp;Escritorio
       </a>-->
-
       <div *ngIf="dominioActual.data.path">
         <a mat-list-item routerLink="/formularios">
           <i class="material-icons">web</i>
           &nbsp;Formularios
         </a>
       </div>
-
+      <div *ngIf="dominioActual.data.envios">
+        <a mat-list-item routerLink="/envios">
+          <i class="material-icons">share</i>
+          &nbsp;Envíos
+        </a>
+      </div>
       <div *ngIf="dominioActual.data.tareas">
         <a mat-list-item routerLink="/tareas">
           <i class="material-icons">settings</i>

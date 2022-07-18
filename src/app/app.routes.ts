@@ -33,6 +33,10 @@ const routes: Routes = [
         loadChildren: '~modules/submission/submission.module#SubmissionModule',
       },
       {
+        path: 'envios',
+        loadChildren: '~modules/envio/envio.module#EnvioModule',
+      },
+      {
         path: 'tareas',
         loadChildren: '~modules/tarea/tarea.module#TareaModule',
       },

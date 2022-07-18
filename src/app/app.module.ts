@@ -16,9 +16,9 @@ import { AppRoutingModule } from '~app/app.routes';
 import { AuthGuard } from '~guards/auth.guard';
 
 // KEYCLOAK
-import {TokenInterceptor} from "./interceptors/token-interceptor";
-import {KeycloakService} from "./keycloak/keycloak.service";
-import { OAuthModule, OAuthStorage  } from 'angular-oauth2-oidc';
+import { TokenInterceptor } from "./interceptors/token-interceptor";
+import { KeycloakService } from "./keycloak/keycloak.service";
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 
 // COMPONENTS
 import { AppComponent } from '~components/app/app.component';
@@ -33,6 +33,7 @@ import { AuthService } from '~services/auth.service';
 import { UserService } from '~services/user.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { SubmissionService } from '~app/services/submission.service';
+import { EnvioService } from '~app/services/envio.service';
 import { TareaService } from '~app/services/tarea.service';
 import { JbpmService } from '~app/services/jbpm.service';
 import { FormioContextService } from '~app/services/formio-context.service';
@@ -64,8 +65,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-          allowedUrls: [],
-          sendAccessToken: true
+        allowedUrls: [],
+        sendAccessToken: true
       }
     }),
     AdminLayoutModule,
@@ -90,7 +91,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     AuthService,
     UserService,
     FormularioService,
-    SubmissionService,,
+    SubmissionService,
+    EnvioService,
     JbpmService,
     TareaService,
     FormioContextService,
