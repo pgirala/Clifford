@@ -4,17 +4,19 @@ import { CONSTANTS } from '~utils/constants';
 
 import { Observable } from 'rxjs';
 import { AuthService } from '~services/auth.service';
+import { KeycloakService } from '../keycloak/keycloak.service';
 
 @Injectable()
 export class JbpmService {
 
   constructor(
     private http: HttpClient,
+    private keycloakService: KeycloakService,
     private authService: AuthService
   ) { }
 
-  createInstance(flujo: string, submissionId: string, urlEnvio:string, urlUsuario:string): Observable<any> {
-    let path = CONSTANTS.routes.jbpm.createInstance.replace(':flujo', flujo);
+  createInstance(flujo: string, submissionId: string, urlEnvio: string, urlUsuario: string): Observable<any> {
+    let path = CONSTANTS.routes.jbpm.crearInstanciaProceso.replace(':flujo', flujo);
     return this.http.post<any>(
       path,
       {
@@ -25,10 +27,11 @@ export class JbpmService {
       },
       {
         headers: new HttpHeaders({
-          'Authorization': 'Basic ' + btoa(CONSTANTS.routes.jbpm.usuario + ':' + CONSTANTS.routes.jbpm.clave)
+          'Authorization': this.keycloakService.getAuthHeader()
         }),
         responseType: 'json',
-        observe: 'body' }
+        observe: 'body'
+      }
     );
   }
 

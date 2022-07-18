@@ -18,9 +18,10 @@ import { ConfirmComponent } from '~components/confirm/confirm.component';
 import { DetailComponent } from '~modules/tarea/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
-import { Controller } from '~base/controller';
+import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
+import { TareaService } from '~app/services/tarea.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { ContextService } from '~app/services/context.service';
 
@@ -28,7 +29,7 @@ import { ContextService } from '~app/services/context.service';
   selector: 'app-client',
   templateUrl: './tarea.component.html',
   styleUrls: ['./tarea.component.scss'],
-  providers: [SubmissionService, FormularioService]
+  providers: [TareaService, FormularioService]
 })
 export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
@@ -42,8 +43,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
-  public formPath = CONSTANTS.formularios.formTarea;
-  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', type:null, name: null, display: null, path: null, tags:[CONSTANTS.formularios.multiple]};
+  public formPath = null; // CONSTANTS.formularios.formTarea;
+  public formulario: Formulario = { _id: '', owner: '', created: null, modified: null, title: '', type: null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple] };
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -51,6 +52,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private submissionService: SubmissionService,
+    private tareaService: TareaService,
     private formularioService: FormularioService,
     private authService: AuthService,
     private contextService: ContextService,
@@ -65,9 +67,9 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findByName(CONSTANTS.formularios.formTarea).subscribe((formularios:any) => {
+    /*this.formularioService.findByName(CONSTANTS.formularios.formTarea).subscribe((formularios:any) => {
       this.formulario = formularios[0];
-    })
+    })*/ // TODO
   }
 
   ngAfterViewInit() {
@@ -106,24 +108,28 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         startWith({}),
         switchMap(() => {
           this.isLoading = true;
-          return this.submissionService.getList(
-            this.sort.active,
-            this.sort.direction,
+          return this.tareaService.getList(
+            //this.sort.active,
+            //this.sort.direction,
             Number.MAX_SAFE_INTEGER,
-            1,
-            this.search,
-            CONSTANTS.formularios.formTarea,
-            this.contextService.getDominio().data.path
+            1
+            /*            ,
+                        this.search,
+                        null, //CONSTANTS.formularios.formTarea,
+                        this.contextService.getDominio().data.path */
           );
         }),
         map(data => {
           this.isLoading = false;
           this.isTotalReached = false;
-          this.totalItems = data.length
+          this.totalItems = data.length;
+          console.log('========================');
+          console.log(this.totalItems);
+          console.log('&&&&&&&&&&&&&&&&&&&&');
           return;
         }),
         catchError(() => {
-          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
+          this.openSnack({ message: "No se pudo contactar con el servidor de BPM" });
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
@@ -139,14 +145,15 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         startWith({}),
         switchMap(() => {
           this.isLoading = true;
-          return this.submissionService.getList(
-            this.sort.active,
-            this.sort.direction,
+          return this.tareaService.getList(
+            //            this.sort.active,
+            //            this.sort.direction,
             this.pageSize,
-            this.page,
-            this.search,
-            CONSTANTS.formularios.formTarea,
-            this.contextService.getDominio().data.path
+            this.page
+            /*            ,
+                        this.search,
+                        null, //CONSTANTS.formularios.formTarea, //TODO
+                        this.contextService.getDominio().data.path */
           );
         }),
         map(data => {
@@ -156,7 +163,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           return data;
         }),
         catchError(() => {
-          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
+          this.openSnack({ message: "No se pudo contactar con el servidor de BPM" });
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
@@ -166,35 +173,39 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
 
   save(): void {
     const jefe = this.authService.getSuperior();
-    const submissionVacia: Submission= {data:{dominio:this.contextService.getDominio().data.path, destinatario: (jefe == null ? null : jefe)}};
+    const submissionVacia: Submission = { data: { dominio: this.contextService.getDominio().data.path, destinatario: (jefe == null ? null : jefe) } };
 
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '60%',
       width: '60%',
-      data: { action: 'save',
-            formulario: this.formulario,
-            submission: this.submissionService.addToken(submissionVacia) }
+      data: {
+        action: 'save',
+        formulario: this.formulario,
+        submission: this.submissionService.addToken(submissionVacia)
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnack({message: "Envío realizado: " + result});
+        this.openSnack({ message: "Envío realizado: " + result });
         this.paginator._changePageSize(this.paginator.pageSize);
       }
     });
   }
 
-  edit(submission: Submission): void {}
+  edit(submission: Submission): void { }
 
-  delete(submission: Submission): void {}
+  delete(submission: Submission): void { }
 
   view(item: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
       width: '1000px',
-      data: { action: 'view',
-            formulario: this.formulario,
-            submission: this.submissionService.addToken(item) }
+      data: {
+        action: 'view',
+        formulario: this.formulario,
+        submission: this.submissionService.addToken(item)
+      }
     });
   }
 

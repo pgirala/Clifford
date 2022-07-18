@@ -41,7 +41,9 @@ export const CONSTANTS = {
       get: environment.FI_HOST + '/:formPath/submission/:id'
     },
     jbpm: {
-      createInstance: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/:flujo/instances'
+      procesos: environment.JB_HOST + '/kie-server/services/rest/server/queries/processes/definitions',
+      tareas: environment.JB_HOST + '/kie-server/services/rest/server/queries/definitions/jbpmHumanTasksWithUser/filtered-data?mapper=RawList&page=0&pageSize=10',
+      crearInstanciaProceso: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/:flujo/instances'
     },
     role: {
       list: environment.FI_HOST + '/role'

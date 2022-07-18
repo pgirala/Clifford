@@ -26,10 +26,28 @@ export class TareaService {
 
   create(submissionId: string): Observable<any> {
     // crea la instancia de un proceso
-    return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.tarea.url, CONSTANTS.routes.usuario.url);
+    return null;
+    //return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.tarea.url, CONSTANTS.routes.usuario.url);
   }
 
-  setTareasVisibility(visibilidad:boolean) {
+  getList(//sortActive: string, order: string, 
+    pageSize: number, page: number,
+    //search: string, formPath?: string, dominioPath?: string
+  ): Observable<Array<Submission>> {
+    let params = new HttpParams();
+    //params = params.append('data.resumen__regex', search);
+    params = params.append('mapper', 'RawList');
+    //params = params.append('sort', (order == 'desc' ? '-' : '') + (sortActive == 'resumen' ? 'data.' : '') + sortActive);
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('page', (page - 1).toString());
+
+    return this.http.post<Array<Submission>>(
+      CONSTANTS.routes.jbpm.tareas,
+      { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
+    );
+  }
+
+  setTareasVisibility(visibilidad: boolean) {
     this.tareasVisibilityChange.next(visibilidad);
   }
 }
