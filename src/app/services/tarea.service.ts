@@ -7,6 +7,7 @@ import { KeycloakService } from '../keycloak/keycloak.service';
 import { JbpmService } from '~app/services/jbpm.service';
 
 import { Submission } from '~app/models/submission';
+import { Task } from '~app/models/Task';
 
 import { Response } from '~app/models/response';
 
@@ -33,15 +34,15 @@ export class TareaService {
   getList(//sortActive: string, order: string, 
     pageSize: number, page: number,
     //search: string, formPath?: string, dominioPath?: string
-  ): Observable<Array<Submission>> {
+  ): Observable<any> {
     let params = new HttpParams();
     //params = params.append('data.resumen__regex', search);
-    params = params.append('mapper', 'RawList');
+    params = params.append('mapper', 'UserTasks');
     //params = params.append('sort', (order == 'desc' ? '-' : '') + (sortActive == 'resumen' ? 'data.' : '') + sortActive);
     params = params.append('pageSize', pageSize.toString());
     params = params.append('page', (page - 1).toString());
 
-    return this.http.post<Array<Submission>>(
+    return this.http.post<any>(
       CONSTANTS.routes.jbpm.tareas,
       { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
     );

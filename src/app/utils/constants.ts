@@ -42,7 +42,7 @@ export const CONSTANTS = {
     },
     jbpm: {
       procesos: environment.JB_HOST + '/kie-server/services/rest/server/queries/processes/definitions',
-      tareas: environment.JB_HOST + '/kie-server/services/rest/server/queries/definitions/jbpmHumanTasksWithUser/filtered-data?mapper=RawList&page=0&pageSize=10',
+      tareas: environment.JB_HOST + '/kie-server/services/rest/server/queries/definitions/jbpmHumanTasksWithUser/filtered-data?mapper=UserTasks&page=0&pageSize=10',
       crearInstanciaProceso: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/:flujo/instances'
     },
     role: {

@@ -15,8 +15,7 @@
       <div class="table-header">
         <!-- Table search input -->
         <mat-form-field class="filter-field">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar"
-            [(ngModel)]="search">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar" [(ngModel)]="search">
           <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear"
             (click)="search=''; applyFilter('')">
             <mat-icon>close</mat-icon>
@@ -29,23 +28,23 @@
         </button>
       </div>
 
-      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="created" matSortDisableClear
-        matSortDirection="desc">
+      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="created"
+        matSortDisableClear matSortDirection="desc">
         <!-- Table content -->
-        <ng-container matColumnDef="resumen">
+        <ng-container matColumnDef="task-name">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Tarea</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.data.resumen }}</mat-cell>
+          <mat-cell *matCellDef="let row">{{ row['task-name'] }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="created">
+        <!--<ng-container matColumnDef="created">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Inicio</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.created | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{ row.data.task-created-on | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="modified">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Fin</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.modified  | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
-        </ng-container>
+          <mat-cell *matCellDef="let row">{{ row.modified | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
+        </ng-container>-->
 
         <!-- Table actions -->
         <ng-container matColumnDef="personid">

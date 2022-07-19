@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CONSTANTS } from '~utils/constants';
 
 import { Submission } from '~models/submission';
+import { Task } from '~models/task';
 import { SubmissionService } from '~services/submission.service';
 import { AuthService } from '~services/auth.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
@@ -32,8 +33,12 @@ import { ContextService } from '~app/services/context.service';
   providers: [TareaService, FormularioService]
 })
 export class TareaComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['resumen', 'created', 'modified', 'personid'];
-  public pageSizeOptions = [5, 10, 20, 40, 100];
+  public displayedColumns = ['task-name',
+    //'created', 'modified', 
+    'personid'];
+  public pageSizeOptions = [5,
+    //10, 20, 40, 
+    100];
   public pageSize = 20;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
@@ -120,12 +125,10 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           );
         }),
         map(data => {
+          data = data['task-instance'];
           this.isLoading = false;
           this.isTotalReached = false;
           this.totalItems = data.length;
-          console.log('========================');
-          console.log(this.totalItems);
-          console.log('&&&&&&&&&&&&&&&&&&&&');
           return;
         }),
         catchError(() => {
@@ -159,8 +162,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         map(data => {
           this.isLoading = false;
           this.isTotalReached = false;
-          // la consulta no devuelve el total general de elementos
-          return data;
+          return data['task-instance'];
         }),
         catchError(() => {
           this.openSnack({ message: "No se pudo contactar con el servidor de BPM" });
