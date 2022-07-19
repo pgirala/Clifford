@@ -7,7 +7,6 @@ import { KeycloakService } from '../keycloak/keycloak.service';
 import { JbpmService } from '~app/services/jbpm.service';
 
 import { Submission } from '~app/models/submission';
-import { Task } from '~app/models/Task';
 
 import { Response } from '~app/models/response';
 
