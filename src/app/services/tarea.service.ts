@@ -34,16 +34,9 @@ export class TareaService {
     pageSize: number, page: number,
     //search: string, formPath?: string, dominioPath?: string
   ): Observable<any> {
-    let params = new HttpParams();
-    //params = params.append('data.resumen__regex', search);
-    params = params.append('mapper', 'UserTasks');
-    //params = params.append('sort', (order == 'desc' ? '-' : '') + (sortActive == 'resumen' ? 'data.' : '') + sortActive);
-    params = params.append('pageSize', pageSize.toString());
-    params = params.append('page', (page - 1).toString());
-
     return this.http.post<any>(
-      CONSTANTS.routes.jbpm.tareas,
-      { headers: this.headers, params: params, responseType: 'json', observe: 'body' }
+      CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString()).replace(':pageSize', pageSize.toString()),
+      { headers: this.headers, responseType: 'json', observe: 'body' }
     );
   }
 

@@ -115,7 +115,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           return this.tareaService.getList(
             //this.sort.active,
             //this.sort.direction,
-            Number.MAX_SAFE_INTEGER,
+            1000000000, // Number.MAX_SAFE_INTEGER es un número demasiado grande para pasarlo por query parameter
             1
             /*            ,
                         this.search,
