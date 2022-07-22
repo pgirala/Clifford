@@ -32,12 +32,10 @@ import { ContextService } from '~app/services/context.service';
   providers: [TareaService, FormularioService]
 })
 export class TareaComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['task-name',
-    //'created', 'modified', 
+  public displayedColumns = ['task-created',
+    'task-name', 'task-priority',
     'personid'];
-  public pageSizeOptions = [5,
-    //10, 20, 40, 
-    100];
+  public pageSizeOptions = [5, 10, 20, 100];
   public pageSize = 20;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;

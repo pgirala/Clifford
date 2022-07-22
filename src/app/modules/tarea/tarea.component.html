@@ -28,23 +28,27 @@
         </button>
       </div>
 
-      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="created"
+      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="task-created"
         matSortDisableClear matSortDirection="desc">
         <!-- Table content -->
+        <ng-container matColumnDef="task-created">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Creación</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div *ngFor="let item of row['task-created-on'] | keyvalue">
+              {{item.value | date }}
+            </div>
+          </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="task-name">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Tarea</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row['task-name'] }}</mat-cell>
         </ng-container>
 
-        <!--<ng-container matColumnDef="created">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Inicio</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.data.task-created-on | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
+        <ng-container matColumnDef="task-priority">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Prioridad</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row['task-priority'] }}</mat-cell>
         </ng-container>
-
-        <ng-container matColumnDef="modified">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Fin</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.modified | date: 'dd/MM/yyyy HH:mm:ss'}}</mat-cell>
-        </ng-container>-->
 
         <!-- Table actions -->
         <ng-container matColumnDef="personid">
