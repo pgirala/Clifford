@@ -45,9 +45,9 @@
           <mat-cell *matCellDef="let row">{{ row['task-name'] }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="task-priority">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Prioridad</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row['task-priority'] }}</mat-cell>
+        <ng-container matColumnDef="task-status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row['task-status'] | i18nSelect: equivalenciasEstado }}</mat-cell>
         </ng-container>
 
         <!-- Table actions -->

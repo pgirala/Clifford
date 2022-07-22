@@ -33,9 +33,9 @@ import { ContextService } from '~app/services/context.service';
 })
 export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public displayedColumns = ['task-created',
-    'task-name', 'task-priority',
+    'task-name', 'task-status',
     'personid'];
-  public pageSizeOptions = [5, 10, 20, 100];
+  public pageSizeOptions = [5, 10, 20, 40, 100];
   public pageSize = 20;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
@@ -47,6 +47,18 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public search = '';
   public formPath = null; // CONSTANTS.formularios.formTarea;
   public formulario: Formulario = { _id: '', owner: '', created: null, modified: null, title: '', type: null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple] };
+  public equivalenciasEstado: any = {
+    'Completed': 'Completada',
+    'Created': 'Creada',
+    'Error': 'Error',
+    'Exited': 'Abandonada',
+    'Failed': 'Con fallo',
+    'InProgress': 'En curso',
+    'Obsolete': 'Obsoleta',
+    'Ready': 'Lista',
+    'Reserved': 'Pendiente',
+    'Suspended': 'Suspended'
+  };
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
