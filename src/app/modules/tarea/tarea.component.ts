@@ -32,7 +32,7 @@ import { ContextService } from '~app/services/context.service';
   providers: [TareaService, FormularioService]
 })
 export class TareaComponent implements AfterViewInit, OnInit, Controller {
-  public displayedColumns = ['task-created',
+  public displayedColumns = ['task-created-on',
     'task-name', 'task-status',
     'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
@@ -123,14 +123,14 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         switchMap(() => {
           this.isLoading = true;
           return this.tareaService.getList(
-            //this.sort.active,
-            //this.sort.direction,
+            this.sort.active,
+            this.sort.direction,
             1000000000, // Number.MAX_SAFE_INTEGER es un número demasiado grande para pasarlo por query parameter
-            1
-            /*            ,
-                        this.search,
-                        null, //CONSTANTS.formularios.formTarea,
-                        this.contextService.getDominio().data.path */
+            1,
+            this.search
+            /*,
+            null, //CONSTANTS.formularios.formTarea,
+            this.contextService.getDominio().data.path */
           );
         }),
         map(data => {
@@ -158,8 +158,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         switchMap(() => {
           this.isLoading = true;
           return this.tareaService.getList(
-            //            this.sort.active,
-            //            this.sort.direction,
+            this.sort.active,
+            this.sort.direction,
             this.pageSize,
             this.page
             /*            ,

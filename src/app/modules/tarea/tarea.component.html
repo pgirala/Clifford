@@ -28,10 +28,10 @@
         </button>
       </div>
 
-      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="task-created"
+      <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="task-created-on"
         matSortDisableClear matSortDirection="desc">
         <!-- Table content -->
-        <ng-container matColumnDef="task-created">
+        <ng-container matColumnDef="task-created-on">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Creación</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <div *ngFor="let item of row['task-created-on'] | keyvalue">

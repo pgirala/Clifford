@@ -30,12 +30,26 @@ export class TareaService {
     //return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.tarea.url, CONSTANTS.routes.usuario.url);
   }
 
-  getList(//sortActive: string, order: string, 
+  getList(sortActive: string, order: string,
     pageSize: number, page: number,
-    //search: string, formPath?: string, dominioPath?: string
+    search: string
+    //, formPath?: string, dominioPath?: string
   ): Observable<any> {
+    console.log(search);
     return this.http.post<any>(
-      CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString()).replace(':pageSize', pageSize.toString()),
+      CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString())
+        .replace(':pageSize', pageSize.toString()),
+      {
+        "order-by": "createdOn",
+        "order-asc": true,
+        "query-params": [
+          {
+            "cond-column": "taskId",
+            "cond-operator": "IN",
+            "cond-values": [54]
+          }
+        ]
+      },
       { headers: this.headers, responseType: 'json', observe: 'body' }
     );
   }
