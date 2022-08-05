@@ -76,6 +76,22 @@ body {
   visibility: visible;
 }
 
+// traduce el texto de la subida de ficheros al español
+
+.formio-component-file .fileSelector {
+  color: #ffffff
+}
+
+.formio-component-file .fileSelector .browse {
+  color: #ffffff
+}
+
+.formio-component-file .fileSelector .browse:after {
+  cursor: pointer;
+  color: #007bff;
+  content: "Arrastrar o buscar fichero";
+}
+
 // puntos suspensivos si el tamaño es excesivo en los Select
 .choices__item.choices__item--selectable {
   text-overflow: ellipsis;

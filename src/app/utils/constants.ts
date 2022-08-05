@@ -112,7 +112,10 @@ export const CONSTANTS = {
         confirmCancel: '¿Está seguro de que quiere limpiar el formulario?',
         'Type to search': 'Filtro',
         'Add Another': 'Añadir',
-        'No choices to choose from': 'No hay elementos'
+        'No choices to choose from': 'No hay elementos',
+        "File Name": "Nombre del fichero",
+        "Size": "Tamaño",
+        "Type": "Tipo"
       }
     }
   }
