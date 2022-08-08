@@ -35,20 +35,20 @@ export class TareaService {
     search: string
     //, formPath?: string, dominioPath?: string
   ): Observable<any> {
-    console.log(search);
+    // TODO: llevárselo a jbpmService
+    if (sortActive === "task-created-on")
+      sortActive = "createdOn";
+    else if (sortActive === "task-name")
+      sortActive = "name";
+    else if (sortActive === "task-status")
+      sortActive = "status";
     return this.http.post<any>(
       CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString())
         .replace(':pageSize', pageSize.toString()),
       {
-        "order-by": "createdOn",
-        "order-asc": true,
-        "query-params": [
-          {
-            "cond-column": "taskId",
-            "cond-operator": "IN",
-            "cond-values": [54]
-          }
-        ]
+        "order-by": sortActive,
+        "order-asc": (order == "asc"),
+        "query-params": []
       },
       { headers: this.headers, responseType: 'json', observe: 'body' }
     );

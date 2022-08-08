@@ -161,9 +161,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
             this.sort.active,
             this.sort.direction,
             this.pageSize,
-            this.page
-            /*            ,
-                        this.search,
+            this.page,
+            this.search /*, 
                         null, //CONSTANTS.formularios.formTarea, //TODO
                         this.contextService.getDominio().data.path */
           );
