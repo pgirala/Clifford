@@ -42,16 +42,9 @@ export class TareaService {
       sortActive = "name";
     else if (sortActive === "task-status")
       sortActive = "status";
-    return this.http.post<any>(
-      CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString())
-        .replace(':pageSize', pageSize.toString()),
-      {
-        "order-by": sortActive,
-        "order-asc": (order == "asc"),
-        "query-params": []
-      },
-      { headers: this.headers, responseType: 'json', observe: 'body' }
-    );
+    else // por defecto la fecha de creación
+      sortActive = "createdOn";
+    return this.jbpmService.getList(sortActive, order, pageSize, page, search)
   }
 
   setTareasVisibility(visibilidad: boolean) {

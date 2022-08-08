@@ -15,6 +15,10 @@ export class JbpmService {
     private authService: AuthService
   ) { }
 
+  headers = new HttpHeaders({
+    'Authorization': this.keycloakService.getAuthHeader()
+  });
+
   createInstance(flujo: string, submissionId: string, urlEnvio: string, urlUsuario: string): Observable<any> {
     let path = CONSTANTS.routes.jbpm.crearInstanciaProceso.replace(':flujo', flujo);
     return this.http.post<any>(
@@ -35,4 +39,22 @@ export class JbpmService {
     );
   }
 
+  getList(sortActive: string, order: string,
+    pageSize: number, page: number,
+    search: string): Observable<any> {
+    return this.http.post<any>(
+      CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString())
+        .replace(':pageSize', pageSize.toString()),
+      {
+        "order-by": sortActive,
+        "order-asc": (order == "asc"),
+        "query-params": [{
+          "cond-column": "name",
+          "cond-operator": "LIKE_TO",
+          "cond-values": [search + "%"]
+        }]
+      },
+      { headers: this.headers, responseType: 'json', observe: 'body' }
+    );
+  }
 }
