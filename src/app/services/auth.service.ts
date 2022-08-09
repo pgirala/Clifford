@@ -7,7 +7,7 @@ import { of } from 'rxjs/observable/of';
 
 import { CONSTANTS } from '~utils/constants';
 
-import {KeycloakService} from "../keycloak/keycloak.service";
+import { KeycloakService } from "../keycloak/keycloak.service";
 import { FormioContextService } from '~services/formio-context.service';
 import { User } from '~app/models/user';
 import { Role } from '~app/models/role';
@@ -24,7 +24,7 @@ export class AuthService {
 
   constructor(
     public http: HttpClient,
-    public keycloakService:KeycloakService,
+    public keycloakService: KeycloakService,
     public formioContextService: FormioContextService
   ) { }
 
@@ -37,23 +37,29 @@ export class AuthService {
       this.keycloakService.logout();
       return of('OK');
     } else
-    return this.http.get(
-      CONSTANTS.routes.authorization.logout,
-      {responseType: 'text'}
-    );
+      return this.http.get(
+        CONSTANTS.routes.authorization.logout,
+        { responseType: 'text' }
+      );
   }
 
   hasTokenKC(): boolean {
     return (this.keycloakService != null && this.keycloakService.getToken() != null);
   }
 
-  public getTokenKC():string {
+  public getTokenKC(): string {
     if (this.hasTokenKC())
       return this.keycloakService.getToken();
     return null;
   }
 
-  public getTokenFormio():string {
+  public getHeaderTokenKC(): string {
+    if (this.hasTokenKC())
+      return this.keycloakService.getAuthHeader();
+    return null;
+  }
+
+  public getTokenFormio(): string {
     return this.formioContextService.getTokenFormio();
   }
 
@@ -93,9 +99,9 @@ export class AuthService {
             return true;
           }
       return false;
-      } catch {
-        return false;
-      }
+    } catch {
+      return false;
+    }
   }
 
   getListaRoles() {

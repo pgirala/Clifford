@@ -20,8 +20,9 @@ export class SubmissionService implements FormioProvider {
 
   headers() {
     return new HttpHeaders({
-    'x-jwt-token': this.formioContextService.getTokenFormio()
-  })};
+      'x-jwt-token': this.formioContextService.getTokenFormio()
+    })
+  };
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string, formPath?: string, dominioPath?: string): Observable<Array<Submission>> {
     let params = new HttpParams();
@@ -44,7 +45,7 @@ export class SubmissionService implements FormioProvider {
     );
   }
 
-  delete(id: string, formPath?:string): Observable<Submission> {
+  delete(id: string, formPath?: string): Observable<Submission> {
     let path = CONSTANTS.routes.submission.delete.replace(':formPath', formPath).replace(':id', String(id));
     return this.http.delete<Submission>(
       path,
@@ -66,7 +67,7 @@ export class SubmissionService implements FormioProvider {
       return this.http.put<Submission>(
         path,
         submission,
-        { headers: this.headers(), responseType: 'json', observe: 'body'}
+        { headers: this.headers(), responseType: 'json', observe: 'body' }
       );
     } else { // creación
       let path = CONSTANTS.routes.submission.create.replace(':formPath', formPath);
@@ -79,11 +80,12 @@ export class SubmissionService implements FormioProvider {
   }
 
 
-  public addToken(submission:Submission) {
+  public addToken(submission: Submission) {
     let resultado = JSON.parse(JSON.stringify(submission)); // obtiene un clon
     let serializedData = JSON.stringify(submission.data);
-    let tokenData = '{"token":"' + this.authService.getTokenFormio() + '"' + (serializedData.length > 2 ? ',' : '') +
-                  serializedData.substring(1, serializedData.length);
+    let tokenData = '{' + '"tokenkc":"' + this.authService.getHeaderTokenKC() + '",' +
+      '"token": "' + this.authService.getTokenFormio() + '"' + (serializedData.length > 2 ? ', ' : '') +
+      serializedData.substring(1, serializedData.length);
     resultado.data = JSON.parse(tokenData);
     return resultado;
   }
