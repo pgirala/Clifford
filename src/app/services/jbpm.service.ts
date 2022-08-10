@@ -57,4 +57,11 @@ export class JbpmService {
       { headers: this.headers, responseType: 'json', observe: 'body' }
     );
   }
+
+  getProcedimientos(): Observable<any> {
+    return this.http.get<any>(
+      CONSTANTS.routes.jbpm.procesos,
+      { headers: this.headers, responseType: 'json', observe: 'body' }
+    );
+  }
 }

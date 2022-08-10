@@ -21,10 +21,27 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
+        <span class="spacer"></span>
+
+        <button mat-icon-button [matMenuTriggerFor]="procedimientoMenu" mdTooltip="Cambiar de procedimiento"
+          (click)="determinarProcedimientos()" title="Elegir procedimiento">
+          <mat-icon>linear_scale</mat-icon>
+        </button>
+
+        {{procedimientoActual['process-name']}}
+
+        <mat-menu #procedimientoMenu="matMenu">
+          <div *ngFor="let procedimiento of procedimientos">
+            <button mat-menu-item
+              (click)="cambiarProcedimiento(procedimiento)">{{procedimiento['process-name']}}</button>
+          </div>
+        </mat-menu>
+
+        <span class="spacer"></span>
 
         <!-- Add button -->
         <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
-          <mat-icon>add</mat-icon> Nueva tarea
+          <mat-icon>add</mat-icon>
         </button>
       </div>
 

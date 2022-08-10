@@ -24,6 +24,9 @@ import { Formulario } from '~app/models/formulario';
 import { TareaService } from '~app/services/tarea.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { ContextService } from '~app/services/context.service';
+import { JbpmService } from '~services/jbpm.service';
+
+import { Procedimiento } from '~app/models/procedimiento';
 
 @Component({
   selector: 'app-client',
@@ -59,6 +62,9 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     'Reserved': 'Pendiente',
     'Suspended': 'Suspended'
   };
+  procedimientoVacio: Procedimiento = { 'process-id': '', 'process-name': 'Todos los procedimientos' };
+  procedimientoActual: Procedimiento = this.procedimientoVacio;
+  procedimientos: Array<Procedimiento>;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -70,6 +76,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     private formularioService: FormularioService,
     private authService: AuthService,
     private contextService: ContextService,
+    private jbpmService: JbpmService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -219,4 +226,23 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     });
   }
 
+  determinarProcedimientos(): void {
+    this.procedimientos = new Array<Procedimiento>();
+    if (this.contextService.getDominio() != null
+      && this.contextService.getDominio().data.procedimientos != null) {
+      this.jbpmService.getProcedimientos().subscribe((listaProcedimientos: any) => {
+        for (let procedimiento of listaProcedimientos['processes']) {
+          for (let idProcedimiento of this.contextService.getDominio().data.procedimientos) {
+            if (idProcedimiento === procedimiento['process-id'] && !this.procedimientos.includes(procedimiento))
+              this.procedimientos.push(procedimiento);
+          }
+        }
+        // ordenar el vector
+        this.procedimientos.sort((a, b) => (a['process-name'] < b['process-name'] ? -1 : (a['process-name'] == b['process-name'] ? 0 : 1)));
+      })
+    }
+  }
+
+  cambiarProcedimiento(procedimiento: string): void {
+  }
 }
