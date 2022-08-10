@@ -39,7 +39,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     'task-name', 'task-status',
     'personid'];
   public pageSizeOptions = [5, 10, 20, 40, 100];
-  public pageSize = 20;
+  public pageSize = 5;
   public dataSource = new MatTableDataSource();
   public pageEvent: PageEvent;
   public resultsLength = 0;
@@ -130,6 +130,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         switchMap(() => {
           this.isLoading = true;
           return this.tareaService.getList(
+            this.procedimientoActual['process-id'],
             this.sort.active,
             this.sort.direction,
             1000000000, // Number.MAX_SAFE_INTEGER es un número demasiado grande para pasarlo por query parameter
@@ -165,6 +166,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         switchMap(() => {
           this.isLoading = true;
           return this.tareaService.getList(
+            this.procedimientoActual['process-id'],
             this.sort.active,
             this.sort.direction,
             this.pageSize,
@@ -243,6 +245,14 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     }
   }
 
-  cambiarProcedimiento(procedimiento: string): void {
+  cambiarContexto(idProcedimiento: string): void {
+    let resultado = this.procedimientoVacio;
+    for (let procedimiento of this.procedimientos)
+      if (procedimiento['process-id'] === idProcedimiento) {
+        this.procedimientoActual = procedimiento;
+        break;
+      }
+    this.getDataLength();
+    this.getData();
   }
 }

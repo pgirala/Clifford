@@ -19,6 +19,7 @@ export class JbpmService {
     'Authorization': this.keycloakService.getAuthHeader()
   });
 
+  // este método no se usará en principio; las instancias se crearán desde BusinessCentral
   createInstance(flujo: string, submissionId: string, urlEnvio: string, urlUsuario: string): Observable<any> {
     let path = CONSTANTS.routes.jbpm.crearInstanciaProceso.replace(':flujo', flujo);
     return this.http.post<any>(
@@ -39,7 +40,7 @@ export class JbpmService {
     );
   }
 
-  getList(sortActive: string, order: string,
+  getList(processId: string, sortActive: string, order: string,
     pageSize: number, page: number,
     search: string): Observable<any> {
     return this.http.post<any>(
@@ -49,6 +50,10 @@ export class JbpmService {
         "order-by": sortActive,
         "order-asc": (order == "asc"),
         "query-params": [{
+          "cond-column": "processId",
+          "cond-operator": (processId === '' ? "LIKE_TO" : "EQUALS_TO"),
+          "cond-values": [(processId === '' ? '%' : processId)]
+        }, {
           "cond-column": "name",
           "cond-operator": "LIKE_TO",
           "cond-values": [search + "%"]

@@ -30,12 +30,11 @@ export class TareaService {
     //return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.tarea.url, CONSTANTS.routes.usuario.url);
   }
 
-  getList(sortActive: string, order: string,
+  getList(processId: string, sortActive: string, order: string,
     pageSize: number, page: number,
     search: string
     //, formPath?: string, dominioPath?: string
   ): Observable<any> {
-    // TODO: llevárselo a jbpmService
     if (sortActive === "task-created-on")
       sortActive = "createdOn";
     else if (sortActive === "task-name")
@@ -44,7 +43,7 @@ export class TareaService {
       sortActive = "status";
     else // por defecto la fecha de creación
       sortActive = "createdOn";
-    return this.jbpmService.getList(sortActive, order, pageSize, page, search)
+    return this.jbpmService.getList(processId, sortActive, order, pageSize, page, search)
   }
 
   setTareasVisibility(visibilidad: boolean) {

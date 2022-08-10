@@ -33,16 +33,16 @@
         <mat-menu #procedimientoMenu="matMenu">
           <div *ngFor="let procedimiento of procedimientos">
             <button mat-menu-item
-              (click)="cambiarProcedimiento(procedimiento)">{{procedimiento['process-name']}}</button>
+              (click)="cambiarContexto(procedimiento['process-id'])">{{procedimiento['process-name']}}</button>
           </div>
         </mat-menu>
 
         <span class="spacer"></span>
 
-        <!-- Add button -->
+        <!-- Add button
         <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
           <mat-icon>add</mat-icon>
-        </button>
+        </button> -->
       </div>
 
       <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="task-created-on"
