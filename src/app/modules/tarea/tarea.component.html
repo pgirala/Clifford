@@ -23,22 +23,35 @@
         </mat-form-field>
         <span class="spacer"></span>
 
-        <button mat-icon-button [matMenuTriggerFor]="procedimientoMenu" mdTooltip="Cambiar de procedimiento"
-          (click)="determinarProcedimientos()" title="Elegir procedimiento">
-          <mat-icon>linear_scale</mat-icon>
-        </button>
-
         {{procedimientoActual['process-name']}}
+
+        <button mat-icon-button [matMenuTriggerFor]="procedimientoMenu" mdTooltip="Filtro por procedimientos"
+          (click)="determinarProcedimientos()" title="Elegir procedimiento">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
 
         <mat-menu #procedimientoMenu="matMenu">
           <div *ngFor="let procedimiento of procedimientos">
             <button mat-menu-item
-              (click)="cambiarContexto(procedimiento['process-id'])">{{procedimiento['process-name']}}</button>
+              (click)="cambiarProcedimiento(procedimiento['process-id'])">{{procedimiento['process-name']}}</button>
           </div>
         </mat-menu>
 
         <span class="spacer"></span>
+        <!--
+        <button mat-icon-button [matMenuTriggerFor]="estadoMenu" mdTooltip="Filtro por estados"
+          (click)="determinarProcedimientos()" title="Elegir estado">
+          <mat-icon>history</mat-icon>
+        </button>
 
+        {{estados[estadoActual]}}
+
+        <mat-menu #estadoMenu="matMenu">
+          <div *ngFor="let estado of estados.keys">
+            <button mat-menu-item (click)="cambiarEstado(estado">{{estados[estadoActual]}}</button>
+          </div>
+        </mat-menu>
+        -->
         <!-- Add button
         <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
           <mat-icon>add</mat-icon>

@@ -64,7 +64,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   };
   procedimientoVacio: Procedimiento = { 'process-id': '', 'process-name': 'Todos los procedimientos' };
   procedimientoActual: Procedimiento = this.procedimientoVacio;
-  procedimientos: Array<Procedimiento>;
+  procedimientos: Array<Procedimiento>; // todos los procedimientos visibles en el dominio activo
+  todosProcedimientos: Array<Procedimiento>; // todos los procedimientos posibles
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -88,6 +89,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
+    // se determinan todos los procedimientos posibles (para mejorar tiempos de respuesta)
+    this.determinarTodosProcedimientos();
     /*this.formularioService.findByName(CONSTANTS.formularios.formTarea).subscribe((formularios:any) => {
       this.formulario = formularios[0];
     })*/ // TODO
@@ -228,24 +231,33 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     });
   }
 
+  determinarTodosProcedimientos(): void {
+    this.todosProcedimientos = new Array<Procedimiento>();
+    this.jbpmService.getProcedimientos().subscribe((listaProcedimientos: any) => {
+      for (let procedimiento of listaProcedimientos['processes']) {
+        if (!this.todosProcedimientos.includes(procedimiento))
+          this.todosProcedimientos.push(procedimiento);
+      }
+    })
+  }
+
   determinarProcedimientos(): void {
     this.procedimientos = new Array<Procedimiento>();
     if (this.contextService.getDominio() != null
-      && this.contextService.getDominio().data.procedimientos != null) {
-      this.jbpmService.getProcedimientos().subscribe((listaProcedimientos: any) => {
-        for (let procedimiento of listaProcedimientos['processes']) {
-          for (let idProcedimiento of this.contextService.getDominio().data.procedimientos) {
-            if (idProcedimiento === procedimiento['process-id'] && !this.procedimientos.includes(procedimiento))
-              this.procedimientos.push(procedimiento);
-          }
+      && this.contextService.getDominio().data.procedimientos != null
+      && this.todosProcedimientos.length > 0) {
+      for (let procedimiento of this.todosProcedimientos) {
+        for (let idProcedimiento of this.contextService.getDominio().data.procedimientos) {
+          if (idProcedimiento === procedimiento["process-id"] && !this.procedimientos.includes(procedimiento))
+            this.procedimientos.push(procedimiento);
         }
-        // ordenar el vector
-        this.procedimientos.sort((a, b) => (a['process-name'] < b['process-name'] ? -1 : (a['process-name'] == b['process-name'] ? 0 : 1)));
-      })
+      }
+      // ordenar el vector
+      this.procedimientos.sort((a, b) => (a['process-name'] < b['process-name'] ? -1 : (a['process-name'] == b['process-name'] ? 0 : 1)));
     }
   }
 
-  cambiarContexto(idProcedimiento: string): void {
+  cambiarProcedimiento(idProcedimiento: string): void {
     let resultado = this.procedimientoVacio;
     for (let procedimiento of this.procedimientos)
       if (procedimiento['process-id'] === idProcedimiento) {
