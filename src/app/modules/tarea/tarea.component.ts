@@ -52,15 +52,15 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public formulario: Formulario = { _id: '', owner: '', created: null, modified: null, title: '', type: null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple] };
   public equivalenciasEstado: Record<string, string> = {
     'Completed': 'Completada',
-    'Created': 'Creada',
-    'Error': 'Error',
-    'Exited': 'Abandonada',
+    //'Created': 'Creada',
+    //'Error': 'Error',
+    //'Exited': 'Abandonada',
     'Failed': 'Con fallo',
     'InProgress': 'En curso',
-    'Obsolete': 'Obsoleta',
+    //'Obsolete': 'Obsoleta',
     'Ready': 'Lista',
     'Reserved': 'Pendiente',
-    'Suspended': 'Suspended'
+    'Suspended': 'Suspendida'
   };
   estadoActual: string = 'Reserved';
   procedimientoVacio: Procedimiento = { 'process-id': '', 'process-name': 'Todos los procedimientos' };

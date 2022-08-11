@@ -46,8 +46,9 @@
         </button>
 
         <mat-menu #estadoMenu="matMenu">
-          <button mat-menu-item (click)="cambiarEstado('')">Cualquier estado</button>
-          <button mat-menu-item (click)="cambiarEstado('Reserved')">{{equivalenciasEstado['Reserved']}}</button>
+          <div *ngFor="let estado of equivalenciasEstado | keyvalue">
+            <button mat-menu-item (click)="cambiarEstado(estado.key)">{{estado.value}}</button>
+          </div>
         </mat-menu>
 
         <!-- Add button
