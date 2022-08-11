@@ -38,20 +38,18 @@
         </mat-menu>
 
         <span class="spacer"></span>
-        <!--
-        <button mat-icon-button [matMenuTriggerFor]="estadoMenu" mdTooltip="Filtro por estados"
-          (click)="determinarProcedimientos()" title="Elegir estado">
-          <mat-icon>history</mat-icon>
+
+        {{equivalenciasEstado[estadoActual]}}
+
+        <button mat-icon-button [matMenuTriggerFor]="estadoMenu" mdTooltip="Filtro por estados" title="Elegir estado">
+          <mat-icon>more_horiz</mat-icon>
         </button>
 
-        {{estados[estadoActual]}}
-
         <mat-menu #estadoMenu="matMenu">
-          <div *ngFor="let estado of estados.keys">
-            <button mat-menu-item (click)="cambiarEstado(estado">{{estados[estadoActual]}}</button>
-          </div>
+          <button mat-menu-item (click)="cambiarEstado('')">Cualquier estado</button>
+          <button mat-menu-item (click)="cambiarEstado('Reserved')">{{equivalenciasEstado['Reserved']}}</button>
         </mat-menu>
-        -->
+
         <!-- Add button
         <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
           <mat-icon>add</mat-icon>

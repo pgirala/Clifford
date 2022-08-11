@@ -50,7 +50,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public search = '';
   public formPath = null; // CONSTANTS.formularios.formTarea;
   public formulario: Formulario = { _id: '', owner: '', created: null, modified: null, title: '', type: null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple] };
-  public equivalenciasEstado: any = {
+  public equivalenciasEstado: Record<string, string> = {
     'Completed': 'Completada',
     'Created': 'Creada',
     'Error': 'Error',
@@ -62,6 +62,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     'Reserved': 'Pendiente',
     'Suspended': 'Suspended'
   };
+  estadoActual: string = 'Reserved';
   procedimientoVacio: Procedimiento = { 'process-id': '', 'process-name': 'Todos los procedimientos' };
   procedimientoActual: Procedimiento = this.procedimientoVacio;
   procedimientos: Array<Procedimiento>; // todos los procedimientos visibles en el dominio activo
@@ -134,6 +135,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           this.isLoading = true;
           return this.tareaService.getList(
             this.procedimientoActual['process-id'],
+            this.estadoActual,
             this.sort.active,
             this.sort.direction,
             1000000000, // Number.MAX_SAFE_INTEGER es un número demasiado grande para pasarlo por query parameter
@@ -170,6 +172,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           this.isLoading = true;
           return this.tareaService.getList(
             this.procedimientoActual['process-id'],
+            this.estadoActual,
             this.sort.active,
             this.sort.direction,
             this.pageSize,
@@ -258,12 +261,17 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   }
 
   cambiarProcedimiento(idProcedimiento: string): void {
-    let resultado = this.procedimientoVacio;
     for (let procedimiento of this.procedimientos)
       if (procedimiento['process-id'] === idProcedimiento) {
         this.procedimientoActual = procedimiento;
         break;
       }
+    this.getDataLength();
+    this.getData();
+  }
+
+  cambiarEstado(estado: string): void {
+    this.estadoActual = estado;
     this.getDataLength();
     this.getData();
   }
