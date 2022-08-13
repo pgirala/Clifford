@@ -66,6 +66,7 @@ export const CONSTANTS = {
       large: 'large'
     },
     formEnvio: 'envio',
+    formTarea: 'tarea',
     formMetadatos: 'metadatos',
     formDominio: 'admon/dominio',
     lang: {},

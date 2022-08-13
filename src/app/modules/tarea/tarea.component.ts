@@ -48,7 +48,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   public isTotalReached = false;
   public totalItems = 0;
   public search = '';
-  public formPath = null; // CONSTANTS.formularios.formTarea;
+  public formPath = CONSTANTS.formularios.formTarea;
   public formulario: Formulario = { _id: '', owner: '', created: null, modified: null, title: '', type: null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple] };
   public equivalenciasEstado: Record<string, string> = {
     'Completed': 'Completada',
@@ -92,9 +92,9 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
 
     // se determinan todos los procedimientos posibles (para mejorar tiempos de respuesta)
     this.determinarTodosProcedimientos();
-    /*this.formularioService.findByName(CONSTANTS.formularios.formTarea).subscribe((formularios:any) => {
+    this.formularioService.findByName(CONSTANTS.formularios.formTarea).subscribe((formularios: any) => {
       this.formulario = formularios[0];
-    })*/ // TODO
+    })
   }
 
   ngAfterViewInit() {
@@ -141,9 +141,6 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
             1000000000, // Number.MAX_SAFE_INTEGER es un número demasiado grande para pasarlo por query parameter
             1,
             this.search
-            /*,
-            null, //CONSTANTS.formularios.formTarea,
-            this.contextService.getDominio().data.path */
           );
         }),
         map(data => {
@@ -177,9 +174,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
             this.sort.direction,
             this.pageSize,
             this.page,
-            this.search /*, 
-                        null, //CONSTANTS.formularios.formTarea, //TODO
-                        this.contextService.getDominio().data.path */
+            this.search
           );
         }),
         map(data => {
@@ -196,42 +191,28 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       ).subscribe(data => this.dataSource.data = data);
   }
 
-  save(): void {
-    const jefe = this.authService.getSuperior();
-    const submissionVacia: Submission = { data: { dominio: this.contextService.getDominio().data.path, destinatario: (jefe == null ? null : jefe) } };
+  save(): void { }
 
-    const dialogRef = this.dialog.open(DetailComponent, {
-      height: '60%',
-      width: '60%',
-      data: {
-        action: 'save',
-        formulario: this.formulario,
-        submission: this.submissionService.addToken(submissionVacia)
-      }
-    });
+  edit(submission: any): void { }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.openSnack({ message: "Envío realizado: " + result });
-        this.paginator._changePageSize(this.paginator.pageSize);
-      }
-    });
-  }
+  delete(submission: any): void { }
 
-  edit(submission: Submission): void { }
-
-  delete(submission: Submission): void { }
-
-  view(item: Submission): void {
+  view(item: any): void {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
       width: '1000px',
       data: {
         action: 'view',
         formulario: this.formulario,
-        submission: this.submissionService.addToken(item)
+        submission: this.getSubmission(item)
       }
     });
+  }
+
+  getSubmission(item: any): Submission {
+    let resultado = { data: item };
+    resultado.data["process"] = this.getProcedimiento(item["task-process-id"]);
+    return this.submissionService.addToken(resultado);
   }
 
   determinarTodosProcedimientos(): void {
@@ -260,12 +241,16 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     }
   }
 
-  cambiarProcedimiento(idProcedimiento: string): void {
-    for (let procedimiento of this.procedimientos)
+  getProcedimiento(idProcedimiento: string): Procedimiento {
+    for (let procedimiento of this.todosProcedimientos)
       if (procedimiento['process-id'] === idProcedimiento) {
-        this.procedimientoActual = procedimiento;
-        break;
+        return procedimiento;
       }
+    return null;
+  }
+
+  cambiarProcedimiento(idProcedimiento: string): void {
+    this.procedimientoActual = this.getProcedimiento(idProcedimiento);
     this.getDataLength();
     this.getData();
   }
