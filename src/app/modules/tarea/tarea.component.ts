@@ -212,6 +212,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   getSubmission(item: any): Submission {
     let resultado = { data: item };
     resultado.data["process"] = this.getProcedimiento(item["task-process-id"]);
+    resultado.data["estado"] = this.equivalenciasEstado[item["task-status"]];
+    resultado.data["fechaCreacion"] = new Date(item["task-created-on"]["java.util.Date"]).toLocaleDateString('es-es');
     return this.submissionService.addToken(resultado);
   }
 
