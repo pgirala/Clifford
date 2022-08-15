@@ -91,6 +91,11 @@
               <i class="material-icons">visibility</i>
             </button>
 
+            <div *ngIf="row['task-status']==='Reserved'">
+              <button mat-menu-item (click)="edit(row)" title="Tramitar tarea">
+                <mat-icon aria-label="Tramitar">create</mat-icon>
+              </button>
+            </div>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

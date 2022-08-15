@@ -193,20 +193,40 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
 
   save(): void { }
 
-  edit(submission: any): void { }
-
   delete(submission: any): void { }
 
   view(item: any): void {
     this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
       let formularioEmbebido: Formulario = formularios[0];
       const dialogRef = this.dialog.open(DetailComponent, {
-        height: '700px',
-        width: '1000px',
+        height: this.getFormHeight(),
+        width: this.getFormWidth(),
         data: {
           action: 'view',
           formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
           submission: this.getSubmission(item)
+        }
+      });
+    })
+  }
+
+  edit(item: any): void {
+    this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
+      let formularioEmbebido: Formulario = formularios[0];
+      const dialogRef = this.dialog.open(DetailComponent, {
+        height: this.getFormHeight(),
+        width: this.getFormWidth(),
+        data: {
+          action: 'update',
+          formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
+          submission: this.getSubmission(item)
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.openSnack({ message: "Instancia actualizada: " + result });
+          this.paginator._changePageSize(this.paginator.pageSize);
         }
       });
     })
@@ -264,5 +284,15 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     this.estadoActual = estado;
     this.getDataLength();
     this.getData();
+  }
+
+  getFormHeight(): string {
+    return (this.formulario.tags.includes(CONSTANTS.formularios.size.small) ? '40%' :
+      (this.formulario.tags.includes(CONSTANTS.formularios.size.large) ? '90%' : '60%'))
+  }
+
+  getFormWidth(): string {
+    return (this.formulario.tags.includes(CONSTANTS.formularios.size.small) ? '40%' :
+      (this.formulario.tags.includes(CONSTANTS.formularios.size.large) ? '80%' : '60%'))
   }
 }
