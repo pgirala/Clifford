@@ -91,7 +91,7 @@
               <i class="material-icons">visibility</i>
             </button>
 
-            <div *ngIf="row['task-status']==='Reserved'">
+            <div *ngIf="isTramitable(row['task-status'])">
               <button mat-menu-item (click)="edit(row)" title="Tramitar tarea">
                 <mat-icon aria-label="Tramitar">create</mat-icon>
               </button>

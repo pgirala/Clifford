@@ -295,4 +295,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     return (this.formulario.tags.includes(CONSTANTS.formularios.size.small) ? '40%' :
       (this.formulario.tags.includes(CONSTANTS.formularios.size.large) ? '80%' : '60%'))
   }
+
+  isTramitable(estado: string) {
+    return estado === 'Reserved';
+  }
 }
