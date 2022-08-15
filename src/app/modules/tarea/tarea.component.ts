@@ -198,15 +198,18 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   delete(submission: any): void { }
 
   view(item: any): void {
-    const dialogRef = this.dialog.open(DetailComponent, {
-      height: '700px',
-      width: '1000px',
-      data: {
-        action: 'view',
-        formulario: this.formulario,
-        submission: this.getSubmission(item)
-      }
-    });
+    this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
+      let formularioEmbebido: Formulario = formularios[0];
+      const dialogRef = this.dialog.open(DetailComponent, {
+        height: '700px',
+        width: '1000px',
+        data: {
+          action: 'view',
+          formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
+          submission: this.getSubmission(item)
+        }
+      });
+    })
   }
 
   getSubmission(item: any): Submission {
