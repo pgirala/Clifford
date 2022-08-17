@@ -227,7 +227,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.openSnack({ message: "Tarea actualizada: " + result });
+          this.openSnack({ message: "Tarea actualizada" });
           this.paginator._changePageSize(this.paginator.pageSize);
         }
       });
