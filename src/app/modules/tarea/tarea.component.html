@@ -87,9 +87,11 @@
 
           <mat-cell *matCellDef="let row">
 
-            <button mat-icon-button (click)="view(row)" aria-label="Ver la tarea" title="Ver detalles de la tarea">
-              <i class="material-icons">visibility</i>
-            </button>
+            <div *ngIf="!isTramitable(row['task-status'])">
+              <button mat-icon-button (click)="view(row)" aria-label="Ver la tarea" title="Ver detalles de la tarea">
+                <i class="material-icons">visibility</i>
+              </button>
+            </div>
 
             <div *ngIf="isTramitable(row['task-status'])">
               <button mat-menu-item (click)="edit(row)" title="Tramitar tarea">

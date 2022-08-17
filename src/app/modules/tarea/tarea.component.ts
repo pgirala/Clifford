@@ -217,7 +217,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         height: this.getFormHeight(),
         width: this.getFormWidth(),
         data: {
-          action: 'update',
+          action: 'save', // TODO: la acción puede ser actualización si la instancia ya existe
           formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
           submission: this.getSubmission(item)
         }
@@ -225,7 +225,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.openSnack({ message: "Instancia actualizada: " + result });
+          this.openSnack({ message: "Tarea actualizada: " + result });
           this.paginator._changePageSize(this.paginator.pageSize);
         }
       });
@@ -237,6 +237,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     resultado.data["process"] = this.getProcedimiento(item["task-process-id"]);
     resultado.data["estado"] = this.equivalenciasEstado[item["task-status"]];
     resultado.data["fechaCreacion"] = new Date(item["task-created-on"]["java.util.Date"]).toLocaleDateString('es-es');
+    // TODO si hay una instancia asociada al formulario embebido recuperarla
     return this.submissionService.addToken(resultado);
   }
 
@@ -297,6 +298,6 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   }
 
   isTramitable(estado: string) {
-    return estado === 'Reserved';
+    return estado === 'Reserved' || estado === 'InProgress';
   }
 }
