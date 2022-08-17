@@ -24,6 +24,14 @@ export class TareaService {
     'Authorization': this.keycloakService.getAuthHeader()
   });
 
+  comenzar(data: any): Observable<any> {
+    return this.cambiarEstado(data, 'started');
+  }
+
+  completar(data: any): Observable<any> {
+    return this.cambiarEstado(data, 'completed');
+  }
+
   cambiarEstado(data: any, estado: string): Observable<any> {
     return this.jbpmService.cambiarEstadoTarea(data["idTarea"], estado, data);
   }
