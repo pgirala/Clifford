@@ -26,7 +26,7 @@ export class JbpmService {
     let path = CONSTANTS.routes.jbpm.cambiarEstadoTarea.replace(':idTarea', idTarea).replace(':estado', estado);
     return this.http.put<any>(
       path,
-      datosFormulario,
+      { formData: JSON.stringify(datosFormulario) },
       {
         headers: new HttpHeaders({
           'Authorization': this.keycloakService.getAuthHeader()
