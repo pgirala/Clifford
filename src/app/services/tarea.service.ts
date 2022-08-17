@@ -33,7 +33,7 @@ export class TareaService {
   }
 
   cambiarEstado(data: any, estado: string): Observable<any> {
-    return this.jbpmService.cambiarEstadoTarea(data["idTarea"], estado, data);
+    return this.jbpmService.cambiarEstadoTarea(data["idTarea"], estado, data['form']['data']);
   }
 
   getList(processId: string, estado: string, sortActive: string, order: string,
