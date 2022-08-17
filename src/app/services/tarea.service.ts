@@ -36,6 +36,10 @@ export class TareaService {
     return this.jbpmService.cambiarEstadoTarea(data["idTarea"], estado, data['form']['data']);
   }
 
+  getDatosFormulario(idTarea: string): Observable<any> {
+    return this.jbpmService.getDatosFormularioTarea(idTarea);
+  }
+
   getList(processId: string, estado: string, sortActive: string, order: string,
     pageSize: number, page: number,
     search: string

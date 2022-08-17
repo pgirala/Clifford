@@ -196,17 +196,19 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   delete(submission: any): void { }
 
   view(item: any): void {
-    this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
-      let formularioEmbebido: Formulario = formularios[0];
-      const dialogRef = this.dialog.open(DetailComponent, {
-        height: this.getFormHeight(),
-        width: this.getFormWidth(),
-        data: {
-          action: 'view',
-          formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
-          submission: this.getSubmission(item)
-        }
-      });
+    this.tareaService.getDatosFormulario(item["task-id"]).subscribe((formData: any) => {
+      this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
+        let formularioEmbebido: Formulario = formularios[0];
+        const dialogRef = this.dialog.open(DetailComponent, {
+          height: this.getFormHeight(),
+          width: this.getFormWidth(),
+          data: {
+            action: 'view',
+            formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
+            submission: this.getSubmission(item, formData['formData'])
+          }
+        });
+      })
     })
   }
 
@@ -219,7 +221,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
         data: {
           action: 'save', // TODO: la acción puede ser actualización si la instancia ya existe
           formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
-          submission: this.getSubmission(item)
+          submission: this.getSubmission(item, {})
         }
       });
 
@@ -232,7 +234,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     })
   }
 
-  getSubmission(item: any): Submission {
+  getSubmission(item: any, formData: any): Submission {
     let resultado = { data: {} };
     resultado.data["proceso"] = this.getProcedimiento(item["task-process-id"])['process-name'];
     resultado.data["idTarea"] = item["task-id"];
@@ -242,7 +244,8 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     if (this.isTramitable(item["task-status"])) // el formulario está por completar
       resultado.data["form"] = { data: {} };
     else // el formulario ya se completó
-      resultado.data["form"] = { data: item["task-output-data"] };
+      resultado.data["form"] = { data: JSON.parse(formData) };
+    console.log(JSON.stringify(resultado));
     return this.submissionService.addToken(resultado);
   }
 

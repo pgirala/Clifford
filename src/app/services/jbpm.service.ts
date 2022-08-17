@@ -37,6 +37,20 @@ export class JbpmService {
     );
   }
 
+  getDatosFormularioTarea(idTarea: string): Observable<any> {
+    let path: string = CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idTarea', idTarea);
+    return this.http.get<any>(
+      path,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.keycloakService.getAuthHeader()
+        }),
+        responseType: 'json',
+        observe: 'body'
+      }
+    );
+  }
+
   getList(processId: string, estado: string, sortActive: string, order: string,
     pageSize: number, page: number,
     search: string): Observable<any> {
