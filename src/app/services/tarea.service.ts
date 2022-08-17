@@ -24,10 +24,8 @@ export class TareaService {
     'Authorization': this.keycloakService.getAuthHeader()
   });
 
-  create(submissionId: string): Observable<any> {
-    // crea la instancia de un proceso
-    return null;
-    //return this.jbpmService.createInstance(CONSTANTS.routes.jbpm.flujoEnvio, submissionId, CONSTANTS.routes.tarea.url, CONSTANTS.routes.usuario.url);
+  completar(data: any): Observable<any> {
+    return this.jbpmService.completarTarea(data["idTarea"], data);
   }
 
   getList(processId: string, estado: string, sortActive: string, order: string,

@@ -233,11 +233,16 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   }
 
   getSubmission(item: any): Submission {
-    let resultado = { data: item };
-    resultado.data["process"] = this.getProcedimiento(item["task-process-id"]);
+    let resultado = { data: {} };
+    resultado.data["proceso"] = this.getProcedimiento(item["task-process-id"])['process-name'];
+    resultado.data["idTarea"] = item["task-id"];
+    resultado.data["tarea"] = item["task-name"];
     resultado.data["estado"] = this.equivalenciasEstado[item["task-status"]];
     resultado.data["fechaCreacion"] = new Date(item["task-created-on"]["java.util.Date"]).toLocaleDateString('es-es');
-    // TODO si hay una instancia asociada al formulario embebido recuperarla
+    if (this.isTramitable(item["task-status"])) // el formulario está por completar
+      resultado.data["form"] = { data: {} };
+    else // el formulario ya se completó
+      resultado.data["form"] = { data: item["task-output-data"] };
     return this.submissionService.addToken(resultado);
   }
 
