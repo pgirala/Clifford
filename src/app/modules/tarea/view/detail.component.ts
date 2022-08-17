@@ -63,8 +63,12 @@ export class DetailComponent implements OnInit {
   onSubmit(event) {
     this.successEmitter.emit('Operación solicitada');
     this.currentForm.emit('submitDone');
-    this.tareaService.completar(event.data).subscribe((res: any) => {
-      this.dialogRef.close("Tarea completada");
+    this.tareaService.cambiarEstado(event.data, 'started').subscribe((res: any) => {
+      this.tareaService.cambiarEstado(event.data, 'completed').subscribe((res: any) => {
+        this.dialogRef.close("Tarea completada");
+      }, (error: any) => {
+        this.openSnack(error);
+      })
     }, (error: any) => {
       this.openSnack(error);
     });

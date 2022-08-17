@@ -44,7 +44,7 @@ export const CONSTANTS = {
       procesos: environment.JB_HOST + '/kie-server/services/rest/server/queries/processes/definitions',
       tareas: environment.JB_HOST + '/kie-server/services/rest/server/queries/definitions/cliffordJbpmHumanTasksWithUser/filtered-data?mapper=UserTasks&page=:page&pageSize=:pageSize',
       crearInstanciaProceso: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/processes/:flujo/instances',
-      completarTarea: environment.JB_HOST + '/kie-server/services/rest/server/containers/clifford_1.0.0-SNAPSHOT/tasks/:idTarea/states/completed'
+      cambiarEstadoTarea: environment.JB_HOST + '/kie-server/services/rest/server/containers/PrimeraconvocatoriaPOCTEP_1.0.0-SNAPSHOT/tasks/:idTarea/states/:estado'
     },
     role: {
       list: environment.FI_HOST + '/role'

@@ -24,8 +24,8 @@ export class TareaService {
     'Authorization': this.keycloakService.getAuthHeader()
   });
 
-  completar(data: any): Observable<any> {
-    return this.jbpmService.completarTarea(data["idTarea"], data);
+  cambiarEstado(data: any, estado: string): Observable<any> {
+    return this.jbpmService.cambiarEstadoTarea(data["idTarea"], estado, data);
   }
 
   getList(processId: string, estado: string, sortActive: string, order: string,
