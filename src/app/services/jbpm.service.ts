@@ -22,8 +22,8 @@ export class JbpmService {
   // NOTA: las instancias de procesos se crearán desde BusinessCentral
 
   // método para dar por completada una tarea
-  cambiarEstadoTarea(idTarea: string, estado: string, datosFormulario: any): Observable<any> {
-    let path = CONSTANTS.routes.jbpm.cambiarEstadoTarea.replace(':idTarea', idTarea).replace(':estado', estado);
+  cambiarEstadoTarea(idTarea: string, idContenedor: string, estado: string, datosFormulario: any): Observable<any> {
+    let path = CONSTANTS.routes.jbpm.cambiarEstadoTarea.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea).replace(':estado', estado);
     return this.http.put<any>(
       path,
       { formData: JSON.stringify(datosFormulario) },
@@ -37,8 +37,8 @@ export class JbpmService {
     );
   }
 
-  getDatosFormularioTarea(idTarea: string): Observable<any> {
-    let path: string = CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idTarea', idTarea);
+  getDatosFormularioTarea(idTarea: string, idContenedor: string): Observable<any> {
+    let path: string = CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
     return this.http.get<any>(
       path,
       {

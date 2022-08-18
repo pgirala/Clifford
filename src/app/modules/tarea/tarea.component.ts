@@ -196,7 +196,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   delete(submission: any): void { }
 
   view(item: any): void {
-    this.tareaService.getDatosFormulario(item["task-id"]).subscribe((formData: any) => {
+    this.tareaService.getDatosFormulario(item["task-id"], item["task-container-id"]).subscribe((formData: any) => {
       this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
         let formularioEmbebido: Formulario = formularios[0];
         const dialogRef = this.dialog.open(DetailComponent, {
@@ -238,6 +238,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     let resultado = { data: {} };
     resultado.data["proceso"] = this.getProcedimiento(item["task-process-id"])['process-name'];
     resultado.data["idTarea"] = item["task-id"];
+    resultado.data["idContenedor"] = item["task-container-id"];
     resultado.data["tarea"] = item["task-name"];
     resultado.data["estado"] = this.equivalenciasEstado[item["task-status"]];
     resultado.data["fechaCreacion"] = new Date(item["task-created-on"]["java.util.Date"]).toLocaleDateString('es-es');
