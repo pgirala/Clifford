@@ -40,7 +40,7 @@ export class TareaService {
     return this.jbpmService.getDatosFormularioTarea(idTarea, idContenedor);
   }
 
-  getList(processId: string, estado: string, sortActive: string, order: string,
+  getList(processId: string, userId: string, estado: string, sortActive: string, order: string,
     pageSize: number, page: number,
     search: string
   ): Observable<any> {
@@ -52,7 +52,7 @@ export class TareaService {
       sortActive = "status";
     else // por defecto la fecha de creación
       sortActive = "createdOn";
-    return this.jbpmService.getList(processId, estado, sortActive, order, pageSize, page, search)
+    return this.jbpmService.getList(processId, userId, estado, sortActive, order, pageSize, page, search)
   }
 
   setTareasVisibility(visibilidad: boolean) {

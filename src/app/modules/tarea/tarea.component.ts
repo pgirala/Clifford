@@ -135,6 +135,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           this.isLoading = true;
           return this.tareaService.getList(
             this.procedimientoActual['process-id'],
+            (this.contextService.getUserNameIndividual() == null ? this.contextService.getUserNameOrganizacion() : this.contextService.getUserNameIndividual()),
             this.estadoActual,
             this.sort.active,
             this.sort.direction,
@@ -169,6 +170,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           this.isLoading = true;
           return this.tareaService.getList(
             this.procedimientoActual['process-id'],
+            (this.contextService.getUserNameIndividual() == null ? this.contextService.getUserNameOrganizacion() : this.contextService.getUserNameIndividual()),
             this.estadoActual,
             this.sort.active,
             this.sort.direction,

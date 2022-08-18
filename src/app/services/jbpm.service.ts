@@ -51,7 +51,7 @@ export class JbpmService {
     );
   }
 
-  getList(processId: string, estado: string, sortActive: string, order: string,
+  getList(processId: string, userId: string, estado: string, sortActive: string, order: string,
     pageSize: number, page: number,
     search: string): Observable<any> {
     return this.http.post<any>(
@@ -64,6 +64,10 @@ export class JbpmService {
           "cond-column": "processId",
           "cond-operator": (processId === '' ? "LIKE_TO" : "EQUALS_TO"),
           "cond-values": [(processId === '' ? '%' : processId)]
+        }, {
+          "cond-column": "actualowner",
+          "cond-operator": (userId === '' ? "LIKE_TO" : "EQUALS_TO"),
+          "cond-values": [(userId === '' ? '%' : userId)]
         }, {
           "cond-column": "name",
           "cond-operator": "LIKE_TO",
