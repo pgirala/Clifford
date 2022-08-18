@@ -246,7 +246,6 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       resultado.data["form"] = { data: {} };
     else // el formulario ya se completó
       resultado.data["form"] = { data: JSON.parse(formData) };
-    console.log(JSON.stringify(resultado));
     return this.submissionService.addToken(resultado);
   }
 
