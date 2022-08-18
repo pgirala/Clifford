@@ -6,5 +6,6 @@ export const environment = {
   KC_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-keycloak',
   BK_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age',
   FI_BASE_URL: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-formio',
-  FI_PROJECT_URL: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-formio',  
+  FI_PROJECT_URL: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-formio',
+  JB_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-jbpm'
 };
