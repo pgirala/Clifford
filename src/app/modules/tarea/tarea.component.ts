@@ -198,7 +198,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   delete(submission: any): void { }
 
   view(item: any): void {
-    this.tareaService.getDatosFormulario(item["task-id"], item["task-container-id"]).subscribe((formData: any) => {
+    this.tareaService.getDatosFormulario(item["task-id"], item["task-container-id"]).subscribe((resultado: any) => {
       this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
         let formularioEmbebido: Formulario = formularios[0];
         const dialogRef = this.dialog.open(DetailComponent, {
@@ -207,7 +207,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
           data: {
             action: 'view',
             formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
-            submission: this.getSubmission(item, formData['formData'])
+            submission: this.getSubmission(item, resultado['formData'])
           }
         });
       })
@@ -247,7 +247,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     if (this.isTramitable(item["task-status"])) // el formulario está por completar
       resultado.data["form"] = { data: {} };
     else // el formulario ya se completó
-      resultado.data["form"] = { data: JSON.parse(formData) };
+      resultado.data["form"] = { data: formData };
     return this.submissionService.addToken(resultado);
   }
 
