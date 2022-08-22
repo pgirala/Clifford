@@ -6,5 +6,6 @@ export const environment = {
   KC_HOST: 'https://clifford.labsl04.central.sepg.minhac.age/clifford-keycloak',
   BK_HOST: 'https://clifford.labsl04.central.sepg.minhac.age',
   FI_BASE_URL: 'https://clifford.labsl04.central.sepg.minhac.age/clifford-formio',
-  FI_PROJECT_URL: 'https://clifford.labsl04.central.sepg.minhac.age/clifford-formio',  
+  FI_PROJECT_URL: 'https://clifford.labsl04.central.sepg.minhac.age/clifford-formio',
+  JB_HOST: 'https://clifford.labsl04.central.sepg.minhac.age/clifford-jbpm'
 };

@@ -22,11 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: '~modules/dashboard/dashboard.module#DashboardModule',
-      },
-      {
-        path: 'clients',
-        loadChildren: '~modules/client/client.module#ClientModule',
+        loadChildren: '~modules/ayuda/ayuda.module#AyudaModule',
       },
       {
         path: 'formularios',
@@ -41,8 +37,8 @@ const routes: Routes = [
         loadChildren: '~modules/envio/envio.module#EnvioModule',
       },
       {
-        path: 'users',
-        loadChildren: '~modules/user/user.module#UserModule',
+        path: 'tareas',
+        loadChildren: '~modules/tarea/tarea.module#TareaModule',
       },
       {
         path: 'ayuda',

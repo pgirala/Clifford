@@ -11,6 +11,7 @@ import { FormularioService } from '~services/formulario.service';
 import { UserService } from '~services/user.service';
 import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~services/envio.service';
+import { TareaService } from '~services/tarea.service';
 import { ConfirmComponent } from '~components/confirm/confirm.component';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,10 +32,10 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
 
-  dominioVacio:Dominio = {data: {nombre:'Seleccione la agrupación de formularios', path:'',envios:false, individual:false}};
-  dominioActual:Dominio = this.dominioVacio;
-  userName:string = "Anónimo";
-  dominios:Array<Dominio>;
+  dominioVacio: Dominio = { data: { nombre: 'Seleccione la agrupación de formularios', path: '', envios: false, tareas: false, individual: false } };
+  dominioActual: Dominio = this.dominioVacio;
+  userName: string = "Anónimo";
+  dominios: Array<Dominio>;
 
   @ViewChild('progressBar', { static: false })
   progressBar: ElementRef;
@@ -45,6 +46,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     private formularioService: FormularioService,
     private submissionService: SubmissionService,
     private envioService: EnvioService,
+    private tareaService: TareaService,
     private formioContextService: FormioContextService,
     private contextService: ContextService,
     private userService: UserService,
@@ -73,6 +75,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     else
       this.dominioActual = this.dominioVacio;
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    this.tareaService.setTareasVisibility(this.dominioActual.data.tareas);
     if (this.dominioActual.data.path)
       this.formularioService.setFormulariosVisibility(true);
     else
@@ -86,11 +89,12 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     this.userService.ping().subscribe(
       (respuestas: Object) => {
       },
-      (err) => {this.openSnack({message: "No se pudo contactar con el servidor de formularios"});});
+      (err) => { this.openSnack({ message: "No se pudo contactar con el servidor de formularios" }); });
   }
 
   ngAfterContentChecked() {
     this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    this.tareaService.setTareasVisibility(this.dominioActual.data.tareas);
     if (this.dominioActual.data.path)
       this.formularioService.setFormulariosVisibility(true);
     else
@@ -98,8 +102,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     this.userName = this.formioContextService.getUserName();
     // si no se había asignado dominio y si solo se tiene acceso a uno se asigna inmediatamente
     if (this.esDominioVacio(this.contextService.getDominio()) && this.formioContextService.getDominios().length == 1)
-      this.submissionService.getOne(this.formioContextService.getDominios()[0]._id, CONSTANTS.formularios.formDominio).subscribe((dominioPrimario:Dominio) =>
-      {
+      this.submissionService.getOne(this.formioContextService.getDominios()[0]._id, CONSTANTS.formularios.formDominio).subscribe((dominioPrimario: Dominio) => {
         this.dominioActual = dominioPrimario;
         this.contextService.setDominio(this.dominioActual);
         this.router.navigate(['']); // vuelve a la página inicial
@@ -121,7 +124,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.authService.logout().subscribe(response => {
-          if(response == "OK") {
+          if (response == "OK") {
             this.authService.loggedIn.next(false);
             this.contextService.removeTokenFormio();
           }
@@ -160,33 +163,34 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
     });
   }
 
-  determinarContextos():void {
+  determinarContextos(): void {
     this.dominios = new Array<Dominio>();
     // obtiene la última versión de los dominios asignados al usuario
     for (let dominio of this.formioContextService.getDominios()) {
-      this.submissionService.getOne(dominio._id, CONSTANTS.formularios.formDominio).subscribe((dominioPrimario:Dominio) => {
+      this.submissionService.getOne(dominio._id, CONSTANTS.formularios.formDominio).subscribe((dominioPrimario: Dominio) => {
         if (!this.dominios.includes(dominioPrimario))
           this.dominios.push(dominioPrimario);
-          // ordenar el vector
-          this.dominios.sort((a, b) => (a.data.nombre < b.data.nombre ? -1:(a.data.nombre == b.data.nombre ? 0: 1)));
+        // ordenar el vector
+        this.dominios.sort((a, b) => (a.data.nombre < b.data.nombre ? -1 : (a.data.nombre == b.data.nombre ? 0 : 1)));
       })
     }
   }
 
-  cambiarContexto(pathDominio:string): void {
+  cambiarContexto(pathDominio: string): void {
     let resultado = this.dominioVacio;
     for (let dominio of this.dominios)
       if (dominio.data.path == pathDominio) {
         this.dominioActual = dominio;
         break;
       }
-      this.contextService.setDominio(this.dominioActual);
-      this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
-      if (this.dominioActual.data.path)
-        this.formularioService.setFormulariosVisibility(true);
-      else
-        this.formularioService.setFormulariosVisibility(false);
-      this.router.navigate(['']); // vuelve a la página inicial
+    this.contextService.setDominio(this.dominioActual);
+    this.envioService.setEnviosVisibility(this.dominioActual.data.envios);
+    this.tareaService.setTareasVisibility(this.dominioActual.data.tareas);
+    if (this.dominioActual.data.path)
+      this.formularioService.setFormulariosVisibility(true);
+    else
+      this.formularioService.setFormulariosVisibility(false);
+    this.router.navigate(['']); // vuelve a la página inicial
   }
 
   esDominioVacio(dominio: Dominio): boolean {

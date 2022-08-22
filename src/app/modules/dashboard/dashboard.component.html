@@ -20,4 +20,14 @@
       </mat-card-header>
     </mat-card>
   </div>
+  <div *ngIf="tareasVisibles">
+    <mat-card class="dashboard-item item-blue float-item" routerLink="/tareas">
+      <i class="material-icons dashboard-icon">settings</i>
+      <mat-card-header>
+        <mat-card-title>
+          <h4>Tareas</h4>
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
 </div>

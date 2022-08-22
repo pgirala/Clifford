@@ -19,7 +19,7 @@ export class AppPage {
           element(by.id('username')).sendKeys('pgirala');
           element(by.id('password')).sendKeys('Test@2020');
           boton.click();
-          browser.wait(ExpectedConditions.visibilityOf(browser.element(by.cssContainingText('*', 'Seleccione la agrupación de formularios'))), 10000)
+          browser.wait(ExpectedConditions.visibilityOf(browser.element(by.cssContainingText('*', 'Seleccione el contexto'))), 10000)
             .then(() => {
             browser.ignoreSynchronization = false;
             expect(element(by.cssContainingText('*', 'Pgirala / Oficina de Informática Presupuestaria')).isPresent()).toBeTruthy();

@@ -40,6 +40,13 @@ export const CONSTANTS = {
       update: environment.FI_HOST + '/:formPath/submission/:id',
       get: environment.FI_HOST + '/:formPath/submission/:id'
     },
+    jbpm: {
+      procesos: environment.JB_HOST + '/kie-server/services/rest/server/queries/processes/definitions',
+      tareas: environment.JB_HOST + '/kie-server/services/rest/server/queries/definitions/cliffordJbpmHumanTasksWithUser/filtered-data?mapper=UserTasks&page=:page&pageSize=:pageSize',
+      cambiarEstadoTarea: environment.JB_HOST + '/kie-server/services/rest/server/containers/:idContenedor/tasks/:idTarea/states/:estado',
+      tratarDatosEntrada: environment.JB_HOST + '/kie-server/services/rest/server/containers/:idContenedor/tasks/:idTarea/contents/input',
+      tratarDatosSalida: environment.JB_HOST + '/kie-server/services/rest/server/containers/:idContenedor/tasks/:idTarea/contents/output'
+    },
     role: {
       list: environment.FI_HOST + '/role'
     },
@@ -61,6 +68,7 @@ export const CONSTANTS = {
       large: 'large'
     },
     formEnvio: 'envio',
+    formTarea: 'tarea',
     formMetadatos: 'metadatos',
     formDominio: 'admon/dominio',
     lang: {},

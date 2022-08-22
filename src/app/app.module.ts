@@ -16,9 +16,9 @@ import { AppRoutingModule } from '~app/app.routes';
 import { AuthGuard } from '~guards/auth.guard';
 
 // KEYCLOAK
-import {TokenInterceptor} from "./interceptors/token-interceptor";
-import {KeycloakService} from "./keycloak/keycloak.service";
-import { OAuthModule, OAuthStorage  } from 'angular-oauth2-oidc';
+import { TokenInterceptor } from "./interceptors/token-interceptor";
+import { KeycloakService } from "./keycloak/keycloak.service";
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 
 // COMPONENTS
 import { AppComponent } from '~components/app/app.component';
@@ -34,12 +34,13 @@ import { UserService } from '~services/user.service';
 import { FormularioService } from '~app/services/formulario.service';
 import { SubmissionService } from '~app/services/submission.service';
 import { EnvioService } from '~app/services/envio.service';
+import { TareaService } from '~app/services/tarea.service';
+import { JbpmService } from '~app/services/jbpm.service';
 import { FormioContextService } from '~app/services/formio-context.service';
 import { ContextService } from '~app/services/context.service';
 
 /*IMPORTACION DE LOS MODULES QUE A SU VEZ ELLOS IMPORTAN SUS PROPIOS COMPONENTES
 ASI SE EVITA SATURAR ESTE ARCHIVO DE IMPORTACIONES Y SE MODULARIZA EL PROYECTO.*/
-import { UserModule } from '~modules/user/user.module';
 import { AdminLayoutModule } from '~modules/admin-layout/admin-layout.module';
 
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
@@ -64,8 +65,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-          allowedUrls: [],
-          sendAccessToken: true
+        allowedUrls: [],
+        sendAccessToken: true
       }
     }),
     AdminLayoutModule,
@@ -92,6 +93,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     FormularioService,
     SubmissionService,
     EnvioService,
+    JbpmService,
+    TareaService,
     FormioContextService,
     ContextService
   ],
