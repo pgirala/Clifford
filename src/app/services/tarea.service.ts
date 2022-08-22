@@ -36,8 +36,12 @@ export class TareaService {
     return this.jbpmService.cambiarEstadoTarea(data["idTarea"], data["idContenedor"], estado, data['form']['data']);
   }
 
-  getDatosFormulario(idTarea: string, idContenedor: string): Observable<any> {
-    return this.jbpmService.getDatosFormularioTarea(idTarea, idContenedor);
+  getDatosEntradaFormulario(idTarea: string, idContenedor: string): Observable<any> {
+    return this.jbpmService.getDatosEntradaFormularioTarea(idTarea, idContenedor);
+  }
+
+  getDatosSalidaFormulario(idTarea: string, idContenedor: string): Observable<any> {
+    return this.jbpmService.getDatosSalidaFormularioTarea(idTarea, idContenedor);
   }
 
   getList(processId: string, userId: string, estado: string, sortActive: string, order: string,

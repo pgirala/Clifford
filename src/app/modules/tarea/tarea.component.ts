@@ -198,7 +198,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   delete(submission: any): void { }
 
   view(item: any): void {
-    this.tareaService.getDatosFormulario(item["task-id"], item["task-container-id"]).subscribe((resultado: any) => {
+    this.tareaService.getDatosSalidaFormulario(item["task-id"], item["task-container-id"]).subscribe((resultado: any) => {
       this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
         let formularioEmbebido: Formulario = formularios[0];
         const dialogRef = this.dialog.open(DetailComponent, {
@@ -215,24 +215,26 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   }
 
   edit(item: any): void {
-    this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
-      let formularioEmbebido: Formulario = formularios[0];
-      const dialogRef = this.dialog.open(DetailComponent, {
-        height: this.getFormHeight(),
-        width: this.getFormWidth(),
-        data: {
-          action: 'save', // TODO: la acción puede ser actualización si la instancia ya existe
-          formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
-          submission: this.getSubmission(item, {})
-        }
-      });
+    this.tareaService.getDatosEntradaFormulario(item["task-id"], item["task-container-id"]).subscribe((resultado: any) => {
+      this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
+        let formularioEmbebido: Formulario = formularios[0];
+        const dialogRef = this.dialog.open(DetailComponent, {
+          height: this.getFormHeight(),
+          width: this.getFormWidth(),
+          data: {
+            action: 'save', // TODO: la acción puede ser actualización si la instancia ya existe
+            formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
+            submission: this.getSubmission(item, resultado['formData'])
+          }
+        });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.openSnack({ message: "Tarea actualizada" });
-          this.paginator._changePageSize(this.paginator.pageSize);
-        }
-      });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.openSnack({ message: "Tarea actualizada" });
+            this.paginator._changePageSize(this.paginator.pageSize);
+          }
+        });
+      })
     })
   }
 
@@ -244,10 +246,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     resultado.data["tarea"] = item["task-name"];
     resultado.data["estado"] = this.equivalenciasEstado[item["task-status"]];
     resultado.data["fechaCreacion"] = new Date(item["task-created-on"]["java.util.Date"]).toLocaleDateString('es-es');
-    if (this.isTramitable(item["task-status"])) // el formulario está por completar
-      resultado.data["form"] = { data: {} };
-    else // el formulario ya se completó
-      resultado.data["form"] = { data: formData };
+    resultado.data["form"] = { data: formData };
     return this.submissionService.addToken(resultado);
   }
 
