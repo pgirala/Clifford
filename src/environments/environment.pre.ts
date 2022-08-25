@@ -1,11 +1,11 @@
 export const environment = {
   production: false,
   preproduccion: true,
-  CL_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-front',
-  FI_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-formio',
-  KC_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-keycloak',
-  BK_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age',
-  FI_BASE_URL: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-formio',
-  FI_PROJECT_URL: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-formio',
-  JB_HOST: 'https://preclifford.dockersl.central.sepg.minhac.age/preclifford-jbpm'
+  CL_HOST: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-front',
+  FI_HOST: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-formio',
+  KC_HOST: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-keycloak',
+  BK_HOST: 'https://clifford.predockersl.central.sepg.minhac.age',
+  FI_BASE_URL: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-formio',
+  FI_PROJECT_URL: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-formio',
+  JB_HOST: 'https://clifford.predockersl.central.sepg.minhac.age/kie-server/services/rest/server'
 };

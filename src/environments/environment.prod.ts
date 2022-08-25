@@ -6,5 +6,5 @@ export const environment = {
   BK_HOST: 'https://clifford.dockersl.central.sepg.minhac.age',
   FI_BASE_URL: 'https://clifford.dockersl.central.sepg.minhac.age/clifford-formio',
   FI_PROJECT_URL: 'https://clifford.dockersl.central.sepg.minhac.age/clifford-formio',
-  JB_HOST: 'https://clifford.dockersl.central.sepg.minhac.age/clifford-jbpm'
+  JB_HOST: 'https://clifford.dockersl.central.sepg.minhac.age/kie-server/services/rest/server'
 };
