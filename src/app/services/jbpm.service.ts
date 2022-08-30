@@ -51,6 +51,21 @@ export class JbpmService {
     );
   }
 
+  setDatosSalidaFormularioTarea(idTarea: string, idContenedor: string, datosFormulario: any): Observable<any> {
+    let path = CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
+    return this.http.put<any>(
+      path,
+      { formData: datosFormulario },
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.keycloakService.getAuthHeader()
+        }),
+        responseType: 'json',
+        observe: 'body'
+      }
+    );
+  }
+
   getDatosSalidaFormularioTarea(idTarea: string, idContenedor: string): Observable<any> {
     let path: string = CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
     return this.http.get<any>(

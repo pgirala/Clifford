@@ -74,6 +74,15 @@ export class DetailComponent implements OnInit {
     });
   }
 
+  tratarEvento(event) {
+    if (event.type === 'guardarBorrador')
+      this.tareaService.guardarBorrador(event.data).subscribe((res: any) => {
+        this.openSnack({ message: "Borrador guardado" });
+      }, (error: any) => {
+        this.openSnack(error);
+      });
+  }
+
   @HostListener('window:keyup.esc') onKeyUp() {
     let cn = confirm('¿Está seguro de abandonar la edición?')
     if (cn) {

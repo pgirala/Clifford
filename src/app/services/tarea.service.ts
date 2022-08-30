@@ -32,12 +32,20 @@ export class TareaService {
     return this.cambiarEstado(data, 'completed');
   }
 
+  guardarBorrador(data: any): Observable<any> {
+    return this.setDatosSalidaFormulario(data);
+  }
+
   cambiarEstado(data: any, estado: string): Observable<any> {
     return this.jbpmService.cambiarEstadoTarea(data["idTarea"], data["idContenedor"], estado, data['form']['data']);
   }
 
   getDatosEntradaFormulario(idTarea: string, idContenedor: string): Observable<any> {
     return this.jbpmService.getDatosEntradaFormularioTarea(idTarea, idContenedor);
+  }
+
+  setDatosSalidaFormulario(data: any): Observable<any> {
+    return this.jbpmService.setDatosSalidaFormularioTarea(data["idTarea"], data["idContenedor"], data['form']['data']);
   }
 
   getDatosSalidaFormulario(idTarea: string, idContenedor: string): Observable<any> {

@@ -215,25 +215,27 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   }
 
   edit(item: any): void {
-    this.tareaService.getDatosEntradaFormulario(item["task-id"], item["task-container-id"]).subscribe((resultado: any) => {
-      this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
-        let formularioEmbebido: Formulario = formularios[0];
-        const dialogRef = this.dialog.open(DetailComponent, {
-          height: this.getFormHeight(),
-          width: this.getFormWidth(),
-          data: {
-            action: 'save', // TODO: la acción puede ser actualización si la instancia ya existe
-            formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
-            submission: this.getSubmission(item, resultado['formData'])
-          }
-        });
+    this.tareaService.getDatosSalidaFormulario(item["task-id"], item["task-container-id"]).subscribe((borrador: any) => {
+      this.tareaService.getDatosEntradaFormulario(item["task-id"], item["task-container-id"]).subscribe((resultado: any) => {
+        this.formularioService.findByName(item["task-description"]).subscribe((formularios: any) => {
+          let formularioEmbebido: Formulario = formularios[0];
+          const dialogRef = this.dialog.open(DetailComponent, {
+            height: this.getFormHeight(),
+            width: this.getFormWidth(),
+            data: {
+              action: 'save',
+              formulario: JSON.parse(JSON.stringify(this.formulario).replace(':formId', formularioEmbebido._id)),
+              submission: this.getSubmission(item, (Object.keys(borrador).length === 0 ? resultado['formData'] : borrador['formData']))
+            }
+          });
 
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            this.openSnack({ message: "Tarea actualizada" });
-            this.paginator._changePageSize(this.paginator.pageSize);
-          }
-        });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.openSnack({ message: "Tarea actualizada" });
+              this.paginator._changePageSize(this.paginator.pageSize);
+            }
+          });
+        })
       })
     })
   }
