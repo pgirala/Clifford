@@ -51,10 +51,11 @@
           </div>
         </mat-menu>
 
-        <!-- Add button
-        <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
-          <mat-icon>add</mat-icon>
-        </button> -->
+        <div *ngIf="isProcedimientoSeleccionado()">
+          <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
       </div>
 
       <mat-table #table [dataSource]="dataSource" class="person-table" matSort matSortActive="task-created-on"

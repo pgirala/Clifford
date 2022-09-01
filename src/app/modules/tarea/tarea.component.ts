@@ -193,7 +193,14 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       ).subscribe(data => this.dataSource.data = data);
   }
 
-  save(): void { }
+  save(): void {
+    this.jbpmService.crearInstanciaProceso(this.procedimientoActual['process-id'], this.procedimientoActual['container-id']).subscribe(result => {
+      if (result) {
+        this.openSnack({ message: "Procedimiento iniciado" });
+        this.paginator._changePageSize(this.paginator.pageSize);
+      }
+    });
+  }
 
   delete(submission: any): void { }
 
@@ -286,6 +293,10 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     return null;
   }
 
+  isProcedimientoSeleccionado(): boolean {
+    return this.procedimientoActual != this.procedimientoVacio;
+  }
+
   cambiarProcedimiento(idProcedimiento: string): void {
     this.procedimientoActual = this.getProcedimiento(idProcedimiento);
     this.getDataLength();
@@ -308,7 +319,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       (this.formulario.tags.includes(CONSTANTS.formularios.size.large) ? '80%' : '60%'))
   }
 
-  isTramitable(estado: string) {
+  isTramitable(estado: string): boolean {
     return estado === 'Reserved' || estado === 'InProgress';
   }
 }

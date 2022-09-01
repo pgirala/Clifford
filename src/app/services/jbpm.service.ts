@@ -19,7 +19,20 @@ export class JbpmService {
     'Authorization': this.keycloakService.getAuthHeader()
   });
 
-  // NOTA: las instancias de procesos se crearán desde BusinessCentral
+  crearInstanciaProceso(idFlujo: string, idContenedor: string): Observable<any> {
+    let path = CONSTANTS.routes.jbpm.crearInstanciaProceso.replace(':idContenedor', idContenedor).replace(':idFlujo', idFlujo);
+    return this.http.post<any>(
+      path,
+      {},
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.keycloakService.getAuthHeader()
+        }),
+        responseType: 'json',
+        observe: 'body'
+      }
+    );
+  }
 
   // método para dar por completada una tarea
   cambiarEstadoTarea(idTarea: string, idContenedor: string, estado: string, datosFormulario: any): Observable<any> {
