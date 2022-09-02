@@ -198,8 +198,12 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
       if (result) {
         this.openSnack({ message: "Procedimiento iniciado" });
         this.paginator._changePageSize(this.paginator.pageSize);
-      }
-    });
+      } else
+        this.openSnack({ message: "No se pudo iniciar el procedimiento" });
+    },
+      (err) => {
+        this.openSnack({ message: "No se pudo iniciar el procedimiento" });
+      });
   }
 
   delete(submission: any): void { }
