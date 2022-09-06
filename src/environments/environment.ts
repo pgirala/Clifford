@@ -11,5 +11,5 @@ export const environment = {
   FI_PROJECT_URL: 'http://localhost:3001',
   KC_HOST: 'http://keycloak:8080',
   BK_HOST: 'http://localhost:8010/proxy',
-  JB_HOST: 'http://localhost:8012/proxy'
+  JB_HOST: 'http://localhost:8012/proxy/kie-server/services/rest/server'
 };
