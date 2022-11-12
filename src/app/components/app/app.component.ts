@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 export class AppComponent {
   title = 'app';
   ngOnInit() {
-    Formio.setBaseUrl(environment.FI_BASE_URL);
-    Formio.setProjectUrl(environment.FI_PROJECT_URL);
+    Formio.setBaseUrl(environment.settings.FI_BASE_URL);
+    Formio.setProjectUrl(environment.settings.FI_PROJECT_URL);
   }
 }

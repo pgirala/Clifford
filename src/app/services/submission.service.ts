@@ -8,6 +8,8 @@ import { FormioContextService } from '~app/services/formio-context.service';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class SubmissionService implements FormioProvider {
   loading = true;
@@ -37,7 +39,7 @@ export class SubmissionService implements FormioProvider {
     let numeroItemsYaMostrados = pageSize * (page - 1);
     params = params.append('skip', numeroItemsYaMostrados.toString());
 
-    let path = CONSTANTS.routes.submission.list.replace(':formPath', formPath);
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.submission.list.replace(':formPath', formPath);
 
     return this.http.get<Array<Submission>>(
       path,
@@ -46,7 +48,7 @@ export class SubmissionService implements FormioProvider {
   }
 
   delete(id: string, formPath?: string): Observable<Submission> {
-    let path = CONSTANTS.routes.submission.delete.replace(':formPath', formPath).replace(':id', String(id));
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.submission.delete.replace(':formPath', formPath).replace(':id', String(id));
     return this.http.delete<Submission>(
       path,
       { headers: this.headers(), responseType: 'json', observe: 'body' }
@@ -54,7 +56,7 @@ export class SubmissionService implements FormioProvider {
   }
 
   getOne(id: string, formPath?: string): Observable<Submission> {
-    let path = CONSTANTS.routes.submission.get.replace(':formPath', formPath).replace(':id', String(id));
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.submission.get.replace(':formPath', formPath).replace(':id', String(id));
     return this.http.get<Submission>(
       path,
       { headers: this.headers(), responseType: 'json', observe: 'body' }
@@ -63,14 +65,14 @@ export class SubmissionService implements FormioProvider {
 
   save(submission: Submission, formPath?: string): Observable<Submission> {
     if (submission._id) { // actualización
-      let path = CONSTANTS.routes.submission.update.replace(':formPath', formPath).replace(':id', String(submission._id));
+      let path = environment.settings.FI_HOST + CONSTANTS.routes.submission.update.replace(':formPath', formPath).replace(':id', String(submission._id));
       return this.http.put<Submission>(
         path,
         submission,
         { headers: this.headers(), responseType: 'json', observe: 'body' }
       );
     } else { // creación
-      let path = CONSTANTS.routes.submission.create.replace(':formPath', formPath);
+      let path = environment.settings.FI_HOST + CONSTANTS.routes.submission.create.replace(':formPath', formPath);
       return this.http.post<Submission>(
         path,
         submission,

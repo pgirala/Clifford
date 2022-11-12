@@ -5,9 +5,7 @@ import { CONSTANTS } from '~utils/constants';
 import { Observable, Subject } from 'rxjs';
 import { KeycloakService } from '../keycloak/keycloak.service';
 
-import { Submission } from '~app/models/submission';
-
-import { Response } from '~app/models/response';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class EnvioService {
@@ -25,14 +23,16 @@ export class EnvioService {
   create(submissionId: string): Observable<any> {
     // perfecciona la instancia del envío generado a través de su formulario
     return this.http.post<any>(
-      CONSTANTS.routes.envio.create,
-      {submissionId: submissionId},
-      {headers: this.headers,
-        responseType: 'json', observe: 'body'}
+      environment.settings.BK_HOST + CONSTANTS.routes.envio.create,
+      { submissionId: submissionId },
+      {
+        headers: this.headers,
+        responseType: 'json', observe: 'body'
+      }
     );
   }
 
-  setEnviosVisibility(visibilidad:boolean) {
+  setEnviosVisibility(visibilidad: boolean) {
     this.enviosVisibilityChange.next(visibilidad);
   }
 }

@@ -5,60 +5,54 @@ export const CONSTANTS = {
     sufijoCorreo: '@gob.es'
   },
   keycloak: {
-    url: environment.KC_HOST + '/auth',
+    url: '/auth',
     realm: 'Clifford',
     clientId: 'clifford-front-end'
   },
   routes: {
     local: {
-      root: environment.CL_HOST + '/'
+      root: '/'
     },
     authorization: {
-      loginIndividual: environment.BK_HOST + '/clifford-back/rest/usuarios/token/usuario',
-      loginOrganizacion: environment.BK_HOST + '/clifford-back/rest/usuarios/token/organizacion',
-      logout: environment.FI_HOST + '/logout'
-    },
-    client: {
-      list: environment.FI_HOST + '/api/client',
-      delete: environment.FI_HOST + '/api/client/delete/:id',
-      save: environment.FI_HOST + '/api/client/save',
-      get: environment.FI_HOST + '/api/client/:id'
+      loginIndividual: '/clifford-back/rest/usuarios/token/usuario',
+      loginOrganizacion: '/clifford-back/rest/usuarios/token/organizacion',
+      logout: '/logout'
     },
     formulario: {
-      list: environment.FI_HOST + '/form',
-      get: environment.FI_HOST + '/form/:id',
-      find: environment.FI_HOST + '/form',
-      update: environment.FI_HOST + '/form/:id',
-      create: environment.FI_HOST + '/form',
-      delete: environment.FI_HOST + '/:formPath',
-      clone: environment.BK_HOST + '/clifford-back/rest/formularios'
+      list: '/form',
+      get: '/form/:id',
+      find: '/form',
+      update: '/form/:id',
+      create: '/form',
+      delete: '/:formPath',
+      clone: '/clifford-back/rest/formularios'
     },
     submission: {
-      list: environment.FI_HOST + '/:formPath/submission',
-      delete: environment.FI_HOST + '/:formPath/submission/:id',
-      create: environment.FI_HOST + '/:formPath/submission',
-      update: environment.FI_HOST + '/:formPath/submission/:id',
-      get: environment.FI_HOST + '/:formPath/submission/:id'
+      list: '/:formPath/submission',
+      delete: '/:formPath/submission/:id',
+      create: '/:formPath/submission',
+      update: '/:formPath/submission/:id',
+      get: '/:formPath/submission/:id'
     },
     jbpm: {
-      procesos: environment.JB_HOST + '/queries/processes/definitions',
-      crearInstanciaProceso: environment.JB_HOST + '/containers/:idContenedor/processes/:idFlujo/instances',
-      tareas: environment.JB_HOST + '/queries/definitions/cliffordJbpmHumanTasksWithUser/filtered-data?mapper=UserTasks&page=:page&pageSize=:pageSize',
-      cambiarEstadoTarea: environment.JB_HOST + '/containers/:idContenedor/tasks/:idTarea/states/:estado',
-      tratarDatosEntrada: environment.JB_HOST + '/containers/:idContenedor/tasks/:idTarea/contents/input',
-      tratarDatosSalida: environment.JB_HOST + '/containers/:idContenedor/tasks/:idTarea/contents/output'
+      procesos: '/queries/processes/definitions',
+      crearInstanciaProceso: '/containers/:idContenedor/processes/:idFlujo/instances',
+      tareas: '/queries/definitions/cliffordJbpmHumanTasksWithUser/filtered-data?mapper=UserTasks&page=:page&pageSize=:pageSize',
+      cambiarEstadoTarea: '/containers/:idContenedor/tasks/:idTarea/states/:estado',
+      tratarDatosEntrada: '/containers/:idContenedor/tasks/:idTarea/contents/input',
+      tratarDatosSalida: '/containers/:idContenedor/tasks/:idTarea/contents/output'
     },
     role: {
-      list: environment.FI_HOST + '/role'
+      list: '/role'
     },
     user: {
-      find: environment.FI_HOST + '/admon/user/submission?data.email=:email'
+      find: '/admon/user/submission?data.email=:email'
     },
     envio: {
-      create: environment.BK_HOST + '/clifford-back/rest/envios'
+      create: '/clifford-back/rest/envios'
     },
     check: {
-      ping: environment.BK_HOST + '/clifford-back/rest/usuarios/ping'
+      ping: '/clifford-back/rest/usuarios/ping'
     }
   },
   formularios: {

@@ -9,6 +9,8 @@ import { Observable, Subject } from 'rxjs';
 import { ContextService } from '~app/services/context.service';
 import { KeycloakService } from '../keycloak/keycloak.service';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class FormularioService implements FormioProvider {
   formulariosVisibilityChange: Subject<boolean> = new Subject<boolean>();
@@ -23,13 +25,15 @@ export class FormularioService implements FormioProvider {
 
   headers() {
     return new HttpHeaders({
-    'x-jwt-token': this.formioContextService.getTokenFormio()
-  }) };
+      'x-jwt-token': this.formioContextService.getTokenFormio()
+    })
+  };
 
   KCheaders() {
-    return  new HttpHeaders({
-    'Authorization': this.keycloakService.getAuthHeader()
-  }) };
+    return new HttpHeaders({
+      'Authorization': this.keycloakService.getAuthHeader()
+    })
+  };
 
   getList(sortActive: string, order: string, pageSize: number, page: number, search: string): Observable<Array<Formulario>> {
     let params = new HttpParams();
@@ -48,13 +52,13 @@ export class FormularioService implements FormioProvider {
     params = params.append('skip', numeroItemsYaMostrados.toString());
 
     return this.http.get<Array<Formulario>>(
-      CONSTANTS.routes.formulario.list,
+      environment.settings.FI_HOST + CONSTANTS.routes.formulario.list,
       { headers: this.headers(), params: params, responseType: 'json', observe: 'body' }
     );
   }
 
   delete(formPath: string): Observable<Object> {
-    let path = CONSTANTS.routes.formulario.delete.replace(':formPath', formPath);
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.formulario.delete.replace(':formPath', formPath);
     return this.http.delete<Object>(
       path,
       { headers: this.headers(), responseType: 'text' as 'json', observe: 'body' }
@@ -63,16 +67,18 @@ export class FormularioService implements FormioProvider {
 
   clone(id: string): Observable<Object> {
     return this.http.post<any>(
-      CONSTANTS.routes.formulario.clone,
-      {idOriginal: id},
-      {headers: this.KCheaders(),
-        responseType: 'json', observe: 'body'}
+      environment.settings.BK_HOST + CONSTANTS.routes.formulario.clone,
+      { idOriginal: id },
+      {
+        headers: this.KCheaders(),
+        responseType: 'json', observe: 'body'
+      }
     );
   }
 
   getOne(id: string): Observable<Formulario> {
     return this.http.get<Formulario>(
-      CONSTANTS.routes.formulario.get.replace(':id', String(id)),
+      environment.settings.FI_HOST + CONSTANTS.routes.formulario.get.replace(':id', String(id)),
       { headers: this.headers() }
     );
   }
@@ -82,29 +88,31 @@ export class FormularioService implements FormioProvider {
     nameFilter = nameFilter.append('name__regex', '/^' + name + '/i')
 
     return this.http.get<any>(
-      CONSTANTS.routes.formulario.find,
-      { headers: this.headers(),
-      params: nameFilter }
+      environment.settings.FI_HOST + CONSTANTS.routes.formulario.find,
+      {
+        headers: this.headers(),
+        params: nameFilter
+      }
     );
   }
 
   save(formulario: Formulario): Observable<Formulario> {
     if (formulario._id) { // actualización
       return this.http.put<Formulario>(
-        CONSTANTS.routes.formulario.update.replace(':id', String(formulario._id)),
+        environment.settings.FI_HOST + CONSTANTS.routes.formulario.update.replace(':id', String(formulario._id)),
         formulario,
-        { headers: this.headers(), responseType: 'json', observe: 'body'}
+        { headers: this.headers(), responseType: 'json', observe: 'body' }
       );
-      } else {
-        return this.http.post<Formulario>(
-          CONSTANTS.routes.formulario.create,
-          formulario,
-          { headers: this.headers(), responseType: 'json', observe: 'body'}
-        );
-      }
+    } else {
+      return this.http.post<Formulario>(
+        environment.settings.FI_HOST + CONSTANTS.routes.formulario.create,
+        formulario,
+        { headers: this.headers(), responseType: 'json', observe: 'body' }
+      );
+    }
   }
 
-  setFormulariosVisibility(visibilidad:boolean) {
+  setFormulariosVisibility(visibilidad: boolean) {
     this.formulariosVisibilityChange.next(visibilidad);
   }
 }

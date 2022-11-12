@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { AuthService } from '~services/auth.service';
 import { KeycloakService } from '../keycloak/keycloak.service';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class JbpmService {
 
@@ -20,7 +22,7 @@ export class JbpmService {
   });
 
   crearInstanciaProceso(idFlujo: string, idContenedor: string): Observable<any> {
-    let path = CONSTANTS.routes.jbpm.crearInstanciaProceso.replace(':idContenedor', idContenedor).replace(':idFlujo', idFlujo);
+    let path = environment.settings.JB_HOST + CONSTANTS.routes.jbpm.crearInstanciaProceso.replace(':idContenedor', idContenedor).replace(':idFlujo', idFlujo);
     return this.http.post<any>(
       path,
       {},
@@ -36,7 +38,7 @@ export class JbpmService {
 
   // método para dar por completada una tarea
   cambiarEstadoTarea(idTarea: string, idContenedor: string, estado: string, datosFormulario: any): Observable<any> {
-    let path = CONSTANTS.routes.jbpm.cambiarEstadoTarea.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea).replace(':estado', estado);
+    let path = environment.settings.JB_HOST + CONSTANTS.routes.jbpm.cambiarEstadoTarea.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea).replace(':estado', estado);
     return this.http.put<any>(
       path,
       { formData: datosFormulario },
@@ -51,7 +53,7 @@ export class JbpmService {
   }
 
   getDatosEntradaFormularioTarea(idTarea: string, idContenedor: string): Observable<any> {
-    let path: string = CONSTANTS.routes.jbpm.tratarDatosEntrada.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
+    let path: string = environment.settings.JB_HOST + CONSTANTS.routes.jbpm.tratarDatosEntrada.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
     return this.http.get<any>(
       path,
       {
@@ -65,7 +67,7 @@ export class JbpmService {
   }
 
   setDatosSalidaFormularioTarea(idTarea: string, idContenedor: string, datosFormulario: any): Observable<any> {
-    let path = CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
+    let path = environment.settings.JB_HOST + CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
     return this.http.put<any>(
       path,
       { formData: datosFormulario },
@@ -80,7 +82,7 @@ export class JbpmService {
   }
 
   getDatosSalidaFormularioTarea(idTarea: string, idContenedor: string): Observable<any> {
-    let path: string = CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
+    let path: string = environment.settings.JB_HOST + CONSTANTS.routes.jbpm.tratarDatosSalida.replace(':idContenedor', idContenedor).replace(':idTarea', idTarea);
     return this.http.get<any>(
       path,
       {
@@ -97,7 +99,7 @@ export class JbpmService {
     pageSize: number, page: number,
     search: string): Observable<any> {
     return this.http.post<any>(
-      CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString())
+      environment.settings.JB_HOST + CONSTANTS.routes.jbpm.tareas.replace(':page', (page - 1).toString())
         .replace(':pageSize', pageSize.toString()),
       {
         "order-by": sortActive,
@@ -126,7 +128,7 @@ export class JbpmService {
 
   getProcedimientos(): Observable<any> {
     return this.http.get<any>(
-      CONSTANTS.routes.jbpm.procesos,
+      environment.settings.JB_HOST + CONSTANTS.routes.jbpm.procesos,
       { headers: this.headers, responseType: 'json', observe: 'body' }
     );
   }

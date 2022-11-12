@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 import * as Keycloak from "keycloak-js";
-import {KeycloakInstance} from "keycloak-js";
+import { KeycloakInstance } from "keycloak-js";
 import { CONSTANTS } from '~utils/constants';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -9,56 +9,51 @@ import { FormioContextService } from '~services/formio-context.service';
 import { ContextService } from '~services/context.service';
 import { User } from "~app/models/user";
 import { Role } from "~app/models/role";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class KeycloakService
-{
+export class KeycloakService {
   private keycloakAuth: KeycloakInstance;
 
   constructor(public http: HttpClient, public userService: UserService,
-              public formioContextService: FormioContextService,
-              public contextService: ContextService)
-  {
+    public formioContextService: FormioContextService,
+    public contextService: ContextService) {
 
   }
 
-  init(): Promise<any>
-  {
-    return new Promise((resolve, reject) =>
-    {
+  init(): Promise<any> {
+    return new Promise((resolve, reject) => {
       const config = {
-        'url': CONSTANTS.keycloak.url,
+        'url': environment.settings.KC_HOST + CONSTANTS.keycloak.url,
         'realm': CONSTANTS.keycloak.realm,
         'clientId': CONSTANTS.keycloak.clientId
       };
       // @ts-ignore
       this.keycloakAuth = new Keycloak(config);
-      this.keycloakAuth.init({onLoad: 'login-required'})
-          .then(() =>
-          {
-            this.obtenerTokensFormio(); // va pidiendo el token con form.io
-            resolve();
-          })
-          .catch(() =>
-          {
-            reject();
-          });
+      this.keycloakAuth.init({ onLoad: 'login-required' })
+        .then(() => {
+          this.obtenerTokensFormio(); // va pidiendo el token con form.io
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
     });
   }
 
   formioLoginIndividual(): Observable<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(
-      CONSTANTS.routes.authorization.loginIndividual,
-      {observe: 'response'}
+      environment.settings.BK_HOST + CONSTANTS.routes.authorization.loginIndividual,
+      { observe: 'response' }
     );
   }
 
   formioLoginOrganizacion(): Observable<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(
-      CONSTANTS.routes.authorization.loginOrganizacion,
-      {observe: 'response'}
+      environment.settings.BK_HOST + CONSTANTS.routes.authorization.loginOrganizacion,
+      { observe: 'response' }
     );
   }
 
@@ -107,7 +102,7 @@ export class KeycloakService
     );
   }
 
-  public getListaRoles():Array<Role> {
+  public getListaRoles(): Array<Role> {
     return this.userService.getListaRoles();
   }
 
@@ -177,21 +172,18 @@ export class KeycloakService
     return false;
   }
 
-  getToken(): string
-  {
+  getToken(): string {
     return this.keycloakAuth.token;
   }
 
-  getAuthHeader(): string
-  {
+  getAuthHeader(): string {
     const authToken = this.getToken() || "";
     return "Bearer " + authToken;
   }
 
-  logout()
-  {
+  logout() {
     const options = {
-      'redirectUri': CONSTANTS.routes.local.root,
+      'redirectUri': environment.settings.CL_HOST + CONSTANTS.routes.local.root,
       'realm': CONSTANTS.keycloak.realm,
       'clientId': CONSTANTS.keycloak.clientId
     };

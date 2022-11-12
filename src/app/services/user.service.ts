@@ -8,14 +8,15 @@ import { FormioContextService } from '~services/formio-context.service';
 import { FormioProvider } from '~base/formio-provider';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../environments/environment';
 
 @Injectable()
-export class UserService implements FormioProvider  {
-  private roleList:Array<Role>;
-  constructor(private http: HttpClient, private formioContextService:FormioContextService) { }
+export class UserService implements FormioProvider {
+  private roleList: Array<Role>;
+  constructor(private http: HttpClient, private formioContextService: FormioContextService) { }
 
-  ping(): Observable<Object>  {
-    let path = CONSTANTS.routes.check.ping;
+  ping(): Observable<Object> {
+    let path = environment.settings.BK_HOST + CONSTANTS.routes.check.ping;
 
     return this.http.get<Object>(
       path,
@@ -23,16 +24,16 @@ export class UserService implements FormioProvider  {
     );
   }
 
-  getListaRoles():Array<Role> {
+  getListaRoles(): Array<Role> {
     return this.roleList;
   }
 
-  setListaRoles(listaRoles:Array<Role>) {
+  setListaRoles(listaRoles: Array<Role>) {
     this.roleList = listaRoles;
   }
 
-  getRoleList(token: string): Observable<Array<Role>>  {
-    let path = CONSTANTS.routes.role.list;
+  getRoleList(token: string): Observable<Array<Role>> {
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.role.list;
 
     let headers = new HttpHeaders({
       'x-jwt-token': token
@@ -49,7 +50,7 @@ export class UserService implements FormioProvider  {
   }
 
   getOne(email: string): Observable<User> {
-    let path = CONSTANTS.routes.user.find.replace(':email', email);
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.user.find.replace(':email', email);
 
     let headers = new HttpHeaders({
       'x-jwt-token': this.formioContextService.getTokenFormio()
@@ -62,7 +63,7 @@ export class UserService implements FormioProvider  {
   }
 
   getOneIndividual(email: string): Observable<User> {
-    let path = CONSTANTS.routes.user.find.replace(':email', email);
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.user.find.replace(':email', email);
 
     let headers = new HttpHeaders({
       'x-jwt-token': this.formioContextService.getTokenFormioIndividual()
@@ -75,7 +76,7 @@ export class UserService implements FormioProvider  {
   }
 
   getOneOrganizacion(email: string): Observable<User> {
-    let path = CONSTANTS.routes.user.find.replace(':email', email);
+    let path = environment.settings.FI_HOST + CONSTANTS.routes.user.find.replace(':email', email);
 
     let headers = new HttpHeaders({
       'x-jwt-token': this.formioContextService.getTokenFormioOrganizacion()

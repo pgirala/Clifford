@@ -14,6 +14,8 @@ import { Role } from '~app/models/role';
 import { Formulario } from "~app/models/formulario";
 import { TipoPermiso } from "~app/models/enums";
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class AuthService {
   public loggedIn = new BehaviorSubject<boolean>(this.hasToken());
@@ -38,7 +40,7 @@ export class AuthService {
       return of('OK');
     } else
       return this.http.get(
-        CONSTANTS.routes.authorization.logout,
+        environment.settings.FI_HOST + CONSTANTS.routes.authorization.logout,
         { responseType: 'text' }
       );
   }
