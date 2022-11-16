@@ -107,6 +107,12 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     this.changeDetectorRef.detectChanges();
   }
 
+  ngAfterContentChecked() {
+    this.determinarProcedimientos();
+    if (this.procedimientoActual == this.procedimientoVacio && this.procedimientos.length == 1)
+      this.procedimientoActual = this.procedimientos[0];
+  }
+
   private openSnack(data: any): void {
     this.snack.openFromComponent(SnackbarComponent, {
       data: { data: data },
