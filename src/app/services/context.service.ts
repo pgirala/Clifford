@@ -24,7 +24,7 @@ export class ContextService {
     }
   }
 
-  setDominio(dominio:Dominio): void {
+  setDominio(dominio: Dominio): void {
     localStorage.setItem('dominio', JSON.stringify(dominio));
   }
 
@@ -116,6 +116,13 @@ export class ContextService {
     } catch {
       return null;
     }
+  }
+
+  getActiveUser(): User {
+    if (this.getDominio().data.individual)
+      return this.getUserFormioIndividual();
+    else
+      return this.getUserFormioOrganizacion();
   }
 
   public setUserFormioOrganizacion(user: User): void {

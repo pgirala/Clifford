@@ -36,6 +36,7 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
   dominioActual: Dominio = this.dominioVacio;
   userName: string = "Anónimo";
   dominios: Array<Dominio>;
+  disenoHabilitado: boolean = false;
 
   @ViewChild('progressBar', { static: false })
   progressBar: ElementRef;
@@ -107,6 +108,8 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
         this.contextService.setDominio(this.dominioActual);
         this.router.navigate(['']); // vuelve a la página inicial
       })
+    //
+    this.disenoHabilitado = this.contextService.getActiveUser().super;
   }
 
   ngOnDestroy(): void {

@@ -48,7 +48,7 @@
         <i class="material-icons">dashboard</i>
         &nbsp;Escritorio
       </a>-->
-      <div *ngIf="dominioActual.data.path">
+      <div *ngIf="dominioActual.data.path && (!dominioActual.data.tareas || disenoHabilitado === true)">
         <a mat-list-item routerLink="/formularios">
           <i class="material-icons">web</i>
           &nbsp;Formularios
