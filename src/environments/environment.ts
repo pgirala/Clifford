@@ -9,8 +9,8 @@ export const environment = {
   settings: {
     CL_HOST: 'http://clifford:4200',
     FI_HOST: '/clifford-formio',
-    FI_BASE_URL: 'http://localhost:3001',
-    FI_PROJECT_URL: 'http://localhost:3001',
+    FI_BASE_URL: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-formio',
+    FI_PROJECT_URL: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-formio',
     KC_HOST: 'https://clifford.predockersl.central.sepg.minhac.age/clifford-keycloak',
     BK_HOST: '/servidorbk',
     JB_HOST: '/kie-server/services/rest/server'
