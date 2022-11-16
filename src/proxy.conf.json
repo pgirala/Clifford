@@ -1,0 +1,26 @@
+{
+    "/servidorbk": {
+        "target": "https://clifford.predockersl.central.sepg.minhac.age",
+        "secure": false,
+        "rejectUnauthorized": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {
+            "/servidorbk": ""
+        }
+    },
+    "/clifford-formio": {
+        "target": "https://clifford.predockersl.central.sepg.minhac.age",
+        "secure": false,
+        "rejectUnauthorized": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/kie-server/services/rest/server": {
+        "target": "https://clifford.predockersl.central.sepg.minhac.age",
+        "secure": false,
+        "rejectUnauthorized": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

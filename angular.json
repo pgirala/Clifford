@@ -95,13 +95,14 @@
                   "with": "src/environments/environment.lab.ts"
                 }
               ]
-            }			
+            }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sidebar:build"
+            "browserTarget": "sidebar:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
