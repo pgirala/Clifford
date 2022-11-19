@@ -108,10 +108,30 @@ export class JbpmService {
           "cond-column": "processId",
           "cond-operator": (processId === '' ? "LIKE_TO" : "EQUALS_TO"),
           "cond-values": [(processId === '' ? '%' : processId)]
-        }, {
-          "cond-column": "actualowner",
-          "cond-operator": (userId === '' ? "LIKE_TO" : "EQUALS_TO"),
-          "cond-values": [(userId === '' ? '%' : userId)]
+        },
+        {
+          "cond-column": null,
+          "cond-operator": "OR",
+          "cond-values": [{
+            "cond-column": "actualowner",
+            "cond-operator": (userId === '' ? "LIKE_TO" : "EQUALS_TO"),
+            "cond-values": [(userId === '' ? '%' : userId)]
+          }, {
+            "cond-column": null,
+            "cond-operator": "AND",
+            "cond-values": [
+              {
+                "cond-column": "actualowner",
+                "cond-operator": "EQUALS_TO",
+                "cond-values": [""]
+              },
+              {
+                "cond-column": "id",
+                "cond-operator": "IN",
+                "cond-values": ["gestor"]
+              }
+            ]
+          }]
         }, {
           "cond-column": "name",
           "cond-operator": "LIKE_TO",

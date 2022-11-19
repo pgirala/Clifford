@@ -62,7 +62,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     'Reserved': 'Pendiente',
     'Suspended': 'Suspendida'
   };
-  estadoActual: string = 'Reserved';
+  estadoActual: string = '';
   procedimientoVacio: Procedimiento = { 'process-id': '', 'process-name': 'Todos los procedimientos' };
   procedimientoActual: Procedimiento = this.procedimientoVacio;
   procedimientos: Array<Procedimiento>; // todos los procedimientos visibles en el dominio activo
@@ -330,6 +330,6 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
   }
 
   isTramitable(estado: string): boolean {
-    return estado === 'Reserved' || estado === 'InProgress';
+    return estado === 'Reserved' || estado === 'InProgress' || estado === 'Ready';
   }
 }
