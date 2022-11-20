@@ -119,6 +119,9 @@ export class ContextService {
   }
 
   getActiveUser(): User {
+    if (this.getDominio() == null || !this.getDominio().data)
+      return null;
+
     if (this.getDominio().data.individual)
       return this.getUserFormioIndividual();
     else

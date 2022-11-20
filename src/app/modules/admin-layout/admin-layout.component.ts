@@ -109,7 +109,10 @@ export class AdminLayoutComponent implements OnInit, AfterContentChecked {
         this.router.navigate(['']); // vuelve a la página inicial
       })
     //
-    this.disenoHabilitado = this.contextService.getActiveUser().super;
+    if (this.contextService.getActiveUser() == null)
+      this.disenoHabilitado = false;
+    else
+      this.disenoHabilitado = this.contextService.getActiveUser().super;
   }
 
   ngOnDestroy(): void {
