@@ -18,7 +18,7 @@ import { ConfirmComponent } from '~components/confirm/confirm.component';
 import { DetailComponent } from '~modules/envio/view/detail.component';
 import { SnackbarComponent } from '~components/snackbar/snackbar.component';
 
-import { Controller } from '~base/controller';
+import { Controller } from '~base/controller';
 import { NodeWithI18n } from '@angular/compiler';
 import { Formulario } from '~app/models/formulario';
 import { FormularioService } from '~app/services/formulario.service';
@@ -44,7 +44,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
   public totalItems = 0;
   public search = '';
   public formPath = CONSTANTS.formularios.formEnvio;
-  public formulario: Formulario = {_id:'', owner: '', created: null, modified: null, title: '', type:null, name: null, display: null, path: null, tags:[CONSTANTS.formularios.multiple]};
+  public formulario: Formulario = { _id: '', owner: '', created: null, modified: null, title: '', type: null, name: null, display: null, path: null, tags: [CONSTANTS.formularios.multiple] };
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -66,7 +66,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
       this.router.navigate(['/login']);
     }
 
-    this.formularioService.findByName(CONSTANTS.formularios.formEnvio).subscribe((formularios:any) => {
+    this.formularioService.findByName(CONSTANTS.formularios.formEnvio).subscribe((formularios: any) => {
       this.formulario = formularios[0];
     })
   }
@@ -124,7 +124,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
           return;
         }),
         catchError(() => {
-          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
+          this.openSnack({ message: "No se pudo contactar con el servidor de formularios" });
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
@@ -157,7 +157,7 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
           return data;
         }),
         catchError(() => {
-          this.openSnack({message: "No se pudo contactar con el servidor de formularios"});
+          this.openSnack({ message: "No se pudo contactar con el servidor de formularios" });
           this.isLoading = false;
           this.isTotalReached = true;
           return observableOf([]);
@@ -167,35 +167,39 @@ export class EnvioComponent implements AfterViewInit, OnInit, Controller {
 
   save(): void {
     const jefe = this.authService.getSuperior();
-    const submissionVacia: Submission= {data:{dominio:this.contextService.getDominio().data.path, destinatario: (jefe == null ? null : jefe)}};
+    const submissionVacia: Submission = { data: { dominio: this.contextService.getDominio().data.path, destinatario: (jefe == null ? null : jefe) } };
 
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '60%',
       width: '60%',
-      data: { action: 'save',
-            formulario: this.formulario,
-            submission: this.submissionService.addToken(submissionVacia) }
+      data: {
+        action: 'save',
+        formulario: this.formulario,
+        submission: this.submissionService.addToken(submissionVacia)
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnack({message: "Envío realizado: " + result});
+        this.openSnack({ message: result });
         this.paginator._changePageSize(this.paginator.pageSize);
       }
     });
   }
 
-  edit(submission: Submission): void {}
+  edit(submission: Submission): void { }
 
-  delete(submission: Submission): void {}
+  delete(submission: Submission): void { }
 
   view(item: Submission): void {
     const dialogRef = this.dialog.open(DetailComponent, {
       height: '700px',
       width: '1000px',
-      data: { action: 'view',
-            formulario: this.formulario,
-            submission: this.submissionService.addToken(item) }
+      data: {
+        action: 'view',
+        formulario: this.formulario,
+        submission: this.submissionService.addToken(item)
+      }
     });
   }
 
