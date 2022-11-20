@@ -10,6 +10,7 @@ import { ContextService } from '~services/context.service';
 import { User } from "~app/models/user";
 import { Role } from "~app/models/role";
 import { environment } from '../../environments/environment';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -174,6 +175,22 @@ export class KeycloakService {
 
   getToken(): string {
     return this.keycloakAuth.token;
+  }
+
+  getDecodedAccessToken(): any {
+    try {
+      return jwt_decode(this.getToken());
+    } catch (Error) {
+      return null;
+    }
+  }
+
+  getRoles(): Array<String> {
+    try {
+      return this.getDecodedAccessToken().realm_access.roles;
+    } catch (Error) {
+      return new Array<String>();
+    }
   }
 
   getAuthHeader(): string {

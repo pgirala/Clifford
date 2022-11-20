@@ -128,7 +128,7 @@ export class JbpmService {
               {
                 "cond-column": "id",
                 "cond-operator": "IN",
-                "cond-values": ["gestor"]
+                "cond-values": this.keycloakService.getRoles()
               }
             ]
           }]
