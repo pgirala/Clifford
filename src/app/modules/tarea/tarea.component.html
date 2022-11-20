@@ -39,7 +39,7 @@
 
         <span class="spacer"></span>
 
-        {{equivalenciasEstado[estadoActual]}}
+        {{this.getEquivalenciaEstadoActual()}}
 
         <button mat-icon-button [matMenuTriggerFor]="estadoMenu" mdTooltip="Filtro por estados" title="Elegir estado">
           <mat-icon>more_horiz</mat-icon>

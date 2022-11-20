@@ -58,7 +58,7 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
     'Failed': 'Con fallo',
     'InProgress': 'En curso',
     //'Obsolete': 'Obsoleta',
-    'Ready': 'Lista',
+    'Ready': 'Disponible',
     'Reserved': 'Pendiente',
     'Suspended': 'Suspendida'
   };
@@ -331,5 +331,11 @@ export class TareaComponent implements AfterViewInit, OnInit, Controller {
 
   isTramitable(estado: string): boolean {
     return estado === 'Reserved' || estado === 'InProgress' || estado === 'Ready';
+  }
+
+  getEquivalenciaEstadoActual() {
+    if (this.estadoActual === '')
+      return 'Cualquier estado';
+    return this.equivalenciasEstado[this.estadoActual];
   }
 }
