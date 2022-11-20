@@ -75,12 +75,25 @@ export class DetailComponent implements OnInit {
   }
 
   tratarEvento(event) {
-    if (event.type === 'guardarBorrador')
-      this.tareaService.guardarBorrador(event.data).subscribe((res: any) => {
-        this.openSnack({ message: "Borrador guardado" });
-      }, (error: any) => {
-        this.openSnack(error);
-      });
+    if (event.type === 'guardarBorrador') {
+      if (event.data.estado === 'Disponible') {
+        this.tareaService.comenzar(event.data).subscribe((res: any) => {
+          this.tareaService.guardarBorrador(event.data).subscribe((res: any) => {
+            this.openSnack({ message: "Borrador guardado" });
+          }, (error: any) => {
+            this.openSnack(error);
+          });
+        }, (error: any) => {
+          this.openSnack(error);
+        });
+      } else {
+        this.tareaService.guardarBorrador(event.data).subscribe((res: any) => {
+          this.openSnack({ message: "Borrador guardado" });
+        }, (error: any) => {
+          this.openSnack(error);
+        });
+      }
+    }
   }
 
   @HostListener('window:keyup.esc') onKeyUp() {
